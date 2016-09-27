@@ -1,3 +1,13 @@
-:host {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+#back{
+    background-color: #F8F8F8;
+    height: 250px;
+    width: 500px;
+    border: 20px #8c140c;
+    padding:50px;
+    margin: 50px;
+}
+#head1{
+    font-size: 50px;
+    font-family: "Adobe 黑体 Std R";
+    margin: 10px
 }
