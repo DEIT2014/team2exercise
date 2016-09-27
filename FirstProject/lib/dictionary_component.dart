@@ -48,6 +48,6 @@ class DictionaryComponent {
 
     });
     if(Translation=='')
-    {Translation="对不起，您输入的单词不包含在我们的库中，请重新输入！";}
+    {Translation="敬请期待！";}
   }
 }
