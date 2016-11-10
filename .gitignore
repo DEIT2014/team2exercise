@@ -5,6 +5,7 @@ build/
 packages
 # Remove the following pattern if you wish to check in your lock file
 pubspec.lock
+.idea/
 
 # Files created by dart2js
 *.dart.js
@@ -17,7 +18,6 @@ pubspec.lock
 doc/api/
 
 # JetBrains IDEs
-.idea/
 *.iml
 *.ipr
 *.iws
