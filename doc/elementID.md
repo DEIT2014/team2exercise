@@ -1,4 +1,33 @@
-
+id     | 描述
+-------- | ---
+**SignIn_Div** | **登录界面**
+SignIn_Username | 登录时的用户名字段
+SignIn_Password    | 登录时的密码字段
+SignIn_Btn     | 登录按钮
+SignUp_Btn     | 进入注册界面的按钮
+**SignUp_Div**  | **注册界面**
+SignUp_Username | 注册时的用户名字段
+SignUp_Class   | 注册时的班级字段
+SignUp_Password | 注册时的密码字段
+SignUp_ConfirmPW | 注册时的确认密码字段
+SignUp_Stu_Btn | 以学生身份注册的按钮
+SignUp_Tea_Btn | 以教师身份注册的按钮
+**SucSignUp_Div** | **注册成功提示界面**
+SucSignUp_Btn  | 返回登录界面的按钮
+**Teacher_Div** | **教师主界面**
+Teacher_Ftask　　| 任务完成情况选择框
+Teacher_Unit   | 听写单元的选择框
+**Ftask_Div**  | **任务完成情况界面**
+Ftask_Content  | 任务完成情况内容框
+**AssignWork_Div**  | **布置任务界面**
+AssignWork_WordList | 单词列表框
+AssignWork_Btn  | 提交选定单词的按钮
+**ConfirmWord_Div** | **确认单词界面**
+ConfirmWord_Show  | 展示所选的单词的展示框
+ConfirmWord_Confirm_Btn | 确认按钮
+ConfirmWord_Reselect_Btn | 返回布置任务界面，重新选择单词的按钮
+**SucAssignWord_Div** | **提交单词（布置任务）成功提示界面**
+SucAssignWord_Btn  | 返回登教师主界面的按钮
 
 
 ID     | 描述    |   ID     | 描述
