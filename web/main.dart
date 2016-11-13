@@ -2,8 +2,73 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:html';
+
+String signin_username;//登录界面的用户名变量
+String signin_password;//登录界面的密码变量
+String signup_username;//注册界面的用户名变量
+String signup_class;//注册界面的班级变量
+String signup_password;//注册界面的密码变量
+String signup_confirmpw;//注册界面确认密码的变量
 var TestWord;
 void main() {
+  /// 登录界面
+  signin_username=querySelector('#SignIn_Username');//输入用户名
+  signin_password=querySelector('#SignIn_Password');//输入密码
+  querySelector('#SignIn_Btn')
+    ..text='登录'
+    ..onClick.listen(SignIn);//用户登录按钮
+  querySelector('#SignUp_Btn')
+    ..text='注册'
+    ..onClick.listen(SignuUp);//用户注册按钮
+
+  /// 注册界面
+  signup_username=querySelector('#SignUp_Username');//输入用户名
+  signup_class=querySelector('#SignUp_Class');//输入班级
+  signup_password=querySelector('#SignUp_Password');//输入密码
+  signup_confirmpw=querySelector('#SignUp_ConfirmPW');//确认密码
+  querySelector('#SignUp_Stu_Btn')
+    ..text='学生注册'
+    ..onClick.listen(StuSignUp);//学生注册按钮
+  querySelector('#SignUp_Tea_Btn')
+    ..text='教师注册'
+    ..onClick.listen(TeaSignUp);//教师注册按钮
+
+  /// 注册成功界面
+  querySelector('#SucSignUp_Btn')
+    ..text='确定'
+    ..onClick.listen(ReturnSignIn);//返回登录界面按钮
+
+  /// 教师主界面
+  /// 待定
+
+  /// 任务完成情况界面
+  querySelector('#Ftask_Content')
+    ..text=FtaskContent;// 任务完成情况
+  querySelector('#Ftask_Btn')
+    ..text='返回主界面'
+    ..onClick.listen(ReturnTeacher);//返回教师主界面按钮
+
+  /// 布置任务界面
+  querySelector('#AssignWork_Btn')
+    ..text='提交'
+    ..onClick.listen(SubmitWork);// 提交作业按钮
+
+  ///确认单词界面
+  querySelector('#ConfirmWord_Show')
+    ..text=WordContent;//选择的单词内容
+  querySelector('#ConfirmWord_Confirm_Btn')
+    ..text='确认'
+    ..onClick.listen(ConfirmWord);//确认单词以及发布作业的按钮
+  querySelector('#ConfirmWord_Reselect_Btn')
+    ..text='重新选择'
+    ..onClick.listen(ReselectWord);//重新选择单词按钮
+
+  ///布置作业成功界面
+  querySelector('#SucAssignWord_Btn')
+    ..text='返回主界面'
+    ..onClick.listen(ReturnTeacher);//返回教师主界面的按钮
+
+  /// 学生界面
   querySelector('#stu_name')
       ..text= '';//向服务器请求读取数据库中学生姓名的数据
   querySelector('#stu_class')
@@ -63,6 +128,76 @@ void main() {
     ..onClick.listen(result_return);
 
 }
+
+/// 用来接受用户点击登录按钮以后的响应工作
+/// 参数[event]是鼠标事件....
+void SignIn(MouseEvent event){
+  //todo 记录输入的用户名和密码并与数据库进行比较，
+  //todo 若对比成功，隐藏登录界面，显示教师或者学生界面（根据相应的标志值判断）
+}
+
+/// 用来接受用户点击注册按钮以后的响应工作
+/// 参数[event]是鼠标事件....
+void SignIn(MouseEvent event){
+  //todo 隐藏登录界面，显示注册界面
+}
+
+/// 接受用户点击学生注册按钮的响应
+/// 参数[event]是鼠标事件....
+void StuSignUp(MouseEvent event){
+  //todo 将数据写入数据库中的用户信息表，并将身份属性值设为stu
+  //todo 显示注册成功界面
+}
+
+/// 接受用户点击教师注册按钮的响应
+/// 参数[event]是鼠标事件....
+void TeaSignUp(MouseEvent event){
+  //todo 将数据写入数据库中的用户信息表，并将身份属性值设为tea
+  //todo 显示注册成功界面
+}
+
+/// 接受用户点击注册成功确定按钮的响应
+/// 参数[event]是鼠标事件....
+void ReturnSignIn(MouseEvent event){
+  //todo 隐藏注册界面和注册成功界面，显示登录界面
+}
+
+/// 返回任务完成情况的内容
+SomeType FtaskContent(){
+  //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
+}
+
+/// 接受用户点击返回主界面按钮的响应
+void ReturnTeacher(MouseEvent event){
+  //todo 隐藏当前界面，显示教师主界面
+}
+
+/// 接受用户点击提交作业按钮的响应
+/// 参数[event]是鼠标事件....
+void SubmitWork(MouseEvent event){
+  //todo 记录用户选择的单词数据，存入Json文件
+  //todo 隐藏当前界面，显示确认单词界面
+}
+
+/// 返回选择单词的字符串
+SomeType FtaskContent(){
+  //todo 根据相应的Json文件，返回单词数据
+}
+
+/// 接受用户点击确认单词并发布作业的按钮的响应
+/// 参数[event]是鼠标事件....
+void ConfirmWord(MouseEvent event){
+  //todo 将相应的json文件中的数据写入数据库
+  //todo 显示提交单词成功界面
+}
+
+/// 接受用户点击重新选择单词的按钮的响应
+/// 参数[event]是鼠标事件....
+void ReselectWord(MouseEvent event){
+  //todo 删除原来存放在json文件中的临时单词数据，
+  //todo 隐藏该界面，显示布置任务界面
+}
+
 /// stu_review_word用来接受用户点击按钮开始复习单词的响应工作，要显示复习的界面。
 /// 参数[event]是鼠标事件....
 void stu_review_word(MouseEvent event) {
