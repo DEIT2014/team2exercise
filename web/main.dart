@@ -9,7 +9,7 @@ String signup_username;//注册界面的用户名变量
 String signup_class;//注册界面的班级变量
 String signup_password;//注册界面的密码变量
 String signup_confirmpw;//注册界面确认密码的变量
-var TestWord;
+var test_word;//学生听写写入的单词
 void main() {
   /// 登录界面
   signin_username=querySelector('#SignIn_Username');//输入用户名
@@ -70,25 +70,29 @@ void main() {
 
   /// 学生界面
   querySelector('#stu_name')
-      ..text= '';//向服务器请求读取数据库中学生姓名的数据
+      ..text=stu_name_show;//学生姓名的数据
   querySelector('#stu_class')
-    ..text= '';//向服务器请求读取数据库中学生班级的数据
+    ..text=stu_class_show;//学生班级的数据
   querySelector('#stu_task_one')
-    ..text= '';//向服务器请求读取数据库中待完成任务1名称的数据
+    ..text=stu_task_one_show
+  ..onClick.listen(stu_task_one);//待完成任务1名称的数据以及记录是否选择此任务
   querySelector('#stu_task_two')
-    ..text= '';//向服务器请求读取数据库中待完成任务2名称的数据
+    ..text=stu_task_two_show
+    ..onClick.listen(stu_task_two);//待完成任务2名称的数据以及记录是否选择此任务
   querySelector('#stu_review')
     ..text= '复习单词'
   ..onClick.listen(stu_review_word);
   querySelector('#stu_test')
     ..text= '开始测试'
     ..onClick.listen(stu_test_word);
+
+  ///复习界面
   querySelector('#review_now_num')
-    ..text= '';//显示当前复习的单词为第几个的数据
+    ..text= review_now_num_show;//显示当前复习的单词为第几个的数据
   querySelector('#review_total_num')
-    ..text= '';//向服务器请求读取数据库中当前复习总共有几个单词
+    ..text= review_total_num_show;//当前复习总共有几个单词
   querySelector('#review_word')
-    ..text= '';//向服务器请求读取数据库中当前复习单词的中文或者英文
+    ..text= review_word_show;//当前复习单词的中文或者英文
   querySelector('#review_voice')
     ..onClick.listen(review_voice);
   querySelector('#review_change')
@@ -103,26 +107,28 @@ void main() {
   querySelector('#review_test')
     ..text='开始测试'
     ..onClick.listen(review_test);
+  ///测试界面
   querySelector('#test_now_num')
-    ..text= '';//显示当前测试的单词为第几个的数据
+    ..text= test_now_num_show;//显示当前测试的单词为第几个的数据
   querySelector('#test_total_num')
-    ..text= '';//向服务器请求读取数据库中当前测试总共有几个单词
-  TestWord = querySelector('#test_total_num').text;
+    ..text= test_total_num_show;//向服务器请求读取数据库中当前测试总共有几个单词
+  test_word = querySelector('#test_total_num').text;
   querySelector('#test_option_one')
-    ..text= '';//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
+    ..text= test_option_one_show;//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_option_two')
-    ..text= '';//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
+    ..text= test_option_two_show;//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_option_three')
-    ..text= '';//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
+    ..text= test_option_three_show;//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_submit')
     ..text='提交'
     ..onClick.listen(test_submit);
+  ///结果界面
   querySelector('#result_correct_num')
-    ..text= '';//向服务器请求读取数据库中正确单词个数
+    ..text= result_correct_num_show;//向服务器请求读取数据库中正确单词个数
   querySelector('#result_wrong_one')
-    ..text= '';//向服务器请求读取数据库中第一个错误单词的中英文
+    ..text= result_wrong_one_show;//向服务器请求读取数据库中第一个错误单词的中英文
   querySelector('#result_wrong_two')
-    ..text= '';//向服务器请求读取数据库中第二个错误单词的中英文
+    ..text= result_wrong_two_show;//向服务器请求读取数据库中第二个错误单词的中英文
   querySelector('#result_return')
     ..text='返回主页'
     ..onClick.listen(result_return);
@@ -197,49 +203,121 @@ void ReselectWord(MouseEvent event){
   //todo 删除原来存放在json文件中的临时单词数据，
   //todo 隐藏该界面，显示布置任务界面
 }
+///学生界面函数
 
-/// stu_review_word用来接受用户点击按钮开始复习单词的响应工作，要显示复习的界面。
+/// 返回学生界面学生姓名
+SomeType stu_name_show(){
+  //todo 根据登录情况显示学生姓名
+}
+/// 返回学生界面学生班级
+SomeType stu_class_show(){
+  //todo 根据登录情况显示学生班级
+}
+/// 返回学生界面第一个待完成任务名称
+SomeType stu_task_one_show(){
+  //todo 根据登录情况显示学生第一个待完成任务名称
+}
+/// 参数[event]是鼠标事件....
+void stu_task_one(MouseEvent event) {
+  //todo 记录用户是否选择此任务。
+}
+/// 返回学生界面第二个待完成任务名称
+SomeType stu_task_two_show(){
+  //todo 根据登录情况显示学生第二个待完成任务名称
+}
+/// 参数[event]是鼠标事件....
+void stu_task_two(MouseEvent event) {
+  //todo 记录用户是否选择此任务。
+}
 /// 参数[event]是鼠标事件....
 void stu_review_word(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮开始复习单词的响应工作，要显示复习的界面，隐藏当前界面。调用选择任务函数，并且传递用户选择的任务值供以后的界面再次复习使用。
 }
-/// stu_test_word用来接受用户点击按钮开始测试的响应工作，要跳转到测试的界面。
+
 /// 参数[event]是鼠标事件....
 void stu_test_word(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮开始测试的响应工作，要跳转到测试的界面，并隐藏当前界面。
 }
-/// review_voice用来接受用户点击按钮播放单词发音的响应工作，播放一遍当前单词发音。
+//复习界面
+
+/// 返回复习界面当前复习的单词为第几个的数据
+SomeType review_now_num_show(){
+  //todo 当前复习的单词为第几个的数据
+}
+/// 返回复习界面本次复习总共包含多少个单词
+SomeType review_total_num_show(){
+  //todo 请求获取显示当前复习总共包含多少个单词的数据
+}
+/// 返回复习界面现在复习的单词中文或者英文
+SomeType review_word_show(){
+  //todo 请求获取显示当前复习单词的中文或者英文数据
+}
 /// 参数[event]是鼠标事件....
 void review_voice(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮播放单词发音的响应工作，播放一遍当前单词发音。
 }
-/// review_change用来接受用户点击按钮转换中英文的响应工作。
+
 /// 参数[event]是鼠标事件....
 void review_change(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮转换中英文的响应工作。
 }
-/// review_next用来接受用户点击按钮下一个单词的响应工作，要转换到下一个单词复习的界面。
+
 /// 参数[event]是鼠标事件....
 void review_next(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮下一个单词的响应工作，要转换到下一个单词复习的界面，单词、音频以及中文值都要改变。并判断下一个单词是否为空，空的时候转到结果界面。
 }
-/// review_again用来接受用户点击按钮重新复习的响应工作，要转换到第一个单词复习的界面。
 /// 参数[event]是鼠标事件....
 void review_again(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮重新复习的响应工作，要转换到第一个单词复习的界面。
 }
-/// review_test用来接受用户点击按钮开始测试的响应工作，要转换到单词听写测试的界面。
+
 /// 参数[event]是鼠标事件....
 void review_test(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮开始测试的响应工作，要转换到单词听写测试的界面，并隐藏该界面。
 }
-/// test_submit用来接受用户点击按钮提交单词的响应工作，要保留用户提交的数据并且转换到下一个单词听写测试的界面或者最终结果。
+//测试界面
+/// 返回测试界面当前测试的单词为第几个数据
+SomeType test_now_num_show(){
+  //todo 当前测试的单词为第几个数据
+}
+/// 返回测试界面当前测试总共单词个数
+SomeType test_total_num_show(){
+  //todo 请求获取本次测试总共有多少个单词
+}
+/// 返回测试界面单词中文选项一
+SomeType test_option_one_show(){
+  //todo 请求随机获取单词的中文意思或者正确的单词
+}
+/// 返回测试界面单词中文选项二
+SomeType test_option_two_show(){
+  //todo 请求随机获取单词的中文意思或者正确的单词
+}
+/// 返回测试界面单词中文选项三
+SomeType test_option_three_show(){
+  //todo 请求随机获取单词的中文意思或者正确的单词
+}
 /// 参数[event]是鼠标事件....
 void test_submit(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮提交单词的响应工作，要保留用户提交的数据并判断正误，也要把数据写入数据库，并且转换到下一个单词听写测试的界面或者最终结果。
 }
-/// result_return用来接受用户点击按钮返回主页的响应工作，返回到学生首页。
+void test_voice_play( )
+{
+  //todo 默认打开一个听写单词界面即播放三遍单词音频
+}
+//结果界面
+///返回学生听写对的单词个数
+SomeType result_correct_num_show(){
+  //todo 请求获取数据库中学生听写对的单词个数并返回
+}
+///返回学生听写错的单词以及中文
+SomeType result_wrong_one_show(){
+  //todo 请求获取数据库中学生听写错的第一个单词以及中文
+}
+///返回学生听写错的单词以及中文
+SomeType result_wrong_two_show(){
+  //todo 请求获取数据库中学生听写错的第二个单词以及中文
+}
 /// 参数[event]是鼠标事件....
 void result_return(MouseEvent event) {
-  //todo 在这里添加代码处理鼠标点击之后的工作。
+  //todo 用户点击按钮返回主页的响应工作，返回到学生首页，并隐藏当前界面。
 }
