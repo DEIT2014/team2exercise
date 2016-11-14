@@ -206,15 +206,15 @@ void ReselectWord(MouseEvent event){
 ///学生界面函数
 
 /// 返回学生界面学生姓名
-SomeType stu_name_show(){
+Object stu_name_show(){
   //todo 根据登录情况显示学生姓名
 }
 /// 返回学生界面学生班级
-SomeType stu_class_show(){
+Object stu_class_show(){
   //todo 根据登录情况显示学生班级
 }
 /// 返回学生界面第一个待完成任务名称
-SomeType stu_task_one_show(){
+Object stu_task_one_show(){
   //todo 根据登录情况显示学生第一个待完成任务名称
 }
 /// 参数[event]是鼠标事件....
@@ -222,7 +222,7 @@ void stu_task_one(MouseEvent event) {
   //todo 记录用户是否选择此任务。
 }
 /// 返回学生界面第二个待完成任务名称
-SomeType stu_task_two_show(){
+Object stu_task_two_show(){
   //todo 根据登录情况显示学生第二个待完成任务名称
 }
 /// 参数[event]是鼠标事件....
@@ -241,15 +241,15 @@ void stu_test_word(MouseEvent event) {
 //复习界面
 
 /// 返回复习界面当前复习的单词为第几个的数据
-SomeType review_now_num_show(){
+Object review_now_num_show(){
   //todo 当前复习的单词为第几个的数据
 }
 /// 返回复习界面本次复习总共包含多少个单词
-SomeType review_total_num_show(){
+Object review_total_num_show(){
   //todo 请求获取显示当前复习总共包含多少个单词的数据
 }
 /// 返回复习界面现在复习的单词中文或者英文
-SomeType review_word_show(){
+Object review_word_show(){
   //todo 请求获取显示当前复习单词的中文或者英文数据
 }
 /// 参数[event]是鼠标事件....
@@ -277,23 +277,23 @@ void review_test(MouseEvent event) {
 }
 //测试界面
 /// 返回测试界面当前测试的单词为第几个数据
-SomeType test_now_num_show(){
+Object test_now_num_show(){
   //todo 当前测试的单词为第几个数据
 }
 /// 返回测试界面当前测试总共单词个数
-SomeType test_total_num_show(){
+Object test_total_num_show(){
   //todo 请求获取本次测试总共有多少个单词
 }
 /// 返回测试界面单词中文选项一
-SomeType test_option_one_show(){
+Object test_option_one_show(){
   //todo 请求随机获取单词的中文意思或者正确的单词
 }
 /// 返回测试界面单词中文选项二
-SomeType test_option_two_show(){
+Object test_option_two_show(){
   //todo 请求随机获取单词的中文意思或者正确的单词
 }
 /// 返回测试界面单词中文选项三
-SomeType test_option_three_show(){
+Object test_option_three_show(){
   //todo 请求随机获取单词的中文意思或者正确的单词
 }
 /// 参数[event]是鼠标事件....
@@ -306,15 +306,15 @@ void test_voice_play( )
 }
 //结果界面
 ///返回学生听写对的单词个数
-SomeType result_correct_num_show(){
+Object result_correct_num_show(){
   //todo 请求获取数据库中学生听写对的单词个数并返回
 }
 ///返回学生听写错的单词以及中文
-SomeType result_wrong_one_show(){
+Object result_wrong_one_show(){
   //todo 请求获取数据库中学生听写错的第一个单词以及中文
 }
 ///返回学生听写错的单词以及中文
-SomeType result_wrong_two_show(){
+Object result_wrong_two_show(){
   //todo 请求获取数据库中学生听写错的第二个单词以及中文
 }
 /// 参数[event]是鼠标事件....
