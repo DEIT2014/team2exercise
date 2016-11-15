@@ -18,8 +18,175 @@
 </head>
 
 <body>
+<div id="SignIn_Div">
 
-  <div id="output"></div>
+    <form>
+        用户名:<br>
+        <input type="text" name="SignIn_Username">
+        <br>
+        密码:<br>
+        <input type="password" name="SignIn_Password">
+        <br><br>
+        <input type="submit" name="SignIn_Btn" value="登录">
+        <input type="button" name="SignUp_Btn" value="注册">
+    </form>
+
+</div>
+<div id="SignUp_Div">
+    <form>
+        用户名:<br>
+        <input type="text" name="SignUp_Username">
+        <br>
+        班级:<br>
+        <select name="SignUp_Class">
+            <option value="1班">1班</option>
+            <option value="2班">2班</option>
+        </select>
+        <br>
+        密码:<br>
+        <input type="password" name="SignUp_Password">
+        <br>
+        确认密码:<br>
+        <input type="password" name="SignUp_ConfirmPW">
+        <br><br>
+        <input type="submit" name="SignUp_Stu_Btn" value="学生注册">
+        <input type="submit" name="SignUp_Tea_Btn" value="教师注册">
+    </form>
+</div>
+<div id="SucSignUp_Div">
+    <p>Congratulations, your user name has been registered successfully!</p>
+    <p>Now you can login your account.</p>
+    <button id="SucSignUp_Btn">返回登录界面</button>
+</div>
+
+<div id="Teacher_Div">
+    缺少教师名字和班级的id名称
+    <div>教师姓名： 班级：</div>
+    <div id="Teacher_Ftask">
+        以往任务的完成情况
+    </div>
+    <div id="Teacher_Unit">
+        布置新任务<br>
+        <select>
+            <option name="六年级上册">六年级上册</option>
+            <option name="六年级下册">六年级下册</option>
+        </select>
+    </div>
+</div>
+
+<div id="Ftask_Div">
+    <table id="Ftask_Content">
+        <tr>
+            <td>没有取id名的表头（第x单元完成情况）</td>
+        </tr>
+        <tr>
+            <td>姓名</td>
+            <td>完成情况</td>
+        </tr>
+    </table>
+    <button id="Ftask_Btn">返回教师主界面</button>
+</div>
+
+
+<div id="AssignWork_Div">
+    <form action="AssignWork_WordList">
+        请选择下列单词<br>
+        <input type="checkbox" name="vehicle" value="Bike">bike
+        <br>
+        <input type="checkbox" name="vehicle" value="Car">car
+        <br><br>
+        <input type="submit" name="AssignWork_Btn" value="提交">
+    </form>
+</div>
+
+<div id="ConfirmWord_Div">
+    <table id="ConfirmWord_Show">
+        <tr>
+            <td id="">已选择的单词</td>
+        </tr>
+        <tr>
+            <td>apple</td>
+            <td>link</td>
+        </tr>
+    </table>
+    <button id="ConfirmWord_Confirm_Btn">确认</button>
+    <button id="ConfirmWord_Reselect_Btn">重新选择</button>
+</div>
+
+<div id="SucAssignWord_Div">
+    <p>The task has been released.</p>
+    <button id="SucAssignWord_Btn">返回教师主界面</button>
+</div>
+
+<div id="stuedent">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td id="stu_name"></td>
+            <td>Class:</td>
+            <td id="stu_class"></td>
+        </tr>
+    </table>
+    <div id="stu_task">
+        Assignment
+        <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务
+        <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务
+        <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务
+        <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务
+    </div>
+    <button id="stu_review">复习</button>
+    <button id="stu_test">测试</button>
+</div>
+
+<div id="review">
+    <table>
+        <tr>
+            <td id="review_now_num"></td>
+            <td id="review_total_num"></td>
+        </tr>
+    </table>
+    <div id="">
+        <div id="review_word"></div>
+        <button id="review_voice">Voice</button>
+        <button id=" 	review_change">Chinese/English</button>
+    </div>
+    <button id="review_next">下一个</button>
+    <button id="review_again">再次复习</button>
+    <button id="review_test">测试</button>
+</div>
+
+<div id="test">
+    <table>
+        <tr>
+            <td id="test_now_num"></td>
+            <td id="test_total_num"></td>
+        </tr>
+    </table>
+    <form>
+        <p>Listen and Write</p>
+        请写下你听到的单词：<br><br>
+        <input type="text" name="test_word">
+        <br><br>
+        请选出最匹配的中文释义：<br><br>
+        <input type="checkbox" name="test_option_one">香蕉
+        <input type="checkbox" name="test_option_two">苹果
+        <input type="checkbox" name="test_option_three">橘子
+    </form>
+    <button id="test_submit">提交</button>
+</div>
+
+<div id="result">
+    <div id="">
+        <p>Result</p>
+        <div id=" 	result_correct_num"></div>
+        <div id="result_wrong_one">错误1</div>
+        <div id="result_wrong_two">错误2</div>
+        <div id="result_wrong_three">错误3</div>
+        <div id="result_wrong_four">错误4</div>
+        <div id="result_wrong_five">错误5</div>
+    </div>
+    <button id="result_return">返回学生主界面</button>
+</div>
 
 </body>
 </html>
