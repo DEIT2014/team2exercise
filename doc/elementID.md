@@ -56,8 +56,8 @@ id     | 描述
 -------- | ---
 **finished** | **已完成任务界面**
 finished_task_one | 第一个已完成任务名字
-finished_task_one    | 第二个已完成任务名字
-finished_task_one     | 第三个已完成任务名字
+finished_task_two    | 第二个已完成任务名字
+finished_task_three     | 第三个已完成任务名字
 finished_task_show     | 显示右侧用户打开的已完成任务情况内容
 finished_return  |  返回学生主页
 
