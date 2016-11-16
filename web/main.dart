@@ -95,6 +95,9 @@ void main() {
   querySelector('#finished_task_three')
     ..text=finished_task_three()
     ..onClick.listen(finished_task_three_show);
+  querySelector('#finished_return')
+    ..text='返回主页'
+    ..onClick.listen(finished_return);
   ///复习界面
   querySelector('#review_now_num')
     ..text= review_now_num_show();//显示当前复习的单词为第几个的数据
@@ -265,6 +268,10 @@ Object finished_task_three(){
 }
 void  finished_task_three_show(MouseEvent event) {
   //todo 用户点击开始在右侧界面显示第三个对应任务的完成情况。
+}
+/// 参数[event]是鼠标事件....
+void finished_return(MouseEvent event) {
+  //todo 用户点击按钮返回主页的响应工作，返回到学生首页，并隐藏当前界面。
 }
 //复习界面
 
