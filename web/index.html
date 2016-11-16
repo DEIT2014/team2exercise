@@ -5,7 +5,7 @@
   is governed by a BSD-style license that can be found in the LICENSE file.
 -->
 
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,18 +19,27 @@
 
 <body>
 <div id="SignIn_Div">
-<center>
-    <form id="SignIn_Div_Form">
-        用户名:<br>
-        <input type="text" name="SignIn_Username">
-        <br>
-        密码:<br>
-        <input type="password" name="SignIn_Password">
+
+    <div id="signin_div_small">
+
+        <div id="signin_div_p">
+          英语单词听写训练系统
+        </div>
         <br><br>
-        <input type="submit" name="SignIn_Btn" value="登录">
-        <input type="button" name="SignUp_Btn" value="注册">
+
+        <form id="SignIn_Div_Form">
+        <p>用户名:<input type="text" name="SignIn_Username"  style="height: 25px;width: 300px;"></p>
+        <p>密&#8197&#8197&#8197&#8197&#8197码:<input type="password" name="SignIn_Password" style="height: 25px;width: 290px;"></p>
+            <br>
+        <input type="submit" name="SignIn_Btn" value="登 录" style="font-size: 15px;padding: 5px">
+            &nbsp;
+        <input type="button" name="SignUp_Btn" value="注 册" style="font-size: 15px;padding: 5px">
     </form>
-</center>
+
+
+
+    </div>
+
 </div>
 <div id="SignUp_Div">
     <form>
@@ -188,5 +197,25 @@
     <button id="result_return">返回学生主界面</button>
 </div>
 
+<div id="finished">
+已完成任务情况<br><br>
+    <div>
+        <table>
+            <tr>
+                <td id="finished_task_one"></td>
+            </tr>
+            <tr>
+                <td id="finished_task_two"></td>
+            </tr>
+            <tr>
+                <td id="finished_task_three"></td>
+            </tr>
+        </table>
+    </div>
+    <div id="finished_task_show">
+
+    </div>
+    <button id="finished_return">返回学生首页</button>
+</div>
 </body>
 </html>
