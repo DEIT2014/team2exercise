@@ -1,7 +1,15 @@
 URL     | 描述
 -------- | ---
-student/index | 学生登录后第一个主界面显示学生任务情况
-review    | 学生复习任务界面
-test     | 学生测试任务界面
-result     | 测试结果显示界面
-finished   | 已完成任务界面
+/student/index | 学生登录后第一个主界面显示学生任务情况
+/review    | 学生复习任务界面
+/test     | 学生测试任务界面
+/result     | 测试结果显示界面
+/finished   | 已完成任务界面
+
+URL     | 描述
+-------- | ---
+/userinfo | 从用户信息表中获取用户登录的信息，包括用户名、密码和身份属性
+/teacher_viewtask    | 从学生任务完成情况表2中获取相关数据（第几课时、日期、各个学生的成绩）
+/teacher_writetask     | 将老师布置的任务数据写入任务表
+/teacher_gettask   | 从任务表中取出数据
+/student_viewtask  | 从学生任务完成情况表1中获取相关数据（第几课时、日期、正确的单词和错误的单词）
