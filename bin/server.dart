@@ -11,11 +11,11 @@ void main() {
     ..get('/student/index', responseStu)
     ..get('/finished',responseFinished)
     ..get('/review', responseReview)
-    ..get('/test',responseTest)
+    ..get('/test/get',responseTest)
     ..get('/result',responseResult)
   //post
     ..post('/teacher_writetask',responseTeaWriteTask)
-    ..post('/student_test',responseStuTest);
+    ..post('/student_test/post',responseStuTest);
 
   io.serve(myRouter.handler, '127.0.0.1', 14080);
 }
@@ -59,7 +59,7 @@ responseTest(request)
 }
 ///获取学生该次听写任务的正确或者错误结果数据
 responseResult(request)
-{//todo 访问数据库，获取登录学生本次测试任务结果的数据，并转换为JSON
+{//todo 访问数据库，从已完成任务表中获取登录学生本次测试任务结果的数据，并转换为JSON
   return new Response.ok("Result");//可以返回数据库中的数据，修改“”
 }
 
