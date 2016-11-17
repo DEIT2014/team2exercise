@@ -70,14 +70,14 @@ void main() {
 
   /// 学生界面
   querySelector('#stu_name')
-      ..text=stu_name_show;//学生姓名的数据
+      ..text=stu_name_show();//学生姓名的数据
   querySelector('#stu_class')
-    ..text=stu_class_show;//学生班级的数据
+    ..text=stu_class_show();//学生班级的数据
   querySelector('#stu_task_one')
-    ..text=stu_task_one_show
+    ..text=stu_task_one_show()
   ..onClick.listen(stu_task_one);//待完成任务1名称的数据以及记录是否选择此任务
   querySelector('#stu_task_two')
-    ..text=stu_task_two_show
+    ..text=stu_task_two_show()
     ..onClick.listen(stu_task_two);//待完成任务2名称的数据以及记录是否选择此任务
   querySelector('#stu_review')
     ..text= '复习单词'
@@ -85,14 +85,26 @@ void main() {
   querySelector('#stu_test')
     ..text= '开始测试'
     ..onClick.listen(stu_test_word);
-
+  //查看已完成任务界面
+  querySelector('#finished_task_one')
+    ..text=finished_task_one()
+    ..onClick.listen(finished_task_one_show);
+  querySelector('#finished_task_two')
+    ..text=finished_task_two()
+    ..onClick.listen(finished_task_two_show);
+  querySelector('#finished_task_three')
+    ..text=finished_task_three()
+    ..onClick.listen(finished_task_three_show);
+  querySelector('#finished_return')
+    ..text='返回主页'
+    ..onClick.listen(finished_return);
   ///复习界面
   querySelector('#review_now_num')
-    ..text= review_now_num_show;//显示当前复习的单词为第几个的数据
+    ..text= review_now_num_show();//显示当前复习的单词为第几个的数据
   querySelector('#review_total_num')
-    ..text= review_total_num_show;//当前复习总共有几个单词
+    ..text= review_total_num_show();//当前复习总共有几个单词
   querySelector('#review_word')
-    ..text= review_word_show;//当前复习单词的中文或者英文
+    ..text= review_word_show();//当前复习单词的中文或者英文
   querySelector('#review_voice')
     ..onClick.listen(review_voice);
   querySelector('#review_change')
@@ -109,26 +121,26 @@ void main() {
     ..onClick.listen(review_test);
   ///测试界面
   querySelector('#test_now_num')
-    ..text= test_now_num_show;//显示当前测试的单词为第几个的数据
+    ..text= test_now_num_show();//显示当前测试的单词为第几个的数据
   querySelector('#test_total_num')
-    ..text= test_total_num_show;//向服务器请求读取数据库中当前测试总共有几个单词
+    ..text= test_total_num_show();//向服务器请求读取数据库中当前测试总共有几个单词
   test_word = querySelector('#test_total_num').text;
   querySelector('#test_option_one')
-    ..text= test_option_one_show;//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
+    ..text= test_option_one_show();//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_option_two')
-    ..text= test_option_two_show;//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
+    ..text= test_option_two_show();//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_option_three')
-    ..text= test_option_three_show;//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
+    ..text= test_option_three_show();//向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_submit')
     ..text='提交'
     ..onClick.listen(test_submit);
   ///结果界面
   querySelector('#result_correct_num')
-    ..text= result_correct_num_show;//向服务器请求读取数据库中正确单词个数
+    ..text= result_correct_num_show();//向服务器请求读取数据库中正确单词个数
   querySelector('#result_wrong_one')
-    ..text= result_wrong_one_show;//向服务器请求读取数据库中第一个错误单词的中英文
+    ..text= result_wrong_one_show();//向服务器请求读取数据库中第一个错误单词的中英文
   querySelector('#result_wrong_two')
-    ..text= result_wrong_two_show;//向服务器请求读取数据库中第二个错误单词的中英文
+    ..text= result_wrong_two_show();//向服务器请求读取数据库中第二个错误单词的中英文
   querySelector('#result_return')
     ..text='返回主页'
     ..onClick.listen(result_return);
@@ -169,7 +181,7 @@ void ReturnSignIn(MouseEvent event){
 }
 
 /// 返回任务完成情况的内容
-SomeType FtaskContent(){
+Object FtaskContent(){
   //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
 }
 
@@ -186,7 +198,7 @@ void SubmitWork(MouseEvent event){
 }
 
 /// 返回选择单词的字符串
-SomeType FtaskContent(){
+Object FtaskContent( ){
   //todo 根据相应的Json文件，返回单词数据
 }
 
@@ -237,6 +249,29 @@ void stu_review_word(MouseEvent event) {
 /// 参数[event]是鼠标事件....
 void stu_test_word(MouseEvent event) {
   //todo 用户点击按钮开始测试的响应工作，要跳转到测试的界面，并隐藏当前界面。
+}
+//查看已完成任务界面函数
+Object finished_task_one(){
+  //todo 请求从数据库中获取并显示第一个已完成任务的名字
+}
+void  finished_task_one_show(MouseEvent event) {
+  //todo 用户点击开始在右侧界面显示第一个对应任务的完成情况。
+}
+Object finished_task_two(){
+  //todo 请求从数据库中获取并显示第二个已完成任务的名字
+}
+void  finished_task_two_show(MouseEvent event) {
+  //todo 用户点击开始在右侧界面显示第二个对应任务的完成情况。
+}
+Object finished_task_three(){
+  //todo 请求从数据库中获取并显示第三个已完成任务的名字
+}
+void  finished_task_three_show(MouseEvent event) {
+  //todo 用户点击开始在右侧界面显示第三个对应任务的完成情况。
+}
+/// 参数[event]是鼠标事件....
+void finished_return(MouseEvent event) {
+  //todo 用户点击按钮返回主页的响应工作，返回到学生首页，并隐藏当前界面。
 }
 //复习界面
 

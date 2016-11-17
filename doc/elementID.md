@@ -52,6 +52,13 @@ test_option_one     | 学生听写单词时需要选择的中文一  | result_wr
 test_option_two     | 学生听写单词时需要选择的中文二   | result_wrong_four | 测试错误单词四
 test_option_three     | 学生听写单词时需要选择的中文三  | result_wrong_five | 测试错误单词五
 test_submit     | 点击提交按钮，点击之后切换到下一个单词或者结果界面 |  result_return | 点击返回学生主界面按钮
-
+id     | 描述
+-------- | ---
+**finished** | **已完成任务界面**
+finished_task_one | 第一个已完成任务名字
+finished_task_two    | 第二个已完成任务名字
+finished_task_three     | 第三个已完成任务名字
+finished_task_show     | 显示右侧用户打开的已完成任务情况内容
+finished_return  |  返回学生主页
 
  
