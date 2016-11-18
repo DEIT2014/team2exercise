@@ -5,7 +5,7 @@ html, body {
     height: 100%;
     margin:0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 微软雅黑;
 }
 #SignIn_Div{
     background-color:#66cc99;
@@ -54,14 +54,68 @@ html, body {
 #SignUp_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
+}
+#signup_div_small{
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    width:80%;
+    height:80%;
+    background-color:#ccffff;
+    border-radius: 25px;
+}
+#signup_div_p{
+    text-align: center;
+    background-image: url("img/logo.png");
+    -moz-background-size:100px 100px; /* 老版本的 Firefox */
+    background-size:100px 100px;
+    background-repeat:no-repeat;
+    height: 100px;
+    font-size: 50px;
+    word-spacing:50px;
+    letter-spacing: 10px;
+    padding-top: 25px;
+    margin:auto;
+    padding-left:60px;
+    width: 800px;
+    margin-top: 50px;
+}
+#SignUp_Div_Form{
+    margin: auto;
+    width: auto;
+    font-size: 25px;
+    width: 300px;
 }
 #SucSignUp_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
+}
+#sucsignup_div_small{
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    width:80%;
+    height:80%;
+    background-color:#ccffff;
+    border-radius: 25px;
+    text-align: center;
+    outline:solid;
+}
+#sucsignup_div_p{
+    height:auto;
+    margin-top: 200px;
 }
 #Teacher_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
 }
 #Ftask_Div{
     height:100%;
@@ -82,18 +136,26 @@ html, body {
 #student{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
 }
 #review{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
 }
 #test{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
 }
 #result{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
 }
 #finished{
     height:100%;
