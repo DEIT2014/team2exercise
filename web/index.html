@@ -71,10 +71,24 @@
 </div>
 
 <div id="Teacher_Div">
-    缺少教师名字和班级的id名称
-    <div>教师姓名： 班级：</div>
+    <div id="Teacher_Div_small">
+        <br>教师姓名:XXX 班级:X班<br><br>
     <div id="Teacher_Ftask">
         以往任务的完成情况
+        <table style="width:100%;border:dashed 1px ;">
+            <tr>
+                <td style="border-bottom:dashed 1px ;">第一单元完成情况</td>
+            </tr>
+            <tr>
+                <td style="border-bottom:dashed 1px ;">第二单元完成情况</td>
+            </tr>
+            <tr>
+                <td style="border-bottom:dashed 1px ;">第三单元完成情况</td>
+            </tr>
+            <tr>
+                <td>第四单元完成情况</td>
+            </tr>
+        </table>
     </div>
     <div id="Teacher_Unit">
         布置新任务<br>
@@ -82,11 +96,14 @@
             <option name="六年级上册">六年级上册</option>
             <option name="六年级下册">六年级下册</option>
         </select>
+        <button>确认</button>
     </div>
+        </div>
 </div>
 
 <div id="Ftask_Div">
-    <table id="Ftask_Content">
+    <div id="Ftask_Content">
+        <table style="width:100%;">
         <tr>
             <td>没有取id名的表头（第x单元完成情况）</td>
         </tr>
@@ -94,13 +111,17 @@
             <td>姓名</td>
             <td>完成情况</td>
         </tr>
-    </table>
-    <button id="Ftask_Btn">返回教师主界面</button>
+            <td>李华</td>
+            <td>98</td>
+            </table>
+        <button id="Ftask_Btn">返回教师主界面</button>
+    </div>
 </div>
 
 
 <div id="AssignWork_Div">
-    <form action="AssignWork_WordList">
+    <div id="AssignWork_WordList">
+    <form>
         请选择下列单词<br>
         <input type="checkbox" name="vehicle" value="Bike">bike
         <br>
@@ -108,10 +129,12 @@
         <br><br>
         <input type="submit" name="AssignWork_Btn" value="提交">
     </form>
+        </div>
 </div>
 
 <div id="ConfirmWord_Div">
-    <table id="ConfirmWord_Show">
+    <div id="ConfirmWord_Show">
+    <table>
         <tr>
             <td id="">已选择的单词</td>
         </tr>
@@ -122,16 +145,18 @@
     </table>
     <button id="ConfirmWord_Confirm_Btn">确认</button>
     <button id="ConfirmWord_Reselect_Btn">重新选择</button>
+        </div>
 </div>
 
 <div id="SucAssignWord_Div">
-    <div >
-    <p>The task has been released.</p>
+    <div id="SucAssignWord_Div_small" >
+    The task has been released.
     <button id="SucAssignWord_Btn">返回教师主界面</button>
     </div>
 </div>
 
-<div id="stuedent">
+<div id="student">
+    <div id="student_small">
     <table>
         <tr>
             <td>Name:</td>
@@ -139,33 +164,37 @@
             <td>Class:</td>
             <td id="stu_class"></td>
         </tr>
-    </table>
+    </table><br>
     <div id="stu_task">
-        Assignment
-        <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务
-        <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务
-        <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务
-        <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务
+        Assignment<br>
+        <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务<br>
+        <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务<br>
+        <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务<br>
+        <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务<br>
     </div>
     <button id="stu_review">复习</button>
     <button id="stu_test">测试</button>
+    </div>
 </div>
 
 <div id="review">
+    <div id="review_small">
     <table>
         <tr>
-            <td id="review_now_num"></td>
-            <td id="review_total_num"></td>
+            <td id="review_now_num">1</td>
+            <td>/</td>
+            <td id="review_total_num">20</td>
         </tr>
     </table>
     <div id="">
-        <div id="review_word"></div>
+        <div id="review_word">apple</div>
         <button id="review_voice">Voice</button>
         <button id=" 	review_change">Chinese/English</button>
     </div>
     <button id="review_next">下一个</button>
     <button id="review_again">再次复习</button>
     <button id="review_test">测试</button>
+    </div>
 </div>
 
 <div id="test">
@@ -190,7 +219,7 @@
 
 <div id="result">
     <div id="">
-        <p>Result</p>
+        Result<br>
         <div id=" 	result_correct_num"></div>
         <div id="result_wrong_one">错误1</div>
         <div id="result_wrong_two">错误2</div>
@@ -206,13 +235,13 @@
     <div>
         <table>
             <tr>
-                <td id="finished_task_one"></td>
+                <td id="finished_task_one">第一单元</td>
             </tr>
             <tr>
-                <td id="finished_task_two"></td>
+                <td id="finished_task_two">第二单元</td>
             </tr>
             <tr>
-                <td id="finished_task_three"></td>
+                <td id="finished_task_three">第三单元</td>
             </tr>
         </table>
     </div>

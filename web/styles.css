@@ -105,7 +105,6 @@ html, body {
     background-color:#ccffff;
     border-radius: 25px;
     text-align: center;
-    outline:solid;
 }
 #sucsignup_div_p{
     height:auto;
@@ -115,49 +114,109 @@ html, body {
     height:100%;
     width:100%;
     background-color:#66cc99;
-    position: relative;
+}
+#Teacher_Div_small{
+    width:80%;
+    height:100%;
+    background-color:#ccffff;
+    margin:auto;
+}
+#Teacher_Unit{
+    margin: 10px 0;
+    height :80%;
+    width:48%;
+    float:left;
+    padding: 10px;
+}
+#Teacher_Ftask{
+    margin: 10px 0;
+    height :80%;
+    width:48%;
+    float:right;
+    padding:10px;
 }
 #Ftask_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#Ftask_Content{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #AssignWork_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
 }
+#AssignWork_WordList{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
+}
+
 #ConfirmWord_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#ConfirmWord_Show{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #SucAssignWord_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#SucAssignWord_Div_small{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #student{
     height:100%;
     width:100%;
     background-color:#66cc99;
-    position: relative;
+}
+#student_small{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #review{
     height:100%;
     width:100%;
     background-color:#66cc99;
-    position: relative;
+}
+#review_small{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #test{
+    width:80%;
     height:100%;
-    width:100%;
-    background-color:#66cc99;
-    position: relative;
+    margin:auto;
+    background-color:#ccffff;
 }
 #result{
+    width:80%;
     height:100%;
-    width:100%;
-    background-color:#66cc99;
-    position: relative;
+    margin:auto;
+    background-color:#ccffff;
 }
 #finished{
+    width:80%;
     height:100%;
-    width:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
