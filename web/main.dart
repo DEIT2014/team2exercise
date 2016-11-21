@@ -2,14 +2,17 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:html';
+import 'dart:core';
 
-String signin_username;//登录界面的用户名变量
-String signin_password;//登录界面的密码变量
-String signup_username;//注册界面的用户名变量
-String signup_class;//注册界面的班级变量
-String signup_password;//注册界面的密码变量
-String signup_confirmpw;//注册界面确认密码的变量
+var localhost="127.0.0.1:14080";
+InputElement signin_username;//登录界面的用户名变量
+InputElement signin_password;//登录界面的密码变量
+InputElement signup_username;//注册界面的用户名变量
+InputElement signup_class;//注册界面的班级变量
+InputElement signup_password;//注册界面的密码变量
+InputElement signup_confirmpw;//注册界面确认密码的变量
 var test_word;//学生听写写入的单词
+
 void main() {
   /// 登录界面
   signin_username=querySelector('#SignIn_Username');//输入用户名
@@ -19,7 +22,7 @@ void main() {
     ..onClick.listen(SignIn);//用户登录按钮
   querySelector('#SignUp_Btn')
     ..text='注册'
-    ..onClick.listen(SignuUp);//用户注册按钮
+    ..onClick.listen(SignUp);//用户注册按钮
 
   /// 注册界面
   signup_username=querySelector('#SignUp_Username');//输入用户名
@@ -43,7 +46,7 @@ void main() {
 
   /// 任务完成情况界面
   querySelector('#Ftask_Content')
-    ..text=FtaskContent;// 任务完成情况
+    ..text=FtaskContent();// 任务完成情况
   querySelector('#Ftask_Btn')
     ..text='返回主界面'
     ..onClick.listen(ReturnTeacher);//返回教师主界面按钮
@@ -55,7 +58,7 @@ void main() {
 
   ///确认单词界面
   querySelector('#ConfirmWord_Show')
-    ..text=WordContent;//选择的单词内容
+    ..text=WordContent();//选择的单词内容
   querySelector('#ConfirmWord_Confirm_Btn')
     ..text='确认'
     ..onClick.listen(ConfirmWord);//确认单词以及发布作业的按钮
@@ -70,18 +73,18 @@ void main() {
 
   /// 学生界面
   querySelector('#stu_name')
-      ..text=stu_name_show();//学生姓名的数据
+    ..text=stu_name_show();//学生姓名的数据
   querySelector('#stu_class')
     ..text=stu_class_show();//学生班级的数据
   querySelector('#stu_task_one')
     ..text=stu_task_one_show()
-  ..onClick.listen(stu_task_one);//待完成任务1名称的数据以及记录是否选择此任务
+    ..onClick.listen(stu_task_one);//待完成任务1名称的数据以及记录是否选择此任务
   querySelector('#stu_task_two')
     ..text=stu_task_two_show()
     ..onClick.listen(stu_task_two);//待完成任务2名称的数据以及记录是否选择此任务
   querySelector('#stu_review')
     ..text= '复习单词'
-  ..onClick.listen(stu_review_word);
+    ..onClick.listen(stu_review_word);
   querySelector('#stu_test')
     ..text= '开始测试'
     ..onClick.listen(stu_test_word);
@@ -108,7 +111,7 @@ void main() {
   querySelector('#review_voice')
     ..onClick.listen(review_voice);
   querySelector('#review_change')
-  ..text='中英文切换'
+    ..text='中英文切换'
     ..onClick.listen(review_change);
   querySelector('#review_next')
     ..text='下一个'
@@ -152,11 +155,12 @@ void main() {
 void SignIn(MouseEvent event){
   //todo 记录输入的用户名和密码并与数据库进行比较，
   //todo 若对比成功，隐藏登录界面，显示教师或者学生界面（根据相应的标志值判断）
+  var request=HttpRequest.getString("http:127.0.0.1:14080/userinfo");
 }
 
 /// 用来接受用户点击注册按钮以后的响应工作
 /// 参数[event]是鼠标事件....
-void SignIn(MouseEvent event){
+void SignUp(MouseEvent event){
   //todo 隐藏登录界面，显示注册界面
 }
 
@@ -198,7 +202,7 @@ void SubmitWork(MouseEvent event){
 }
 
 /// 返回选择单词的字符串
-Object FtaskContent( ){
+Object WordContent( ){
   //todo 根据相应的Json文件，返回单词数据
 }
 
