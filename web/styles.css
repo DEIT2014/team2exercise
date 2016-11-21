@@ -5,7 +5,7 @@ html, body {
     height: 100%;
     margin:0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 微软雅黑;
 }
 #SignIn_Div{
     background-color:#66cc99;
@@ -54,48 +54,169 @@ html, body {
 #SignUp_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
+}
+#signup_div_small{
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    width:80%;
+    height:80%;
+    background-color:#ccffff;
+    border-radius: 25px;
+}
+#signup_div_p{
+    text-align: center;
+    background-image: url("img/logo.png");
+    -moz-background-size:100px 100px; /* 老版本的 Firefox */
+    background-size:100px 100px;
+    background-repeat:no-repeat;
+    height: 100px;
+    font-size: 50px;
+    word-spacing:50px;
+    letter-spacing: 10px;
+    padding-top: 25px;
+    margin:auto;
+    padding-left:60px;
+    width: 800px;
+    margin-top: 50px;
+}
+#SignUp_Div_Form{
+    margin: auto;
+    width: auto;
+    font-size: 25px;
+    width: 300px;
 }
 #SucSignUp_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+    position: relative;
+}
+#sucsignup_div_small{
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    width:80%;
+    height:80%;
+    background-color:#ccffff;
+    border-radius: 25px;
+    text-align: center;
+}
+#sucsignup_div_p{
+    height:auto;
+    margin-top: 200px;
 }
 #Teacher_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#Teacher_Div_small{
+    width:80%;
+    height:100%;
+    background-color:#ccffff;
+    margin:auto;
+}
+#Teacher_Unit{
+    margin: 10px 0;
+    height :80%;
+    width:48%;
+    float:left;
+    padding: 10px;
+}
+#Teacher_Ftask{
+    margin: 10px 0;
+    height :80%;
+    width:48%;
+    float:right;
+    padding:10px;
 }
 #Ftask_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#Ftask_Content{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #AssignWork_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
 }
+#AssignWork_WordList{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
+}
+
 #ConfirmWord_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#ConfirmWord_Show{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #SucAssignWord_Div{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#SucAssignWord_Div_small{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #student{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#student_small{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #review{
     height:100%;
     width:100%;
+    background-color:#66cc99;
+}
+#review_small{
+    width:80%;
+    height:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #test{
+    width:80%;
     height:100%;
-    width:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #result{
+    width:80%;
     height:100%;
-    width:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
 #finished{
+    width:80%;
     height:100%;
-    width:100%;
+    margin:auto;
+    background-color:#ccffff;
 }
