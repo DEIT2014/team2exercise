@@ -6,6 +6,9 @@ import 'dart:core';
 import 'dart:io';
 
 final DATA_FILE="C:\\Users\\Sunny\\WebstormProjects\\team2exercise\\bin\\userinfo.json";
+final _headers={"Access-Control-Allow-Origin":"*",
+  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+  "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
 
 void main() {
   var myRouter = router()
@@ -29,6 +32,7 @@ responseUser(request)async{
   //todo 访问数据库，从用户信息表中获取并返回用户登录的信息，包括用户名、密码和身份属性
   var singledata=new Map<String,String>();//存放单个用户数据
   var userdata=new List();//存放所有用户的数据
+  var finaluserdata=new Map<String,String>();//存放最终的用户数据
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var data=await pool.query('select Username,Password,Class,Status from userinfo');
   //下面这个语句比较慢，一定要等它
@@ -37,12 +41,14 @@ responseUser(request)async{
     userdata.add(singledata);//将该数据加入数组中
   });
   var file=new File(DATA_FILE);
-  //将整个数组按照下述格式写入json文件
-  file.writeAsString('{"Userinfo":$userdata}')
+  //将用户数据存入数组中
+  finaluserdata={'"Userinfo"':userdata};
+  //写入文件
+  file.writeAsString(finaluserdata.toString())
       .then((File file){
     print("write data successfully");
   });
-  return (new Response.ok("successfully"));
+  return (new Response.ok(finaluserdata.toString(),headers: _headers));
 }
 
 ///获取学生完成情况数据
