@@ -3,7 +3,7 @@
 
 import 'dart:html';
 import 'dart:core';
-
+import 'dart:convert' show JSON;
 var localhost="127.0.0.1:14080";
 InputElement signin_username;//登录界面的用户名变量
 InputElement signin_password;//登录界面的密码变量
@@ -155,9 +155,41 @@ void main() {
 void SignIn(MouseEvent event){
   //todo 记录输入的用户名和密码并与数据库进行比较，
   //todo 若对比成功，隐藏登录界面，显示教师或者学生界面（根据相应的标志值判断）
-  var request=HttpRequest.getString("http:127.0.0.1:14080/userinfo");
+  var request=HttpRequest.getString("http:127.0.0.1:14080/userinfo").then(onSignIn);
 }
+onSignIn(responseText) {
+  var jsonString = responseText;
+  var userinfo = JSON.decode(jsonString);
+  var userinfolist=userinfo[userinfo];
+  int a=0;
+  for (var x in userinfolist )
+  {
+    if(x.username==signin_username)
+    {
+      if(x.password==signin_password)
+      {
+        if(x.status=="stu")
+        {
+          //隐藏登录转到学生界面
+          a=1;
+        }
+        else
+        {
+          //隐藏登录转到教师界面
+          a=1;
+        }
+      }
+      else
+      {
+        //密码错误
+      }
+    }
+  }
+  if(a==0){
+    //用户名或者密码错误，请重新登录
+  }
 
+}
 /// 用来接受用户点击注册按钮以后的响应工作
 /// 参数[event]是鼠标事件....
 void SignUp(MouseEvent event){
