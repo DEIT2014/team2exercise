@@ -7,6 +7,9 @@ html, body {
     padding: 0;
     font-family: 微软雅黑;
 }
+form{
+    display:none;
+}
 #SignIn_Div{
     background-color:#66cc99;
     height:100%;

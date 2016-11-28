@@ -29,38 +29,33 @@
         <br><br>
 
         <form id="SignIn_Div_Form">
-        <p>用户名:<input type="text" name="SignIn_Username"  style="height: 25px;width: 300px;"></p>
-        <p>密&#8197&#8197&#8197&#8197&#8197码:<input type="password" name="SignIn_Password" style="height: 25px;width: 290px;"></p>
+            <p>用户名:<input type="text" name="SignIn_Username"  style="height: 25px;width: 300px;"></p>
+            <p>密&#8197&#8197&#8197&#8197&#8197码:<input type="password" name="SignIn_Password" style="height: 25px;width: 290px;"></p>
             <br>
-        <input type="submit" id="SignIn_Btn" value="登 录" style="font-size: 15px;padding: 5px">
-            &nbsp;
-        <input type="button" id="SignUp_Btn" value="注 册" style="font-size: 15px;padding: 5px">
-    </form>
-
+            <nav>
+                <a href="#" id="SignIn_Btn" title="SignIn">登录</a>
+                &nbsp;
+                <a href="#" id="SignUp_Btn" title="SignUp">注册</a>
+            </nav>
+            <div id="SignIn_Error"></div>
+        </form>
+        <form id="SignUp_Div_Form">
+            <p>用户名:<input type="text" name="SignUp_Username"> <!--value="username" <!--style="color: darkgray;"onfocus="this.value=''" onblur="if(this.value==''){this.value='username'}" /--></p>
+            <p>班级:<select name="SignUp_Class">
+                <option value="1班">1班</option>
+                <option value="2班">2班</option>
+            </select></p>
+            <p>密码:<input type="password" name="SignUp_Password"></p>
+            <p>确认密码:<input type="password" name="SignUp_ConfirmPW"></p>
+            <input type="submit" name="SignUp_Stu_Btn" value="学生注册">
+            <input type="submit" name="SignUp_Tea_Btn" value="教师注册">
+        </form>
 
 
     </div>
 
 </div>
-<div id="SignUp_Div">
-    <div id="signup_div_small">
-        <div id="signup_div_p">
-            英语单词听写训练系统
-        </div>
-        <br><br>
-    <form id="SignUp_Div_Form">
-        <p>用户名:<input type="text" name="SignUp_Username"> <!--value="username" <!--style="color: darkgray;"onfocus="this.value=''" onblur="if(this.value==''){this.value='username'}" /--></p>
-        <p>班级:<select name="SignUp_Class">
-            <option value="1班">1班</option>
-            <option value="2班">2班</option>
-        </select></p>
-        <p>密码:<input type="password" name="SignUp_Password"></p>
-        <p>确认密码:<input type="password" name="SignUp_ConfirmPW"></p>
-        <input type="submit" name="SignUp_Stu_Btn" value="学生注册">
-        <input type="submit" name="SignUp_Tea_Btn" value="教师注册">
-    </form>
-        </div>
-</div>
+
 <div id="SucSignUp_Div">
     <div id="sucsignup_div_small">
         <div id="sucsignup_div_p">
@@ -71,7 +66,7 @@
     </div>
 </div>
 
-<div id="Teacher_Div">
+<form id="Teacher_Div">
     <div id="Teacher_Div_small">
         <br>教师姓名:XXX 班级:X班<br><br>
     <div id="Teacher_Ftask">
@@ -100,7 +95,7 @@
         <button>确认</button>
     </div>
         </div>
-</div>
+</form>
 
 <div id="Ftask_Div">
     <div id="Ftask_Content">
@@ -156,7 +151,7 @@
     </div>
 </div>
 
-<div id="student">
+<form id="student">
     <div id="student_small">
     <table>
         <tr>
@@ -176,7 +171,7 @@
     <button id="stu_review">复习</button>
     <button id="stu_test">测试</button>
     </div>
-</div>
+</form>
 
 <div id="review">
     <div id="review_small">
