@@ -40,14 +40,8 @@ responseUser(request)async{
     singledata={'"Username"':'"${row.Username}"','"Password"':'"${row.Password}"','"Class"':'"${row.Class}"','"Status"':'"${row.Status}"'};//按照这个格式存放单条数据
     userdata.add(singledata);//将该数据加入数组中
   });
-  var file=new File(DATA_FILE);
   //将用户数据存入数组中
   finaluserdata={'"Userinfo"':userdata};
-  //写入文件
-  file.writeAsString(finaluserdata.toString())
-      .then((File file){
-    print("write data successfully");
-  });
   return (new Response.ok(finaluserdata.toString(),headers: _headers));
 }
 
