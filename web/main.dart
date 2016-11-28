@@ -15,17 +15,17 @@ InputElement signup_confirmpw;//注册界面确认密码的变量
 var test_word;//学生听写写入的单词
 
 void main() {
-  /// 登录界面\
+  /// 登录界面
   document.querySelector('#SignIn_Div_Form').style.display="block";
   signin_username=querySelector('#SignIn_Username');//输入用户名
   signin_password=querySelector('#SignIn_Password');//输入密码
   var router = new Router(useFragment: true);
   router.root
     ..addRoute(name: 'signup', path: '/signup', enter: SignUp)
-  ..addRoute(name:"signin",path:"/signin",enter:SignIn);
+    ..addRoute(name:'home',path:'/',enter: (_) => null);
   querySelector('#SignUp_Btn').attributes['href'] = router.url('signup');
-  querySelector('#SignIn_Btn').attributes['href'] = router.url('signin');
-  router.listen();
+    router.listen();
+  querySelector("#SignIn_Btn").onClick.listen(SignIn);
   /// 注册界面
   signup_username=querySelector('#SignUp_Username');//输入用户名
   signup_class=querySelector('#SignUp_Class');//输入班级
@@ -159,20 +159,27 @@ void SignUp(RouteEvent e) {
 
 }
 /// 用来接受用户点击登录按钮以后的响应工作
-void SignIn(RouteEvent e){
+void SignIn(MouseEvent event){
   //todo 记录输入的用户名和密码并与数据库进行比较，
   //todo 若对比成功，隐藏登录界面，显示教师或者学生界面（根据相应的标志值判断）
   var request=HttpRequest.getString("http://127.0.0.1:14080/userinfo").then(onSignIn);
 }
-onSignIn(responseText) {
+void onSignIn(responseText) {
+  //var jsonString ='{"Userinfo":[{"Username": "wang", "Password": "3882", "Class": "class9", "Status": "stu"},{"Username": "jiang", "Password": "6712", "Class": "class6", "Status": "tea"}]}';
+  //var userinfo=JSON.decode(MapAsJson);
+//  var userinfolist=userinfo["Userinfo"];
   var jsonString = responseText;
   var userinfo = JSON.decode(jsonString);
-  var userinfolist = userinfo[userinfo];
+  var userinfolist = userinfo["Userinfo"];
   int a = 0;
+  print(signin_username.value);
   for (var x in userinfolist) {
-    if (x.username == signin_username) {
-      if (x.password == signin_password) {
-        if (x.status == "stu") {
+    print(x["Username"] );
+    if (x["Username"] == signin_username.value) {
+      print(x["Password"] );
+      if (x["Password"] == signin_password.value) {
+        print(x["Status"] );
+        if (x["Status"] == "stu") {
           //隐藏登录转到学生界面
           var router1 = new Router(useFragment: true);
           router1.root

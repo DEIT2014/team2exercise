@@ -29,14 +29,15 @@
         <br><br>
 
         <form id="SignIn_Div_Form">
-            <p>用户名:<input type="text" name="SignIn_Username"  style="height: 25px;width: 300px;"></p>
-            <p>密&#8197&#8197&#8197&#8197&#8197码:<input type="password" name="SignIn_Password" style="height: 25px;width: 290px;"></p>
+            <p>用户名:<input type="text" name="SignIn_Username"  id="SignIn_Username" style="height: 25px;width: 300px;"></p>
+            <p>密&#8197&#8197&#8197&#8197&#8197码:<input type="password" id="SignIn_Password" name="SignIn_Password" style="height: 25px;width: 290px;"></p>
             <br>
             <nav>
-                <a href="#" id="SignIn_Btn" title="SignIn">登录</a>
+                <a  href="" id="SignIn_Btn" title="SignIn">登录</a>
                 &nbsp;
-                <a href="#" id="SignUp_Btn" title="SignUp">注册</a>
+                <a  href="" id="SignUp_Btn" title="SignUp">注册</a>
             </nav>
+            <br>
             <div id="SignIn_Error"></div>
         </form>
         <form id="SignUp_Div_Form">
@@ -50,8 +51,57 @@
             <input type="submit" name="SignUp_Stu_Btn" value="学生注册">
             <input type="submit" name="SignUp_Tea_Btn" value="教师注册">
         </form>
-
-
+        <form id="Teacher_Div">
+            <div id="Teacher_Div_small">
+                <br>教师姓名:XXX 班级:X班<br><br>
+                <div id="Teacher_Ftask">
+                    以往任务的完成情况
+                    <table style="width:100%;border:dashed 1px ;">
+                        <tr>
+                            <td style="border-bottom:dashed 1px ;">第一单元完成情况</td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:dashed 1px ;">第二单元完成情况</td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:dashed 1px ;">第三单元完成情况</td>
+                        </tr>
+                        <tr>
+                            <td>第四单元完成情况</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="Teacher_Unit">
+                    布置新任务<br>
+                    <select>
+                        <option name="六年级上册">六年级上册</option>
+                        <option name="六年级下册">六年级下册</option>
+                    </select>
+                    <button>确认</button>
+                </div>
+            </div>
+        </form>
+        <form id="student">
+            <div id="student_small">
+                <table>
+                    <tr>
+                        <td>Name:</td>
+                        <td id="stu_name"></td>
+                        <td>Class:</td>
+                        <td id="stu_class"></td>
+                    </tr>
+                </table><br>
+                <div id="stu_task">
+                    Assignment<br>
+                    <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务<br>
+                    <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务<br>
+                    <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务<br>
+                    <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务<br>
+                </div>
+                <button id="stu_review">复习</button>
+                <button id="stu_test">测试</button>
+            </div>
+        </form>
     </div>
 
 </div>
@@ -66,36 +116,7 @@
     </div>
 </div>
 
-<form id="Teacher_Div">
-    <div id="Teacher_Div_small">
-        <br>教师姓名:XXX 班级:X班<br><br>
-    <div id="Teacher_Ftask">
-        以往任务的完成情况
-        <table style="width:100%;border:dashed 1px ;">
-            <tr>
-                <td style="border-bottom:dashed 1px ;">第一单元完成情况</td>
-            </tr>
-            <tr>
-                <td style="border-bottom:dashed 1px ;">第二单元完成情况</td>
-            </tr>
-            <tr>
-                <td style="border-bottom:dashed 1px ;">第三单元完成情况</td>
-            </tr>
-            <tr>
-                <td>第四单元完成情况</td>
-            </tr>
-        </table>
-    </div>
-    <div id="Teacher_Unit">
-        布置新任务<br>
-        <select>
-            <option name="六年级上册">六年级上册</option>
-            <option name="六年级下册">六年级下册</option>
-        </select>
-        <button>确认</button>
-    </div>
-        </div>
-</form>
+
 
 <div id="Ftask_Div">
     <div id="Ftask_Content">
@@ -151,27 +172,7 @@
     </div>
 </div>
 
-<form id="student">
-    <div id="student_small">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td id="stu_name"></td>
-            <td>Class:</td>
-            <td id="stu_class"></td>
-        </tr>
-    </table><br>
-    <div id="stu_task">
-        Assignment<br>
-        <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务<br>
-        <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务<br>
-        <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务<br>
-        <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务<br>
-    </div>
-    <button id="stu_review">复习</button>
-    <button id="stu_test">测试</button>
-    </div>
-</form>
+
 
 <div id="review">
     <div id="review_small">
