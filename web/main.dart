@@ -3,6 +3,7 @@
 
 import 'dart:html';
 import 'dart:core';
+import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
 var localhost="127.0.0.1:14080";
 InputElement signin_username;//登录界面的用户名变量
@@ -14,16 +15,17 @@ InputElement signup_confirmpw;//注册界面确认密码的变量
 var test_word;//学生听写写入的单词
 
 void main() {
-  /// 登录界面
+  /// 登录界面\
+  document.querySelector('#SignIn_Div_Form').style.display="block";
   signin_username=querySelector('#SignIn_Username');//输入用户名
   signin_password=querySelector('#SignIn_Password');//输入密码
-  querySelector('#SignIn_Btn')
-    ..text='登录'
-    ..onClick.listen(SignIn);//用户登录按钮
-  querySelector('#SignUp_Btn')
-    ..text='注册'
-    ..onClick.listen(SignUp);//用户注册按钮
-
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(name: 'signup', path: '/signup', enter: SignUp)
+  ..addRoute(name:"signin",path:"/signin",enter:SignIn);
+  querySelector('#SignUp_Btn').attributes['href'] = router.url('signup');
+  querySelector('#SignIn_Btn').attributes['href'] = router.url('signin');
+  router.listen();
   /// 注册界面
   signup_username=querySelector('#SignUp_Username');//输入用户名
   signup_class=querySelector('#SignUp_Class');//输入班级
@@ -150,52 +152,61 @@ void main() {
 
 }
 
+
+void SignUp(RouteEvent e) {
+  document.querySelector('#SignUp_Div_Form').style.display="block";
+  document.querySelector('#SignIn_Div_Form').style.display="none";
+
+}
 /// 用来接受用户点击登录按钮以后的响应工作
-/// 参数[event]是鼠标事件....
-void SignIn(MouseEvent event){
+void SignIn(RouteEvent e){
   //todo 记录输入的用户名和密码并与数据库进行比较，
   //todo 若对比成功，隐藏登录界面，显示教师或者学生界面（根据相应的标志值判断）
-  var request=HttpRequest.getString("http:127.0.0.1:14080/userinfo").then(onSignIn);
+  var request=HttpRequest.getString("http://127.0.0.1:14080/userinfo").then(onSignIn);
 }
 onSignIn(responseText) {
   var jsonString = responseText;
   var userinfo = JSON.decode(jsonString);
-  var userinfolist=userinfo[userinfo];
-  int a=0;
-  for (var x in userinfolist )
-  {
-    if(x.username==signin_username)
-    {
-      if(x.password==signin_password)
-      {
-        if(x.status=="stu")
-        {
+  var userinfolist = userinfo[userinfo];
+  int a = 0;
+  for (var x in userinfolist) {
+    if (x.username == signin_username) {
+      if (x.password == signin_password) {
+        if (x.status == "stu") {
           //隐藏登录转到学生界面
-          a=1;
+          var router1 = new Router(useFragment: true);
+          router1.root
+            ..addRoute(name: 'stu_signin', path: '/stu/index', enter: StuSignIn);
+          querySelector('#SignIn_Btn').attributes['href'] = router1.url('stu_signin');
+          router1.listen();
+          a = 1;
         }
-        else
-        {
+        else {
           //隐藏登录转到教师界面
-          a=1;
+          var router2 = new Router(useFragment: true);
+          router2.root
+            ..addRoute(name: 'tea_signin', path: '/tea/index', enter: TeaSignIn);
+          querySelector('#SignIn_Btn').attributes['href'] = router2.url('tea_signin');
+          router2.listen();
+          a = 1;
         }
-      }
-      else
-      {
-        //密码错误
       }
     }
   }
-  if(a==0){
-    //用户名或者密码错误，请重新登录
+  if (a == 0) {
+    querySelector("#SignIn_Error").text = "用户名或者密码错误，请重新登录";
   }
+}
+void StuSignIn(RouteEvent e) {
+  document.querySelector('#student').style.display="block";
+  document.querySelector('#SignIn_Div_Form').style.display="none";
 
 }
-/// 用来接受用户点击注册按钮以后的响应工作
-/// 参数[event]是鼠标事件....
-void SignUp(MouseEvent event){
-  //todo 隐藏登录界面，显示注册界面
-}
+void TeaSignIn(RouteEvent e) {
+  document.querySelector('#Teacher_Div').style.display="block";
+  document.querySelector('#SignIn_Div_Form').style.display="none";
 
+}
 /// 接受用户点击学生注册按钮的响应
 /// 参数[event]是鼠标事件....
 void StuSignUp(MouseEvent event){
