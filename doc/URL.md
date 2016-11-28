@@ -14,3 +14,11 @@ URL     | 描述
 /teacher_writetask     | 将老师布置的任务数据写入任务表
 /teacher_gettask   | 从任务表中取出数据
 
+main.dart中的URL
+
+URL   | 描述
+-------- | ---
+/signup  | 显示注册界面
+/stu/index | 显示学生主页
+/tea/index | 显示教师主页
+

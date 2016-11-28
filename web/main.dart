@@ -15,14 +15,14 @@ InputElement signup_confirmpw;//注册界面确认密码的变量
 var test_word;//学生听写写入的单词
 
 void main() {
-  /// 登录界面\
+  /// 登录界面
   document.querySelector('#SignIn_Div_Form').style.display="block";
   signin_username=querySelector('#SignIn_Username');//输入用户名
   signin_password=querySelector('#SignIn_Password');//输入密码
   var router = new Router(useFragment: true);
   router.root
     ..addRoute(name: 'signup', path: '/signup', enter: SignUp)
-  ..addRoute(name:"signin",path:"/signin",enter:SignIn);
+   ..addRoute(name:"signin",path:"/signin",enter:SignIn);
   querySelector('#SignUp_Btn').attributes['href'] = router.url('signup');
   querySelector('#SignIn_Btn').attributes['href'] = router.url('signin');
   router.listen();
@@ -170,9 +170,9 @@ onSignIn(responseText) {
   var userinfolist = userinfo[userinfo];
   int a = 0;
   for (var x in userinfolist) {
-    if (x.username == signin_username) {
-      if (x.password == signin_password) {
-        if (x.status == "stu") {
+    if (x["Username"] == signin_username) {
+      if (x["Password"] == signin_password) {
+        if (x["Status"] == "stu") {
           //隐藏登录转到学生界面
           var router1 = new Router(useFragment: true);
           router1.root

@@ -5,6 +5,7 @@ SignIn_Username | 登录时的用户名字段
 SignIn_Password    | 登录时的密码字段
 SignIn_Btn     | 登录按钮
 SignUp_Btn     | 进入注册界面的按钮
+SignIn_Error   | 登录错误提示
 **SignUp_Div**  | **注册界面**
 SignUp_Username | 注册时的用户名字段
 SignUp_Class   | 注册时的班级字段
