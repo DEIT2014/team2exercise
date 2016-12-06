@@ -19,38 +19,114 @@
 </head>
 
 <body>
-<div id="SignIn_Div">
 
-    <div id="signin_div_small">
-
-        <div id="signin_div_p">
-          英语单词听写训练系统
+<div id="Background_Sign">
+   <div id="SignIn_Div">
+       <div id="SignIn_Div_back"><!--首页滚动的诗歌-->
+        <script type="text/javascript"></script>
+        <div align="center" id="SignIn_Div_back_0">
+            <div id="SignIn_Div_back_1">
+                <p>Aspirations of youth<br>青春的渴望</p><br>
+                <p>James Montgomery<br>詹姆斯·蒙哥马利</p><br>
+                <p>Higher,higher,will we climb,<br>更高，更高，愿我们</p><br>
+                <p>Up the mount of glory,<br>攀登上光荣的阶梯</p><br>
+                <p>That our names may live through time<br>我们的名字就能永存</p><br>
+                <p>In our country's story;<br>在我们祖国的史册；</p><br>
+                <p>Happy,when her welfare calls,<br>幸福啊，当她一声召唤，</p><br>
+                <p>He who conquers,he who falls!<br>他就去拼搏，就去攻坚！</p><br>
+                <p>Deeper,deeper,let us toil<br>更深，更深，让我们</p><br>
+                <p>In the mines of knowledge;<br>在知识矿藏中开发；</p><br>
+                <p>Nature's wealth and learning's spoil<br>自然财富和学术精品</p><br>
+                <p>Win from school and college;<br>从学校研究院吸纳；</p><br>
+                <p>Delve we there for richer gems<br>愿我们在此发掘的珍宝，</p><br>
+                <p>Than the stars of diadems.<br>比王冠的星星更加光耀。</p><br>
+                <p>Onward,onward,will we press<br>向前，向前，愿我们</p><br>
+                <p>Through the path of duty;<br>推进这职责的常规；</p><br>
+                <p>Virtue is true happiness,<br>做好事是真正的福分，</p><br>
+                <p>Excellence true beauty.<br>美德却是真正的美。</p><br>
+                <p>Minds are of supernal birth:<br>头脑会超尘脱俗地成长：</p><br>
+                <p>Let us make a heaven of earth.<br>让我们创造人间的天堂。</p><br>
+            </div>
+            <div id="SignIn_Div_back_2"></div>
         </div>
-        <br><br>
+        <script type="text/javascript">
+            <!--
+            var SignIn_Div_back_0 = document.getElementById("SignIn_Div_back_0");
+            var SignIn_Div_back_1 = document.getElementById("SignIn_Div_back_1");
+            var SignIn_Div_back_2 = document.getElementById("SignIn_Div_back_2");
+            var speed=50;    //滚动速度值，值越大速度越慢
+            var nnn=200/SignIn_Div_back_1.offsetHeight;
+            for(i=0;i<nnn;i++){SignIn_Div_back_1.innerHTML+="<br />"+ SignIn_Div_back_1.innerHTML}
+            SignIn_Div_back_2.innerHTML = SignIn_Div_back_1.innerHTML    //克隆www_zzjs_net_2为www_zzjs_net_1
+            function Marquee(){
+                if(SignIn_Div_back_2.offsetTop-SignIn_Div_back_0.scrollTop<=0)    //当滚动至www_zzjs_net_1与www_zzjs_net_2交界时
+                    SignIn_Div_back_0.scrollTop-=SignIn_Div_back_1.offsetHeight    //wwwzzjsnet跳到最顶端
+                else{
+                    SignIn_Div_back_0.scrollTop++     //如果是横向的 将 所有的 height top 改成 width left
+                }
+            }//欢迎来到站长特效网，我们的网址是www.zzjs.net，很好记，zz站长，js就是js特效，.net打造靓站，还有许多广告代码下载。
+            var MyMar = setInterval(Marquee,speed);        //设置定时器
+            SignIn_Div_back_0.onmouseover = function(){clearInterval(MyMar)}    //鼠标经过时清除定时器达到滚动停止的目的
+            SignIn_Div_back_0.onmouseout = function(){MyMar = setInterval(Marquee,speed)}    //鼠标移开时重设定时器
+            -->
+        </script>
+       </div>
 
-        <form id="SignIn_Div_Form">
-            <p>用户名:<input type="text" name="SignIn_Username"  id="SignIn_Username" style="height: 25px;width: 300px;"></p>
-            <p>密&#8197&#8197&#8197&#8197&#8197码:<input type="password" id="SignIn_Password" name="SignIn_Password" style="height: 25px;width: 290px;"></p>
+
+        <form id="SignIn_Div_Form"><!--登录form-->
+            <p style="font-size: 20px;letter-spacing:10px;">英语单词学习系统</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+            <hr width="100%" style="opacity: 0.20"><!--分割线 -->
+            <br>
+            <p>用户名:<input type="text" name="SignIn_Username"  id="SignIn_Username" ></p>
+            <p>密&#8197&#8197&#8197&#8197&#8197码:<input type="password" id="SignIn_Password" name="SignIn_Password"></p>
             <br>
             <nav>
                 <a  href="" id="SignIn_Btn" title="SignIn">登录</a>
                 &nbsp;
                 <a  href="" id="SignUp_Btn" title="SignUp">注册</a>
             </nav>
+            </form>
+
+
+        <form id="SignUp_Div_Form"><!--注册form-->
+            <p style="text-align:center;font-size: 20px;letter-spacing:10px;">英语单词学习系统</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+            <hr width="100%" style="opacity: 0.20"><!--分割线 -->
             <br>
-            <div id="SignIn_Error"></div>
-        </form>
-        <form id="SignUp_Div_Form">
-            <p>用户名:<input type="text" name="SignUp_Username"> <!--value="username" <!--style="color: darkgray;"onfocus="this.value=''" onblur="if(this.value==''){this.value='username'}" /--></p>
-            <p>班级:<select name="SignUp_Class">
+            <div style="padding-left: 40px">
+            <p>用&#8197户&#8197名:<input type="text" name="SignUp_Username"> <!--value="username" <!--style="color: darkgray;"onfocus="this.value=''" onblur="if(this.value==''){this.value='username'}" /--></p>
+            <p>班&#8197&#8197&#8197&#8197&#8197&#8197级:<select name="SignUp_Class">
                 <option value="1班">1班</option>
                 <option value="2班">2班</option>
             </select></p>
-            <p>密码:<input type="password" name="SignUp_Password"></p>
+            <p>密&#8197&#8197&#8197&#8197&#8197&#8197码:<input type="password" name="SignUp_Password"></p>
             <p>确认密码:<input type="password" name="SignUp_ConfirmPW"></p>
-            <input type="submit" name="SignUp_Stu_Btn" value="学生注册">
-            <input type="submit" name="SignUp_Tea_Btn" value="教师注册">
+                <br>
+            <nav>
+                <a href="" id="SignUp_Stu_Btn" title="SignUp_Stu_Btn">学生注册</a>
+                &nbsp;
+                <a href="" id="SignUp_Tea_Btn" title="SignUp_Tea_Btn">教师注册</a>
+            </nav>
+                </div>
         </form>
+
+        <form id="SignUp_Error">
+            Sorry, login failed. Please input right user name and password.
+        </form>
+    </div>
+</div><!--登录界面背景-->
+
+<div id="Background_Soe"><!--注册成功界面-->
+    12345566
+<form id="SucSignUp_Div">
+            <p>Congratulations, your user name has been registered successfully!</p>
+            <p>Now you can login your account.</p>
+            <button id="SucSignUp_Btn">返回登录界面</button>
+</form>
+</div>
+
+<div id="SignIn_Div1">
+
+
         <form id="Teacher_Div">
             <div id="Teacher_Div_small">
                 <br>教师姓名:XXX 班级:X班<br><br>
@@ -104,17 +180,7 @@
         </form>
     </div>
 
-</div>
 
-<div id="SucSignUp_Div">
-    <div id="sucsignup_div_small">
-        <div id="sucsignup_div_p">
-    <p>Congratulations, your user name has been registered successfully!</p>
-    <p>Now you can login your account.</p>
-    <button id="SucSignUp_Btn">返回登录界面</button>
-            </div>
-    </div>
-</div>
 
 
 
