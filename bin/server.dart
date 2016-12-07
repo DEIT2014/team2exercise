@@ -4,8 +4,8 @@ import 'package:shelf_route/shelf_route.dart';
 import 'package:sqljocky/sqljocky.dart';
 import 'dart:core';
 import 'dart:io';
+import 'dart:convert';
 
-final DATA_FILE="D:\\team2exercise\\bin\\userinfo.json";
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
   "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
@@ -22,6 +22,7 @@ void main() {
     ..get('/test/get',responseTest)
     ..get('/result',responseResult)
   //post
+    ..post('/teacher_signup',responseTeaSignUp)
     ..post('/teacher_writetask',responseTeaWriteTask)
     ..post('/student_test/post',responseStuTest);
 
@@ -69,20 +70,42 @@ responseFinished(request)
 
 ///获取学生选择任务的所有单词信息，包括总共的单词英文、中文、发音
 responseReview(request)
-{//TODO 访问数据库，获取任务中的单词，并转换为JSON
- // return new Response.ok("Word");//可以返回数据库中的数据，修改“”
+{//todo 访问数据库，获取任务中的单词，并转换为JSON
+  // return new Response.ok("Word");//可以返回数据库中的数据，修改“”
 }
 
 ///获取学生所选择任务的所有单词信息，包括总共的单词英文、中文、发音，以及两个不正确的中文意思
 responseTest(request)
 {//todo 访问数据库，获取登录学生选择测试任务的数据，并转换为JSON
- // return new Response.ok("Test");//可以返回数据库中的数据，修改“”
+  // return new Response.ok("Test");//可以返回数据库中的数据，修改“”
 }
 ///获取学生该次听写任务的正确或者错误结果数据
 responseResult(request)
 {//todo 访问数据库，从已完成任务表中获取登录学生本次测试任务结果的数据，并转换为JSON
- // return new Response.ok("Result");//可以返回数据库中的数据，修改“”
+  // return new Response.ok("Result");//可以返回数据库中的数据，修改“”
 }
+
+responseTeaSignUp(request) async{
+  //todo 将教师的注册信息写入数据库
+  request.readAsString().then(insertDataBase);
+  //
+  return (new Response.ok('success!',headers: _headers));
+}
+
+insertDataBase(data) async{
+  String username;
+  String userClass;
+  String password;
+  Map realdata=JSON.decode(data);
+  username=realdata['Username'].toString();
+  userClass=realdata['Class'].toString();
+  password=realdata['Password'].toString();
+  //todo 将数据存入数据库
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
+  var result=await query.execute([username,password,userClass,'tea']);
+}
+
 
 ///将教师的布置任务数据写入数据库
 responseTeaWriteTask(request){
