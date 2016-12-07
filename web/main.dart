@@ -255,9 +255,27 @@ void SStuSignUp(RouteEvent e) {
 }
 /// 接受用户点击教师注册按钮的响应
 /// 参数[event]是鼠标事件....
+///此处为参考代码
 void TeaSignUp(MouseEvent event){
   //todo 将数据写入数据库中的用户信息表，并将身份属性值设为tea
   //todo 显示注册成功界面
+  //Map data={"Username":"${signupUserName}","Class":"${signupClass}","Password":"${signupPassword}"};//这里调试会有问题，服务器连不上，无value可以连上服务器，但是时空值
+  //Map data={"Username":"jiang"};//这种写法是可以的
+  Map data={"Username":"jianghuimin","Class":"class2","Password":"6712"};
+  var jsonData=JSON.encode(data);
+  HttpRequest request=new HttpRequest();//create a new XHR=XMLHttpRequest
+  //add a event handler that is called when the request is finished
+  request.onReadyStateChange.listen((_){
+    if(request.readyState == HttpRequest.DONE &&
+        (request.status == 200 || request.status ==0)){
+      //data saved
+      print(request.responseText);//output the response from the server
+    }
+  });
+  //post data to the server
+  var url="http://127.0.0.1:14080/teacher_signup";
+  request.open("POST",url,async:false);
+  request.send(jsonData);//perform the post
 }
 
 /// 接受用户点击注册成功确定按钮的响应
