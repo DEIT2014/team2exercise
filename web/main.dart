@@ -3,8 +3,10 @@
 
 import 'dart:html';
 import 'dart:core';
+import 'dart:async';
 import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
+
 var localhost="127.0.0.1:14080";
 InputElement signin_username;//登录界面的用户名变量
 InputElement signin_password;//登录界面的密码变量
@@ -13,6 +15,8 @@ InputElement signup_class;//注册界面的班级变量
 InputElement signup_password;//注册界面的密码变量
 InputElement signup_confirmpw;//注册界面确认密码的变量
 var test_word;//学生听写写入的单词
+//var PassWord;
+//var ConPassWord;
 
 void main() {
   /// 登录界面
@@ -31,9 +35,9 @@ void main() {
   signup_class=querySelector('#SignUp_Class');//输入班级
   signup_password=querySelector('#SignUp_Password');//输入密码
   signup_confirmpw=querySelector('#SignUp_ConfirmPW');//确认密码
-  querySelector('#SignUp_Stu_Btn')
-    ..text='学生注册'
-    ..onClick.listen(StuSignUp);//学生注册按钮
+
+  var SignUp_Stu_Btn=querySelector('#SignUp_Stu_Btn');//学生注册按钮
+  SignUp_Stu_Btn.onClick.listen(StuSignUp);
   querySelector('#SignUp_Tea_Btn')
     ..text='教师注册'
     ..onClick.listen(TeaSignUp);//教师注册按钮
@@ -219,8 +223,36 @@ void TeaSignIn(RouteEvent e) {
 void StuSignUp(MouseEvent event){
   //todo 将数据写入数据库中的用户信息表，并将身份属性值设为stu
   //todo 显示注册成功界面
-}
 
+    if(signup_password.value==signup_confirmpw.value)
+  {
+
+    //显示注册成功界面
+  var router1 = new Router(useFragment: true);
+    router1.root
+      ..addRoute(
+          name: 'SStuSignUp', path: '/stu/signup/succeed', enter: SStuSignUp);
+    querySelector('#SignUp_Stu_Btn').attributes['href'] =
+        router1.url('SStuSignUp');
+    router1.listen();
+
+    //post数据
+  }
+  else
+  {
+    querySelector("#signuperror").text="两次输入密码不同，请重新输入！";
+  }
+}
+void SStuSignUp(RouteEvent e) {
+  document
+      .querySelector('#SucSignUp_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#SignUp_Div_Form')
+      .style
+      .display = "none";
+}
 /// 接受用户点击教师注册按钮的响应
 /// 参数[event]是鼠标事件....
 void TeaSignUp(MouseEvent event){
