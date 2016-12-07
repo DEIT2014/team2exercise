@@ -98,14 +98,15 @@
                 <option value="1班">1班</option>
                 <option value="2班">2班</option>
             </select></p>
-            <p>密&#8197&#8197&#8197&#8197&#8197&#8197码:<input type="password" name="SignUp_Password"></p>
-            <p>确认密码:<input type="password" name="SignUp_ConfirmPW"></p>
+            <p>密&#8197&#8197&#8197&#8197&#8197&#8197码:<input  type="password" id="SignUp_Password"></p>
+            <p>确认密码:<input type="password" id="SignUp_ConfirmPW"></p>
                 <br>
             <nav>
-                <a href="" id="SignUp_Stu_Btn" title="SignUp_Stu_Btn">学生注册</a>
+                <a  href="javascript:void(0)" id="SignUp_Stu_Btn" title="SignUp_Stu_Btn" >学生注册</a>
                 &nbsp;
-                <a href="" id="SignUp_Tea_Btn" title="SignUp_Tea_Btn">教师注册</a>
+                <a href="javascript:void(0)" id="SignUp_Tea_Btn" title="SignUp_Tea_Btn">教师注册</a>
             </nav>
+                <p id="signuperror"></p>
                 </div>
         </form>
 
@@ -120,7 +121,7 @@
 <form id="SucSignUp_Div">
             <p>Congratulations, your user name has been registered successfully!</p>
             <p>Now you can login your account.</p>
-            <button id="SucSignUp_Btn">返回登录界面</button>
+            <a id="SucSignUp_Btn" href="index.html">返回登录界面</a>
 </form>
 </div>
 
