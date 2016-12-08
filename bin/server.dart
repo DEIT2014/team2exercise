@@ -22,6 +22,7 @@ void main() {
     ..get('/test/get',responseTest)
     ..get('/result',responseResult)
   //post
+    ..post('/student_signup',responseStuSignUp)
     ..post('/teacher_signup',responseTeaSignUp)
     ..post('/teacher_writetask',responseTeaWriteTask)
     ..post('/student_test/post',responseStuTest);
@@ -85,25 +86,46 @@ responseResult(request)
   // return new Response.ok("Result");//可以返回数据库中的数据，修改“”
 }
 
-responseTeaSignUp(request) async{
-  //todo 将教师的注册信息写入数据库
-  request.readAsString().then(insertDataBase);
+///
+responseStuSignUp(request) async{
+  //todo
+  request.readAsString().then(insertDataBaseStu);
   //
   return (new Response.ok('success!',headers: _headers));
 }
-
-insertDataBase(data) async{
+insertDataBaseStu(data) async{
   String username;
   String userClass;
   String password;
   Map realdata=JSON.decode(data);
-  username=realdata['Username'].toString();
-  userClass=realdata['Class'].toString();
-  password=realdata['Password'].toString();
+  username=realdata['Username'];
+  userClass=realdata['Class'];
+  password=realdata['Password'];
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  var result=await query.execute([username,password,userClass,'tea']);
+  var result=await query.execute([username,userClass,password,'stu']);
+}
+
+responseTeaSignUp(request) async{
+  //todo 将教师的注册信息写入数据库
+  request.readAsString().then(insertDataBaseTea);
+  //
+  return (new Response.ok('success!',headers: _headers));
+}
+
+insertDataBaseTea(data) async{
+  String username;
+  String userClass;
+  String password;
+  Map realdata=JSON.decode(data);
+  username=realdata['Username'];
+  userClass=realdata['Class'];
+  password=realdata['Password'];
+  //todo 将数据存入数据库
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
+  var result=await query.execute([username,userClass,password,'tea']);
 }
 
 
