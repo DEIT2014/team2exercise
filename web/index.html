@@ -85,6 +85,7 @@
                 &nbsp;
                 <a  href="" id="SignUp_Btn" title="SignUp">注册</a>
             </nav>
+            <p id="SignIn_Error"></p>
             </form>
 
 
@@ -93,10 +94,10 @@
             <hr width="100%" style="opacity: 0.20"><!--分割线 -->
             <br>
             <div style="padding-left: 40px">
-            <p>用&#8197户&#8197名:<input type="text" name="SignUp_Username"> <!--value="username" <!--style="color: darkgray;"onfocus="this.value=''" onblur="if(this.value==''){this.value='username'}" /--></p>
-            <p>班&#8197&#8197&#8197&#8197&#8197&#8197级:<select name="SignUp_Class">
-                <option value="1班">1班</option>
-                <option value="2班">2班</option>
+            <p>用&#8197户&#8197名:<input type="text" id="SignUp_Username"> <!--value="username" <!--style="color: darkgray;"onfocus="this.value=''" onblur="if(this.value==''){this.value='username'}" /--></p>
+            <p>班&#8197&#8197&#8197&#8197&#8197&#8197级:<select id="SignUp_Class">
+                <option value="class1">class1</option>
+                <option value="class2">class2</option>
             </select></p>
             <p>密&#8197&#8197&#8197&#8197&#8197&#8197码:<input  type="password" id="SignUp_Password"></p>
             <p>确认密码:<input type="password" id="SignUp_ConfirmPW"></p>
@@ -110,9 +111,7 @@
                 </div>
         </form>
 
-        <form id="SignUp_Error">
-            Sorry, login failed. Please input right user name and password.
-        </form>
+
     </div>
 </div><!--登录界面背景-->
 
