@@ -89,14 +89,16 @@ responseResult(request)
 ///
 responseStuSignUp(request) async{
   //todo
-  request.readAsString().then(insertDataBaseStu);
+  var responseDBText=await request.readAsString().then(insertDataBaseStu);
   //
+  print(responseDBText);
   return (new Response.ok('success!',headers: _headers));
 }
 insertDataBaseStu(data) async{
   String username;
   String userClass;
   String password;
+  String responseText;
   Map realdata=JSON.decode(data);
   username=realdata['Username'];
   userClass=realdata['Class'];
@@ -104,13 +106,20 @@ insertDataBaseStu(data) async{
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  var result=await query.execute([username,password,userClass,'stu']);
+  await query.execute([username,password,userClass,'stu']).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+    return responseText;
+  }).catchError((error){
+    print('$error');
+    responseText=error.toString();
+    return responseText;
+  });
 }
 
 responseTeaSignUp(request) async{
   //todo 将教师的注册信息写入数据库
   request.readAsString().then(insertDataBaseTea);
-  //
   return (new Response.ok('success!',headers: _headers));
 }
 
@@ -126,6 +135,7 @@ insertDataBaseTea(data) async{
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
   var result=await query.execute([username,password,userClass,'tea']);
+  print('${result.insertId}');//如果插入成功，这会是0，否则会报错
 }
 
 
