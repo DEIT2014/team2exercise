@@ -6,6 +6,7 @@ import 'dart:core';
 import 'dart:io';
 import 'dart:convert';
 
+String responseText;//注册时返回到客户端的数据：写入数据库成功，返回0；失败，返回错误值，不为0
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
   "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
@@ -88,17 +89,28 @@ responseResult(request)
 
 ///
 responseStuSignUp(request) async{
-  //todo
-  var responseDBText=await request.readAsString().then(insertDataBaseStu);
-  //
-  print(responseDBText);
+  //todo 学生注册
+  /**有问题的
+  var responseDBText=await request.readAsString().then(insertDataBaseStu);//then返回的到底是什么，怎么样获取insertDataBaseStu的返回值，_Future类的值怎么取？
+  String realText=responseDBText.toString();
+  print(realText);
   return (new Response.ok('success!',headers: _headers));
+      **/
+  await request.readAsString().then(insertDataBaseStu);
+  //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
+  if(responseText == '0'){
+    return (new Response.ok('success',headers: _headers));
+  }
+  else{
+    return (new Response.ok('failure',headers: _headers));
+  }
+
 }
+///对读取到的客户端学生注册的信息进行处理
 insertDataBaseStu(data) async{
   String username;
   String userClass;
   String password;
-  String responseText;
   Map realdata=JSON.decode(data);
   username=realdata['Username'];
   userClass=realdata['Class'];
@@ -109,18 +121,23 @@ insertDataBaseStu(data) async{
   await query.execute([username,password,userClass,'stu']).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
-    return responseText;
   }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
     print('$error');
     responseText=error.toString();
-    return responseText;
   });
 }
 
 responseTeaSignUp(request) async{
   //todo 将教师的注册信息写入数据库
-  request.readAsString().then(insertDataBaseTea);
-  return (new Response.ok('success!',headers: _headers));
+  await request.readAsString().then(insertDataBaseTea);
+  //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
+  if(responseText == '0'){
+    return (new Response.ok('success',headers: _headers));
+  }
+  else{
+    return (new Response.ok('failure',headers: _headers));
+  }
 }
 
 insertDataBaseTea(data) async{
@@ -134,8 +151,14 @@ insertDataBaseTea(data) async{
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  var result=await query.execute([username,password,userClass,'tea']);
-  print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+  await query.execute([username,password,userClass,'tea']).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+  }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
+    print('$error');
+    responseText=error.toString();
+  });
 }
 
 
