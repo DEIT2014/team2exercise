@@ -104,7 +104,7 @@ insertDataBaseStu(data) async{
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  var result=await query.execute([username,userClass,password,'stu']);
+  var result=await query.execute([username,password,userClass,'stu']);
 }
 
 responseTeaSignUp(request) async{
@@ -125,7 +125,7 @@ insertDataBaseTea(data) async{
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  var result=await query.execute([username,userClass,password,'tea']);
+  var result=await query.execute([username,password,userClass,'tea']);
 }
 
 

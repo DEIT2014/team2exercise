@@ -260,23 +260,53 @@ void TeaSignIn(RouteEvent e) {
 void StuSignUp(MouseEvent event) {
   //todo 将数据写入数据库中的用户信息表，并将身份属性值设为stu
   //todo 显示注册成功界面
-
-  if (signup_password.value == signup_confirmpw.value) {
-    //显示注册成功界面
-    var router1 = new Router(useFragment: true);
-    router1.root
-      ..addRoute(
-          name: 'SStuSignUp', path: '/stu/signup/succeed', enter: SStuSignUp);
-    querySelector('#SignUp_Stu_Btn').attributes['href'] =
-        router1.url('SStuSignUp');
-    router1.listen();
-    //post数据
-
-
+  var SignUpUserName= signup_username.value;
+  var SignUpClass=signup_class.value;
+  var SignUpPassword=signup_password.value;
+  var SignUpConPassword=signup_confirmpw.value;
+  if(SignUpUserName==''||  SignUpPassword=='' || SignUpConPassword=='')
+  {
+    querySelector("#signuperror").text="用户名和密码不能为空！";
   }
-  else {
-    querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
+  //if(SignUpUserName!=null && SignUpPassword!=null && SignUpConPassword!=null)
+  else{
+    if (signup_password.value == signup_confirmpw.value) {
+      //Map data = {"Username":"jianghuimin", "Class":"class2", "Password":"6712"};
+      Map data = {
+        "Username":'${SignUpUserName}',
+        "Class":'${SignUpClass}',
+        "Password":'${SignUpPassword}'
+      };
+      var jsonData = JSON.encode(data);
+      HttpRequest request = new HttpRequest(); //create a new XHR=XMLHttpRequest
+      //add a event handler that is called when the request is finished
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE &&
+            (request.status == 200 || request.status == 0)) {
+          //data saved
+          print(request.responseText); //output the response from the server
+        }
+      });
+      //post data to the server
+      var url = "http://127.0.0.1:14080/student_signup";
+      request.open("POST", url, async: false);
+      request.send(jsonData); //perform the post
+
+      //显示注册成功界面
+      var router2 = new Router(useFragment: true);
+      router2.root
+        ..addRoute(
+            name: 'SStuSignUp', path: '/stu/signup/succeed', enter: SStuSignUp);
+      querySelector('#SignUp_Stu_Btn').attributes['href'] =
+          router2.url('SStuSignUp');
+      router2.listen();
+    }
+    else{
+      querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
+    }
   }
+
+
 }
 
 void SStuSignUp(RouteEvent e) {
@@ -293,7 +323,7 @@ void SStuSignUp(RouteEvent e) {
 /// 接受用户点击教师注册按钮的响应
 /// 参数[event]是鼠标事件....
 ///此处为参考代码
-Future TeaSignUp(MouseEvent event) async{
+void TeaSignUp(MouseEvent event) {
   //todo 将数据写入数据库中的用户信息表，并将身份属性值设为tea
   //todo 显示注册成功界面
   //这里调试会有问题，服务器连不上，无value可以连上服务器，但是时空值
@@ -301,36 +331,46 @@ Future TeaSignUp(MouseEvent event) async{
   var SignUpUserName= signup_username.value;
   var SignUpClass=signup_class.value;
   var SignUpPassword=signup_password.value;
-  //var SignUpConPassword=signup_confirmpw.value;
-  if (signup_password.value == signup_confirmpw.value) {
-   //Map data = {"Username":"jianghuimin", "Class":"class2", "Password":"6712"};
-    Map data=await{"Username":'${SignUpUserName}',"Class":'${SignUpClass}',"Password":'${SignUpPassword}'};
-    var jsonData = JSON.encode(data);
-    HttpRequest request = new HttpRequest(); //create a new XHR=XMLHttpRequest
-    //add a event handler that is called when the request is finished
-    request.onReadyStateChange.listen((_) {
-      if (request.readyState == HttpRequest.DONE &&
-          (request.status == 200 || request.status == 0)) {
-        //data saved
-        print(request.responseText); //output the response from the server
-      }
-    });
-    //post data to the server
-    var url = "http://127.0.0.1:14080/teacher_signup";
-    request.open("POST", url, async: false);
-    request.send(jsonData); //perform the post
-
-    //显示注册成功界面
-    var router2 = new Router(useFragment: true);
-    router2.root
-      ..addRoute(
-          name: 'STeaSignUp', path: '/tea/signup/succeed', enter: SStuSignUp);
-    querySelector('#SignUp_Tea_Btn').attributes['href'] =
-        router2.url('STeaSignUp');
-    router2.listen();
+  var SignUpConPassword=signup_confirmpw.value;
+  if(SignUpUserName==''||  SignUpPassword=='' || SignUpConPassword=='')
+  {
+    querySelector("#signuperror").text="用户名和密码不能为空！";
   }
   else {
-    querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
+    if (signup_password.value == signup_confirmpw.value) {
+      //Map data = {"Username":"jianghuimin", "Class":"class2", "Password":"6712"};
+      Map data = {
+        "Username":'${SignUpUserName}',
+        "Class":'${SignUpClass}',
+        "Password":'${SignUpPassword}'
+      };
+      var jsonData = JSON.encode(data);
+      HttpRequest request = new HttpRequest(); //create a new XHR=XMLHttpRequest
+      //add a event handler that is called when the request is finished
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE &&
+            (request.status == 200 || request.status == 0)) {
+          //data saved
+          print(request.responseText); //output the response from the server
+        }
+      });
+      //post data to the server
+      var url = "http://127.0.0.1:14080/teacher_signup";
+      request.open("POST", url, async: false);
+      request.send(jsonData); //perform the post
+
+      //显示注册成功界面
+      var router2 = new Router(useFragment: true);
+      router2.root
+        ..addRoute(
+            name: 'STeaSignUp', path: '/tea/signup/succeed', enter: SStuSignUp);
+      querySelector('#SignUp_Tea_Btn').attributes['href'] =
+          router2.url('STeaSignUp');
+      router2.listen();
+    }
+    else {
+      querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
+    }
   }
 }
 
