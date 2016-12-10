@@ -21,9 +21,200 @@
 <body>
 
 <div id="Background_Sign">
+    <form id="finished">
+        <div style="    height:50%;width:50%;background-color: white;opacity: 0.70;/*设置透明度*/top: 25%;left:25%; position: absolute;text-align: center;">
+    <div id="finished_task_show"></div>
+        <br><br><br> <br><br><br><br><br><br> <br><br><br>
+        <a href="" id="finished_return">返回学生首页</a>
+    </div>
+    </form>
+    <form id="result">
+        <div style="    width:100%;height:80%;position: absolute;top: 50px;background-color:white;opacity: 0.70;/*设置透明度*/text-align: center;">
+            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
+                <p style="font-size: 20px;letter-spacing:10px;">学生姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
+                Result<br>
+                <div id=" 	result_correct_num"></div>
+                <div id="result_wrong_one">错误1</div>
+                <div id="result_wrong_two">错误2</div>
+                <div id="result_wrong_three">错误3</div>
+                <div id="result_wrong_four">错误4</div>
+                <div id="result_wrong_five">错误5</div>
+                <a href="" id="result_return">返回学生主界面</a>
+            </div>
+        </div>
+    </form>
+    <form id="test">
+        <div style="    width:100%;height:80%;position: absolute;top: 50px;background-color:white;opacity: 0.70;/*设置透明度*/text-align: center;">
+            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
+                <p style="font-size: 20px;letter-spacing:10px;">学生姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
+                <table>
+                    <tr>
+                        <td id="test_now_num"></td>
+                        <td id="test_total_num"></td>
+                    </tr>
+                </table>
+                <div>
+                    <p>Listen and Write</p>
+                    请写下你听到的单词：<br><br>
+                    <input type="text" name="test_word">
+                    <br><br>
+                    请选出最匹配的中文释义：<br><br>
+                    <input type="checkbox" name="test_option_one">香蕉
+                    <input type="checkbox" name="test_option_two">苹果
+                    <input type="checkbox" name="test_option_three">橘子
+                </div>
+                <a href="" id="test_submit">提交</a>
+            </div>
+        </div>
+    </form>
+    <form id="review">
+        <div id="review_small">
+            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
+                <p style="font-size: 20px;letter-spacing:10px;">学生姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
+                <table>
+                    <tr>
+                        <td id="review_now_num">1</td>
+                        <td>/</td>
+                        <td id="review_total_num">20</td>
+                    </tr>
+                </table>
+                <div id="">
+                    <div id="review_word">apple</div>
+                    <a href="" id="review_voice">Voice</a>
+                    <a href="" id=" 	review_change">Chinese/English</a>
+                </div>
+                <a href="" id="review_next">下一个</a>
+                <a href="" id="review_again">再次复习</a>
+                <a href="" id="review_test">测试</a>
+            </div>
+        </div>
+    </form>
+    <form id="SucAssignWord_Div">
+        <div id="SucAssignWord_Div_small" >
+            <br><br><br><br><br>
+            The task has been released.<br><br><br>
+            <a href id="SucAssignWord_Btn">返回教师主界面</a>
+        </div>
+    </form>
+    <form id="ConfirmWord_Div">
+        <div id="ConfirmWord_Show">
+            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
+                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 -->
+                <table>
+                    <tr>
+                        <td id="">已选择的单词</td>
+                    </tr>
+                    <tr>
+                        <td>apple</td>
+                        <td>link</td>
+                    </tr>
+                </table>
+                <a href="" id="ConfirmWord_Confirm_Btn">确认</a>
+                <a href="" id="ConfirmWord_Reselect_Btn">重新选择</a>
+            </div>
+        </div>
+    </form>
+    <form id="AssignWork_Div">
+        <div id="AssignWork_WordList">
+            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
+                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 -->
+                请选择下列单词<br>
+                <input type="checkbox" id="vehicle1" value="Bike">bike
+                <br>
+                <input type="checkbox" id="vehicle2" value="Car">car
+                <br><br>
+                <input type="submit" id="AssignWork_Btn" value="提交">
+            </div>
+        </div>
+    </form>
+    <form id="Ftask_Div">
+        <div id="Ftask_Content">
+            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
+                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
+                <table style="width:100%;">
+                    <tr>
+                        <td>没有取id名的表头（第x单元完成情况）</td>
+                    </tr>
+                    <tr>
+                        <td>姓名</td>
+                        <td>完成情况</td>
+                    </tr>
+                    <td>李华</td>
+                    <td>98</td>
+                </table>
+                <a href id="Ftask_Btn">返回教师主界面</a>
+            </div>
+        </div>
+    </form>
+    <form id="student">
+        <div id="student_small">
+            <div id="stu_task">
+                <br><br><br>
+                <p style="font-size: 20px;letter-spacing:10px;">学生姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
 
+                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
 
+                Assignment<br><br>
+                <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务<br>
+                <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务<br>
+                <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务<br>
+                <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务<br>
+            </div><br><br>
+            <a href id="stu_review">复习</a>&nbsp;&nbsp;
+            <a href id="stu_test">测试</a>
+        </div>
+    </form>
+    <form id="Teacher_Div">
 
+        <div id="Teacher_Div_small">
+            <div id="Teacher_Div_small1">
+                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 -->
+
+                <div id="Teacher_Unit">
+                    布置新任务<br><br>
+                    <select>
+                        <option id="六年级上册">六年级上册</option>
+                        <option id="六年级下册">六年级下册</option>
+                    </select><br><br><br>
+                    <a href id="">确认</a>
+                </div>
+                <div id="Teacher_Ftask">
+                    以往任务的完成情况<br><br>
+                    <table style="width:100%;border:dashed 1px ;">
+                        <tr>
+                            <td style="border-bottom:dashed 1px ;">第一单元完成情况</td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:dashed 1px ;">第二单元完成情况</td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:dashed 1px ;">第三单元完成情况</td>
+                        </tr>
+                        <tr>
+                            <td>第四单元完成情况</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <form id="Background_Soe"><!--注册成功的界面-->
+        <div id="SucSignUp_Div">
+            <br><br><br><br><br>
+            Congratulations, your user name has been registered successfully!
+            <p>Now you can login your account.</p>
+            <br>
+            <a href="" id="SucSignUp_Btn" title="SucSignUp_Btn">返回登录界面</a>
+        </div>
+    </form>
     <div id="SignIn_Div">
 
         <div id="SignIn_Div_back"><!--首页滚动的诗歌-->
@@ -116,211 +307,18 @@
                 </nav>
             </div>
         </form>
-
-
-
     </div>
-
 </div><!--登录界面背景-->
 
 
 
-<form id="student">
-    <div id="student_small">
-        <div id="stu_task">
-            <br><br><br>
-            <p style="font-size: 20px;letter-spacing:10px;">学生姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
-
-            <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
-
-            Assignment<br><br>
-            <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务<br>
-            <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务<br>
-            <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务<br>
-            <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务<br>
-        </div><br><br>
-        <a href id="stu_review">复习</a>&nbsp;&nbsp;
-        <a href id="stu_test">测试</a>
-    </div>
-</form>
-<form id="Teacher_Div">
-
-    <div id="Teacher_Div_small">
-        <div id="Teacher_Div_small1">
-            <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
-            <hr width="100%" style="opacity: 0.20"><!--分割线 -->
-
-            <div id="Teacher_Unit">
-                布置新任务<br><br>
-                <select>
-                    <option id="六年级上册">六年级上册</option>
-                    <option id="六年级下册">六年级下册</option>
-                </select><br><br><br>
-                <a href id="">确认</a>
-            </div>
-            <div id="Teacher_Ftask">
-                以往任务的完成情况<br><br>
-                <table style="width:100%;border:dashed 1px ;">
-                    <tr>
-                        <td style="border-bottom:dashed 1px ;">第一单元完成情况</td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom:dashed 1px ;">第二单元完成情况</td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom:dashed 1px ;">第三单元完成情况</td>
-                    </tr>
-                    <tr>
-                        <td>第四单元完成情况</td>
-                    </tr>
-                </table>
-            </div>
-
-        </div>
-    </div>
-</form>
-<form id="Background_Soe"><!--注册成功的界面-->
-
-    <div id="SucSignUp_Div">
-        <br><br><br><br><br>
-        Congratulations, your user name has been registered successfully!
-        <p>Now you can login your account.</p>
-        <br>
-        <a href="" id="SucSignUp_Btn" title="SucSignUp_Btn">返回登录界面</a>
-    </div>
-</form>
 
 
 
 
-<div id="Ftask_Div">
-<div id="Ftask_Content">
-    <table style="width:100%;">
-    <tr>
-        <td>没有取id名的表头（第x单元完成情况）</td>
-    </tr>
-    <tr>
-        <td>姓名</td>
-        <td>完成情况</td>
-    </tr>
-        <td>李华</td>
-        <td>98</td>
-        </table>
-    <button id="Ftask_Btn">返回教师主界面</button>
-</div>
-</div>
-
-
-<div id="AssignWork_Div">
-<div id="AssignWork_WordList">
-<form>
-    请选择下列单词<br>
-    <input type="checkbox" name="vehicle" value="Bike">bike
-    <br>
-    <input type="checkbox" name="vehicle" value="Car">car
-    <br><br>
-    <input type="submit" name="AssignWork_Btn" value="提交">
-</form>
-    </div>
-</div>
-
-<div id="ConfirmWord_Div">
-<div id="ConfirmWord_Show">
-<table>
-    <tr>
-        <td id="">已选择的单词</td>
-    </tr>
-    <tr>
-        <td>apple</td>
-        <td>link</td>
-    </tr>
-</table>
-<button id="ConfirmWord_Confirm_Btn">确认</button>
-<button id="ConfirmWord_Reselect_Btn">重新选择</button>
-    </div>
-</div>
-
-<div id="SucAssignWord_Div">
-<div id="SucAssignWord_Div_small" >
-The task has been released.
-<button id="SucAssignWord_Btn">返回教师主界面</button>
-</div>
-</div>
 
 
 
-<div id="review">
-<div id="review_small">
-<table>
-    <tr>
-        <td id="review_now_num">1</td>
-        <td>/</td>
-        <td id="review_total_num">20</td>
-    </tr>
-</table>
-<div id="">
-    <div id="review_word">apple</div>
-    <button id="review_voice">Voice</button>
-    <button id=" 	review_change">Chinese/English</button>
-</div>
-<button id="review_next">下一个</button>
-<button id="review_again">再次复习</button>
-<button id="review_test">测试</button>
-</div>
-</div>
 
-<div id="test">
-<table>
-    <tr>
-        <td id="test_now_num"></td>
-        <td id="test_total_num"></td>
-    </tr>
-</table>
-<form>
-    <p>Listen and Write</p>
-    请写下你听到的单词：<br><br>
-    <input type="text" name="test_word">
-    <br><br>
-    请选出最匹配的中文释义：<br><br>
-    <input type="checkbox" name="test_option_one">香蕉
-    <input type="checkbox" name="test_option_two">苹果
-    <input type="checkbox" name="test_option_three">橘子
-</form>
-<button id="test_submit">提交</button>
-</div>
-
-<div id="result">
-<div id="">
-    Result<br>
-    <div id=" 	result_correct_num"></div>
-    <div id="result_wrong_one">错误1</div>
-    <div id="result_wrong_two">错误2</div>
-    <div id="result_wrong_three">错误3</div>
-    <div id="result_wrong_four">错误4</div>
-    <div id="result_wrong_five">错误5</div>
-</div>
-<button id="result_return">返回学生主界面</button>
-</div>
-
-<div id="finished">
-已完成任务情况<br><br>
-<div>
-    <table>
-        <tr>
-            <td id="finished_task_one">第一单元</td>
-        </tr>
-        <tr>
-            <td id="finished_task_two">第二单元</td>
-        </tr>
-        <tr>
-            <td id="finished_task_three">第三单元</td>
-        </tr>
-    </table>
-</div>
-<div id="finished_task_show">
-
-</div>
-<button id="finished_return">返回学生首页</button>
-</div>
 </body>
 </html>
