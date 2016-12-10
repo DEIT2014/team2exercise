@@ -7,9 +7,9 @@ html, body {
     padding: 0;
     font-family: 微软雅黑;
 }
-form{
+/*form{
     display:none;
-}
+}*/
 a{
     border: solid gray 1px;/*设置边框属性*/
     padding-left: 15px;
@@ -223,4 +223,9 @@ hr.style-five {
     height:100%;
     margin:auto;
     background-color:#ccffff;
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> parent of b6fd946... 界面全部修改完成
