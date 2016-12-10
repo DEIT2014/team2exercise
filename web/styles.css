@@ -7,16 +7,16 @@ html, body {
     padding: 0;
     font-family: 微软雅黑;
 }
-form{
+/*form{
     display:none;
-}
+}*/
 a{
     border: solid gray 1px;/*设置边框属性*/
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
-   border-radius: 20px;/*设置圆角属性*/
+    border-radius: 20px;/*设置圆角属性*/
     font-color: #000000;
     word-spacing: 10px; /*设置字体间距*/
 }
@@ -24,6 +24,9 @@ a:link {color: black; text-decoration:none;} /*未访问：蓝色、无下划线
 a:active{color: black;text-decoration:none; } /*激活：红色*/
 a:visited {color:black;text-decoration:none;} /*已访问：purple、无下划线*/
 a:hover {color: steelblue; text-decoration:none;} /*/鼠标移近：红色、下划线*/
+
+
+
 
 
 
@@ -40,7 +43,6 @@ hr.style-five {
     background-color:#66cc99;
     height:100%;
     width:100%;
-    position: relative;
 }
 #SignIn_Div{
     height:100%;
@@ -54,7 +56,7 @@ hr.style-five {
     right:0%;
     width: 300px;
     height: 100%;
-    padding-top:10%;
+    /*padding-top:10%;*/
     text-align: center;
     opacity: 0.85;/*设置透明度*/
 }
@@ -84,53 +86,47 @@ hr.style-five {
     right:0%;
     width: 300px;
     height: 100%;
-    padding-top:5%;
+    /* padding-top:5%;*/
     text-align: left;
     opacity: 0.85;/*设置透明度*/
 }
-#SignUp_Error{
-    float: right;
-    background-color: white;
-    position: absolute;
-    right:0%;
-    width: 300px;
-    height: 100%;
-    padding-top:30%;
-    text-align: center;
-    opacity: 0.85;/*设置透明度*/
-}
+
 #Background_Soe{
     height:100%;
     width:100%;
     background-image: url("img/background3.jpg");
-    position: relative;
 }
 #SucSignUp_Div{
     height:50%;
     width:50%;
     background-color: white;
     opacity: 0.70;/*设置透明度*/
-    padding-top: 200px;
-    padding-right: 500px;
+    top: 25%;
+    left:25%;
+    position: absolute;
+    text-align: center;
 }
-
-
-
-
-
-
 
 
 #Teacher_Div{
     height:100%;
     width:100%;
-    background-color:#66cc99;
+    background-image: url("img/background4.jpg");
 }
 #Teacher_Div_small{
-    width:80%;
-    height:100%;
-    background-color:#ccffff;
-    margin:auto;
+    width:100%;
+    height:80%;
+    position: absolute;
+    top: 50px;
+    background-color:white;
+    opacity: 0.70;/*设置透明度*/
+}
+#Teacher_Div_small1{
+    width:60%;
+    height:80%;
+    position: absolute;
+    top: 50px;
+    padding-left: 20px;
 }
 #Teacher_Unit{
     margin: 10px 0;
@@ -138,6 +134,7 @@ hr.style-five {
     width:48%;
     float:left;
     padding: 10px;
+    position: absolute;
 }
 #Teacher_Ftask{
     margin: 10px 0;
@@ -145,6 +142,8 @@ hr.style-five {
     width:48%;
     float:right;
     padding:10px;
+    position: absolute;
+    margin-left: 30%;
 }
 #Ftask_Div{
     height:100%;
@@ -194,13 +193,17 @@ hr.style-five {
 #student{
     height:100%;
     width:100%;
-    background-color:#66cc99;
+    background-image: url("img/background5.jpg");
 }
 #student_small{
-    width:80%;
-    height:100%;
-    margin:auto;
-    background-color:#ccffff;
+    width:100%;
+    height:80%;
+    position: absolute;
+    top: 50px;
+    background-color:white;
+    opacity: 0.70;/*设置透明度*/
+    text-align: center;
+
 }
 #review{
     height:100%;
@@ -231,3 +234,4 @@ hr.style-five {
     margin:auto;
     background-color:#ccffff;
 }
+
