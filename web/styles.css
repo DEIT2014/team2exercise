@@ -18,7 +18,7 @@ a{
     padding-bottom: 10px;
     border-radius: 20px;/*设置圆角属性*/
     font-color: #000000;
-    word-spacing: 10px; /*设置字体间距*/
+    word-spacing: 10px; /*设置字体间1距*/
 }
 a:link {color: black; text-decoration:none;} /*未访问：蓝色、无下划线*/
 a:active{color: black;text-decoration:none; } /*激活：红色*/
