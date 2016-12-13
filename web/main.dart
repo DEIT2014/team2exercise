@@ -291,7 +291,7 @@ void StuSignUp(MouseEvent event) {
             var router2 = new Router(useFragment: true);
             router2.root
               ..addRoute(
-                  name: 'SStuSignUp', path: '/stu/signup/succeed', enter: SStuSignUp);
+                  name: 'SStuSignUp', path: '/stu/signup/succeed', enter: SSignUp);
             querySelector('#SignUp_Stu_Btn').attributes['href'] =
                 router2.url('SStuSignUp');
             router2.listen();
@@ -317,9 +317,9 @@ void StuSignUp(MouseEvent event) {
   //end 用户名和密码是否为空的if
 }
 
-void SStuSignUp(RouteEvent e) {
+void SSignUp(RouteEvent e) {
   document
-      .querySelector('#SucSignUp_Div')
+      .querySelector('#Background_Soe')
       .style
       .display = "block";
   document
@@ -327,16 +327,7 @@ void SStuSignUp(RouteEvent e) {
       .style
       .display = "none";
 }
-void STeaSignUp(RouteEvent e) {
-  document
-      .querySelector('#SucSignUp_Div')
-      .style
-      .display = "block";
-  document
-      .querySelector('#SignUp_Div_Form')
-      .style
-      .display = "none";
-}
+
 
 /// 接受用户点击教师注册按钮的响应
 /// 参数[event]是鼠标事件....
@@ -375,7 +366,7 @@ void TeaSignUp(MouseEvent event) {
             var router2 = new Router(useFragment: true);
             router2.root
               ..addRoute(
-                  name: 'STeaSignUp', path: '/tea/signup/succeed', enter: STeaSignUp);
+                  name: 'STeaSignUp', path: '/tea/signup/succeed', enter: SSignUp);
             querySelector('#SignUp_Tea_Btn').attributes['href'] =
                 router2.url('STeaSignUp');
             router2.listen();
