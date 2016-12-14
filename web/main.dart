@@ -9,13 +9,15 @@ import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
 
 var localhost = "127.0.0.1:14080";
-InputElement signin_username; //登录界面的用户名变量
+InputElement signin_userid; //登录界面的ID变量
 
 InputElement signin_password; //登录界面的密码变量
 
 InputElement signup_username; //注册界面的用户名变量
 
 InputElement signup_class; //注册界面的班级变量
+
+InputElement signup_userid; //注册界面的用户ID变量
 
 InputElement signup_password; //注册界面的密码变量
 
@@ -32,7 +34,7 @@ void main() {
       .querySelector('#SignIn_Div_Form')
       .style
       .display = "block";
-  signin_username = querySelector('#SignIn_Username'); //输入用户名
+  signin_userid = querySelector('#SignIn_UserID'); //输入用户ID
   signin_password = querySelector('#SignIn_Password'); //输入密码
   var router = new Router(useFragment: true);
   router.root..addRoute(
@@ -47,7 +49,7 @@ void main() {
   signup_class = querySelector('#SignUp_Class'); //输入班级
   signup_password = querySelector('#SignUp_Password'); //输入密码
   signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
-
+  signup_userid = querySelector("#userID"); //用户ID
   var SignUp_Stu_Btn = querySelector('#SignUp_Stu_Btn'); //学生注册按钮
   SignUp_Stu_Btn.onClick.listen(StuSignUp);
   querySelector('#SignUp_Tea_Btn').onClick.listen(TeaSignUp); //教师注册按钮
@@ -195,10 +197,10 @@ void onSignIn(responseText) {
   var userinfo = JSON.decode(jsonString);
   var userinfolist = userinfo["Userinfo"];
   int a = 0;
-  print(signin_username.value);
+  print(signin_userid.value);
   for (var x in userinfolist) {
     print(x["Username"]);
-    if (x["Username"] == signin_username.value) {
+    if (x["UserID"] == signin_userid.value) {
       print(x["Password"]);
       if (x["Password"] == signin_password.value) {
         print(x["Status"]);
@@ -228,7 +230,7 @@ void onSignIn(responseText) {
     }
   }
   if (a == 0) {
-    querySelector("#SignIn_Error").text = "用户名或者密码错误，请重新登录";
+    querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
 
@@ -259,23 +261,25 @@ void TeaSignIn(RouteEvent e) {
 void StuSignUp(MouseEvent event) {
   //todo 将数据写入数据库中的用户信息表，并将身份属性值设为stu
   //todo 显示注册成功界面
-  var SignUpUserName= signup_username.value;
-  var SignUpClass=signup_class.value;
-  var SignUpPassword=signup_password.value;
-  var SignUpConPassword=signup_confirmpw.value;
+  var SignUpUserName = signup_username.value;
+  var SignUpClass = signup_class.value;
+  var SignUpPassword = signup_password.value;
+  var SignUpConPassword = signup_confirmpw.value;
+  var SignUpUserID = signup_userid.value;
   //if判断语句：用户名和密码是否为空，空时给出提示
-  if(SignUpUserName==''||  SignUpPassword=='' || SignUpConPassword=='')
-  {
-    querySelector("#signuperror").text="用户名和密码不能为空！";
+  if (SignUpUserName == '' || SignUpPassword == '' || SignUpConPassword == '' ||
+      SignUpUserID == '') {
+    querySelector("#signuperror").text = "用户名、学号和密码不能为空！";
   }
   //else:对数据进行处理
-  else{
+  else {
     //if判断语句：密码和确认密码是否一致，不一致时给出提示（else语句在下面）
     if (signup_password.value == signup_confirmpw.value) {
       Map data = {
         "Username":'${SignUpUserName}',
         "Class":'${SignUpClass}',
-        "Password":'${SignUpPassword}'
+        "Password":'${SignUpPassword}',
+        "UserID":'${ SignUpUserID}'
       };
       var jsonData = JSON.encode(data);
       //创建post的request
@@ -286,17 +290,19 @@ void StuSignUp(MouseEvent event) {
         if (request.readyState == HttpRequest.DONE &&
             (request.status == 200 || request.status == 0)) {
           //if判断语句：注册是否成功，成功跳转到另一个url处，否则给出错误提示：该用户已经注册......
-          if(request.responseText == 'success'){
+          if (request.responseText == 'success') {
             var router2 = new Router(useFragment: true);
             router2.root
               ..addRoute(
-                  name: 'SStuSignUp', path: '/stu/signup/succeed', enter: SSignUp);
+                  name: 'SStuSignUp',
+                  path: '/stu/signup/succeed',
+                  enter: SSignUp);
             querySelector('#SignUp_Stu_Btn').attributes['href'] =
                 router2.url('SStuSignUp');
             router2.listen();
           }
-          else{
-            querySelector("#signuperror").text="该用户已注册，请更换用户名或班级";
+          else {
+            querySelector("#signuperror").text = "该用户已注册，请更换学号";
           }
           //end 注册是否成功的if
         }
@@ -308,7 +314,7 @@ void StuSignUp(MouseEvent event) {
 
     }
     //else：两次密码不同，给出提示
-    else{
+    else {
       querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
     }
     //end 两次密码是否一致的if
@@ -332,25 +338,27 @@ void SSignUp(RouteEvent e) {
 /// 参数[event]是鼠标事件....
 ///此处为参考代码
 void TeaSignUp(MouseEvent event) {
-  //todo 将数据写入数据库中的用户信息表，并将身份属性值设为tea
+  //todo 将数据写入数中的用户信息表，并将身份属性值设为tea
   //todo 显示注册成功界面
-  var SignUpUserName= signup_username.value;
-  var SignUpClass=signup_class.value;
-  var SignUpPassword=signup_password.value;
-  var SignUpConPassword=signup_confirmpw.value;
+  var SignUpUserName = signup_username.value;
+  var SignUpClass = signup_class.value;
+  var SignUpPassword = signup_password.value;
+  var SignUpConPassword = signup_confirmpw.value;
+  var SignUpUserID = signup_userid.value;
   //if判断语句：用户名和密码是否为空，空时给出提示
-  if(SignUpUserName==''||  SignUpPassword=='' || SignUpConPassword=='')
-  {
-    querySelector("#signuperror").text="用户名和密码不能为空！";
+  if (SignUpUserName == '' || SignUpPassword == '' || SignUpConPassword == '' ||
+      SignUpUserID == '') {
+    querySelector("#signuperror").text = "用户名、工号和密码不能为空！";
   }
   //else:对数据进行处理
-  else{
+  else {
     //if判断语句：密码和确认密码是否一致，不一致时给出提示（else语句在下面）
     if (signup_password.value == signup_confirmpw.value) {
       Map data = {
         "Username":'${SignUpUserName}',
         "Class":'${SignUpClass}',
-        "Password":'${SignUpPassword}'
+        "Password":'${SignUpPassword}',
+        "UserID":'${SignUpUserID}'
       };
       var jsonData = JSON.encode(data);
       //创建post的request
@@ -361,17 +369,19 @@ void TeaSignUp(MouseEvent event) {
         if (request.readyState == HttpRequest.DONE &&
             (request.status == 200 || request.status == 0)) {
           //if判断语句：注册是否成功，成功跳转到另一个url处，否则给出错误提示：该用户已经注册......
-          if(request.responseText == 'success'){
+          if (request.responseText == 'success') {
             var router2 = new Router(useFragment: true);
             router2.root
               ..addRoute(
-                  name: 'STeaSignUp', path: '/tea/signup/succeed', enter: SSignUp);
+                  name: 'STeaSignUp',
+                  path: '/tea/signup/succeed',
+                  enter: SSignUp);
             querySelector('#SignUp_Tea_Btn').attributes['href'] =
                 router2.url('STeaSignUp');
             router2.listen();
           }
-          else{
-            querySelector("#signuperror").text="该用户已注册，请更换用户名或班级";
+          else {
+            querySelector("#signuperror").text = "该用户已注册，请更换工号";
           }
           //end 注册是否成功的if
         }
@@ -383,7 +393,7 @@ void TeaSignUp(MouseEvent event) {
 
     }
     //else：两次密码不同，给出提示
-    else{
+    else {
       querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
     }
     //end 两次密码是否一致的if
@@ -403,7 +413,8 @@ void ReturnSignIn(MouseEvent event) {
       router.url('returnSignIn');
   router.listen();
 }
-void returnSignIn   (RouteEvent e) {
+
+void returnSignIn(RouteEvent e) {
   document
       .querySelector('#SignIn_Div_Form')
       .style

@@ -37,10 +37,10 @@ responseUser(request)async{
   var userdata=new List();//存放所有用户的数据
   var finaluserdata=new Map<String,String>();//存放最终的用户数据
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var data=await pool.query('select Username,Password,Class,Status from userinfo');
+  var data=await pool.query('select UserID,Username,Password,Class,Status from userinfo');
   //下面这个语句比较慢，一定要等它
   await data.forEach((row){
-    singledata={'"Username"':'"${row.Username}"','"Password"':'"${row.Password}"','"Class"':'"${row.Class}"','"Status"':'"${row.Status}"'};//按照这个格式存放单条数据
+    singledata={'"UserID"':'"${row.UserID}"','"Username"':'"${row.Username}"','"Password"':'"${row.Password}"','"Class"':'"${row.Class}"','"Status"':'"${row.Status}"'};//按照这个格式存放单条数据
     userdata.add(singledata);//将该数据加入数组中
   });
   //将用户数据存入数组中
@@ -111,14 +111,16 @@ insertDataBaseStu(data) async{
   String username;
   String userClass;
   String password;
+  String userID;
   Map realdata=JSON.decode(data);
   username=realdata['Username'];
   userClass=realdata['Class'];
   password=realdata['Password'];
+  userID=realdata['UserID'];
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  await query.execute([username,password,userClass,'stu']).then((result){
+  var query=await pool.prepare('insert into userinfo(UserID,Username,Password,Class,Status) values(?,?,?,?,?)');
+  await query.execute([userID,username,password,userClass,'stu']).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
   }).catchError((error){
@@ -144,14 +146,16 @@ insertDataBaseTea(data) async{
   String username;
   String userClass;
   String password;
+  String userID;
   Map realdata=JSON.decode(data);
   username=realdata['Username'];
   userClass=realdata['Class'];
   password=realdata['Password'];
+  userID=realdata['UserID'];
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  await query.execute([username,password,userClass,'tea']).then((result){
+  var query=await pool.prepare('insert into userinfo(UserID,Username,Password,Class,Status) values(?,?,?,?,?)');
+  await query.execute([userID,username,password,userClass,'tea']).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
   }).catchError((error){
