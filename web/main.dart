@@ -54,7 +54,6 @@ void main() {
 
   /// 注册成功界面
   querySelector('#SucSignUp_Btn')
-    ..text = '确定'
     ..onClick.listen(ReturnSignIn); //返回登录界面按钮
 
   /// 教师主界面
@@ -396,6 +395,23 @@ void TeaSignUp(MouseEvent event) {
 /// 参数[event]是鼠标事件....
 void ReturnSignIn(MouseEvent event) {
   //todo 隐藏注册界面和注册成功界面，显示登录界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'returnSignIn', path: '', enter: returnSignIn);
+  querySelector('#SucSignUp_Btn').attributes['href'] =
+      router.url('returnSignIn');
+  router.listen();
+}
+void returnSignIn   (RouteEvent e) {
+  document
+      .querySelector('#SignIn_Div_Form')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Background_Soe')
+      .style
+      .display = "none";
 }
 
 /// 返回任务完成情况的内容
