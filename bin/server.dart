@@ -5,6 +5,8 @@ import 'package:sqljocky/sqljocky.dart';
 import 'dart:core';
 import 'dart:io';
 import 'dart:convert';
+import 'package:jsonx/jsonx.dart';
+import 'package:team2exercise/stuscores.dart';
 
 String responseText;//注册时返回到客户端的数据：写入数据库成功，返回0；失败，返回错误值，不为0
 final _headers={"Access-Control-Allow-Origin":"*",
@@ -49,8 +51,25 @@ responseUser(request)async{
 }
 
 ///获取学生完成情况数据
-responseTeaViewTask(request){
-  //todo 访问数据库，从学生任务完成情况表2中获取相关数据（第几课时、日期、各个学生的成绩）
+responseTeaViewTask(request)async{
+  //todo 访问数据库，从testscore表中获取相关数据（姓名、正确几个、错误几个）
+  List stuScores = new List();
+  var pool = new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data = await pool.query('select testscore.Class,testscore.userID,assignmentID,correctNum,wrongNum,Username '
+      'from testscore,userinfo where testscore.userID=userinfo.userID order by userID ASC');
+  await data.forEach((row){
+    StuScores stuScore = new StuScores()
+      ..stuClass = row.Class
+      ..assignmentID = row.assignmentID
+      ..stuID = row.userID
+      ..userName=row.Username
+      ..correctNum = row.correctNum
+      ..wrongNum = row.wrongNum;
+    stuScores.add(stuScore);
+  });
+  print('success!');
+  String jsonData = encode(stuScores);
+  return (new Response.ok(jsonData,headers: _headers));
 }
 
 ///获取教师布置任务的数据
@@ -91,11 +110,11 @@ responseResult(request)
 responseStuSignUp(request) async{
   //todo 学生注册
   /**有问题的
-  var responseDBText=await request.readAsString().then(insertDataBaseStu);//then返回的到底是什么，怎么样获取insertDataBaseStu的返回值，_Future类的值怎么取？
-  String realText=responseDBText.toString();
-  print(realText);
-  return (new Response.ok('success!',headers: _headers));
-      **/
+      var responseDBText=await request.readAsString().then(insertDataBaseStu);//then返回的到底是什么，怎么样获取insertDataBaseStu的返回值，_Future类的值怎么取？
+      String realText=responseDBText.toString();
+      print(realText);
+      return (new Response.ok('success!',headers: _headers));
+   **/
   await request.readAsString().then(insertDataBaseStu);
   //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
   if(responseText == '0'){

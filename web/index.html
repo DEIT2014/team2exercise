@@ -134,22 +134,23 @@
     </form>
     <form id="Ftask_Div">
         <div id="Ftask_Content">
-            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
+            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;" id="Ftask_Title">
                 <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
-                <table style="width:100%;">
+                <table style="width:100%;" border="5" id="Ftask_Table">
                     <tr>
-                        <td>没有取id名的表头（第x单元完成情况）</td>
-                    </tr>
-                    <tr>
+                        <td>班级</td>
+                        <td>学号</td>
                         <td>姓名</td>
-                        <td>完成情况</td>
+                        <td>正确单词个数</td>
+                        <td>错误单词个数</td>
                     </tr>
-                    <td>李华</td>
-                    <td>98</td>
-                </table>
-                <a href id="Ftask_Btn">返回教师主界面</a>
+                </table><br>
+                <div id="Ftask_Detail0"></div><br><br>
+                <a href id="Teacher_Btn">返回教师主界面</a><br><br><br>
+
             </div>
+
         </div>
     </form>
     <form id="student">
@@ -200,7 +201,8 @@
                         <tr>
                             <td>第四单元完成情况</td>
                         </tr>
-                    </table>
+                    </table><br><br>
+                    <a href="" id="Ftask_Btn">确定</a>
                 </div>
 
             </div>
@@ -215,9 +217,7 @@
             <a href=javascript:void(0) id="SucSignUp_Btn" title="SucSignUp_Btn">返回登录界面</a>
         </div>
     </form>
-    <div id="SignIn_Div">
-
-        <div id="SignIn_Div_back"><!--首页滚动的诗歌-->
+    <div id="SignIn_Div_back"><!--首页滚动的诗歌-->
             <script type="text/javascript"></script>
             <div align="center" id="SignIn_Div_back_0">
                 <div id="SignIn_Div_back_1">
@@ -266,9 +266,7 @@
                 -->
             </script>
         </div>
-
-
-        <form id="SignIn_Div_Form"><!--登录form-->
+    <form id="SignIn_Div_Form"><!--登录form-->
             <br><br><br><!--通过padding-top控制的话height无法控制-->
             <p style="font-size: 20px;letter-spacing:10px;">英语单词学习系统</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
             <hr width="100%" style="opacity: 0.20"><!--分割线 -->
@@ -284,9 +282,7 @@
             <br><br><br>
             <p id="SignUp_Error"></p>
         </form>
-
-
-        <form id="SignUp_Div_Form"><!--注册form-->
+    <form id="SignUp_Div_Form"><!--注册form-->
             <br><br><br>
             <p style="text-align:center;font-size: 20px;letter-spacing:10px;">英语单词学习系统</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
             <hr width="100%" style="opacity: 0.20"><!--分割线 -->
@@ -308,7 +304,7 @@
                 </nav>
             </div>
         </form>
-    </div>
+
 </div><!--登录界面背景-->
 
 

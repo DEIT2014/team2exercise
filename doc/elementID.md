@@ -17,10 +17,12 @@ SignUp_Tea_Btn | 以教师身份注册的按钮
 SucSignUp_Btn  | 返回登录界面的按钮
 **Teacher_Div** | **教师主界面**
 Teacher_Ftask　　| 任务完成情况选择框
+Ftask_Btn   | 前往查看任务界面的按钮
 Teacher_Unit   | 听写单元的选择框
 **Ftask_Div**  | **任务完成情况界面**
 Ftask_Content  | 任务完成情况内容框
-Ftask_Btn   | 返回教师主界面的按钮
+Ftask_Detail  | 任务完成情况的内容（测试用）
+Teacher_Btn  |  返回教师主界面的按钮
 **AssignWork_Div**  | **布置任务界面**
 AssignWork_WordList | 单词列表框
 AssignWork_Btn  | 提交选定单词的按钮

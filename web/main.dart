@@ -7,22 +7,17 @@ import 'dart:core';
 import 'dart:async';
 import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
+import 'package:jsonx/jsonx.dart';
+import 'package:team2exercise/stuscores.dart';
 
 var localhost = "127.0.0.1:14080";
 InputElement signin_userid; //登录界面的ID变量
-
 InputElement signin_password; //登录界面的密码变量
-
 InputElement signup_username; //注册界面的用户名变量
-
-InputElement signup_class; //注册界面的班级变量
-
+SelectElement signup_class; //注册界面的班级变量
 InputElement signup_userid; //注册界面的用户ID变量
-
 InputElement signup_password; //注册界面的密码变量
-
 InputElement signup_confirmpw; //注册界面确认密码的变量
-
 var test_word; //学生听写写入的单词
 
 //var PassWord;
@@ -62,10 +57,13 @@ void main() {
   /// 待定
 
   /// 任务完成情况界面
+  /// 这里先注释，到时候再看
+  /*
   querySelector('#Ftask_Content')
-    ..text = FtaskContent(); // 任务完成情况
+    ..text = FtaskContent(); // 任务完成情况*/
   querySelector('#Ftask_Btn')
-    ..text = '返回主界面'
+    ..onClick.listen(ftaskDiv);
+  querySelector('#Teacher_Btn')
     ..onClick.listen(ReturnTeacher); //返回教师主界面按钮
 
   /// 布置任务界面
@@ -168,7 +166,6 @@ void main() {
     ..text = '返回主页'
     ..onClick.listen(result_return);
 }
-
 
 void SignUp(RouteEvent e) {
   document
@@ -333,7 +330,6 @@ void SSignUp(RouteEvent e) {
       .display = "none";
 }
 
-
 /// 接受用户点击教师注册按钮的响应
 /// 参数[event]是鼠标事件....
 ///此处为参考代码
@@ -407,10 +403,8 @@ void ReturnSignIn(MouseEvent event) {
   //todo 隐藏注册界面和注册成功界面，显示登录界面
   var router = new Router(useFragment: true);
   router.root
-    ..addRoute(
-        name: 'returnSignIn', path: '', enter: returnSignIn);
-  querySelector('#SucSignUp_Btn').attributes['href'] =
-      router.url('returnSignIn');
+    ..addRoute(name: 'returnSignIn', path: '', enter: returnSignIn);
+  querySelector('#SucSignUp_Btn').attributes['href'] = router.url('returnSignIn');
   router.listen();
 }
 
@@ -426,8 +420,57 @@ void returnSignIn(RouteEvent e) {
 }
 
 /// 返回任务完成情况的内容
-Object FtaskContent() {
+ftaskDiv(MouseEvent event) async {
   //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
+  var router = new Router(useFragment : true);
+  router.root
+    ..addRoute(name:'ftaskContent',path:'/teacher/viewtask',enter:ftaskContent);
+  querySelector('#Ftask_Btn').attributes['href']=router.url('ftaskContent');
+  router.listen();
+}
+
+ftaskContent(RouteEvent e) async{
+  document.querySelector('#Ftask_Div').style.display="block";
+  document.querySelector('#Teacher_Div').style.display="none";
+  var request =await HttpRequest.getString("http://127.0.0.1:14080/teacher_viewtask").then(
+      stuScores);
+}
+
+stuScores(responseText) {
+  ///方法1
+  int stuNum=0;
+  List listData = JSON.decode(responseText);
+  for(Map singleScore in listData) {
+    StuScores firstStu = new StuScores()
+        ..stuClass=singleScore["stuClass"]
+        ..assignmentID=singleScore["assignmentID"]
+        ..stuID=singleScore["stuID"]
+        ..userName=singleScore["userName"]
+        ..correctNum=singleScore["correctNum"]
+        ..wrongNum=singleScore["wrongNum"];
+    if((firstStu.stuClass == 'class1')&&(firstStu.assignmentID == 'a01') ){
+      String showText="班级：${firstStu.stuClass} 学号：${firstStu.stuID} 姓名：${firstStu.userName} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}";
+      ///todo 动态创建div
+      var onDivold=document.getElementById("Ftask_Detail$stuNum");
+      var onDivnew=document.createElement('div');
+      stuNum++;
+      onDivnew.id="Ftask_Detail$stuNum";
+      onDivold.append(onDivnew);
+      querySelector('#Ftask_Detail$stuNum').text=showText;
+    }
+  }
+
+  /*
+  List<StuScores> list = decode('[{"stuClass":"class1","stuID":"1014","assignmentID":"1","correctNum":"12","wrongNum":"3"},{"stuClass":"class2","stuID":"10140340120","assignmentID":"1","correctNum":"10,"wrongNum":"5"}]', type: const TypeHelper<List<StuScores>>().type);
+  List<StuScores> listData = decode(responseText,type: const TypeHelper<List<StuScores>>().type);
+  StuScores firstStu = listData[0];
+  print(firstStu);
+  String stuDetail='班级：${firstStu.stuClass} 学号：${firstStu.stuID} 任务编号：${firstStu.assignmentID} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}';
+  querySelector('#Ftask_Detail')
+    ..text=stuDetail;
+    */
+  //stuDetail='i am here!';
+
 }
 
 /// 接受用户点击返回主界面按钮的响应
