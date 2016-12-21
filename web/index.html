@@ -99,6 +99,7 @@
             <a href id="SucAssignWord_Btn">返回教师主界面</a>
         </div>
     </form>
+    <!--教师确认选择过的任务单词-->
     <form id="ConfirmWord_Div">
         <div id="ConfirmWord_Show">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
@@ -106,7 +107,7 @@
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
                 <table>
                     <tr>
-                        <td id="">已选择的单词</td>
+                        <td id="choosenWord">已选择的单词</td>
                     </tr>
                     <tr>
                         <td>apple</td>
@@ -118,17 +119,19 @@
             </div>
         </div>
     </form>
+    <!--在一个单元中选择单词作为一次的任务-->
     <form id="AssignWork_Div">
         <div id="AssignWork_WordList">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
                 <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
                 请选择下列单词<br>
-                <input type="checkbox" id="vehicle1" value="Bike">bike
+                <p id="word1"></p>
+               <input type="checkbox" id="vehicle1" value="word1" name="word1">
                 <br>
-                <input type="checkbox" id="vehicle2" value="Car">car
+                <input type="checkbox" id="vehicle2" value="">
                 <br><br>
-                <input type="submit" id="AssignWork_Btn" value="提交">
+                <a href=javascript:void(0) id="AssignWord_Btn" title="AssignWord_Btn">提交</a>
             </div>
         </div>
     </form>
@@ -170,6 +173,7 @@
             <a href id="stu_test">测试</a>
         </div>
     </form>
+    <!--教师主页面-->
     <form id="Teacher_Div">
 
         <div id="Teacher_Div_small">
@@ -183,7 +187,7 @@
                         <option id="六年级上册">六年级上册</option>
                         <option id="六年级下册">六年级下册</option>
                     </select><br><br><br>
-                    <a href id="">确认</a>
+                    <a href=javascript:void(0) id="newTask">确认</a>
                 </div>
                 <div id="Teacher_Ftask">
                     以往任务的完成情况<br><br>
@@ -215,58 +219,7 @@
             <a href=javascript:void(0) id="SucSignUp_Btn" title="SucSignUp_Btn">返回登录界面</a>
         </div>
     </form>
-    <div id="SignIn_Div">
-
-        <div id="SignIn_Div_back"><!--首页滚动的诗歌-->
-            <script type="text/javascript"></script>
-            <div align="center" id="SignIn_Div_back_0">
-                <div id="SignIn_Div_back_1">
-                    <p>Aspirations of youth<br>青春的渴望</p><br>
-                    <p>James Montgomery<br>詹姆斯•蒙哥马利</p><br>
-                    <p>Higher,higher,will we climb,<br>更高，更高，愿我们</p><br>
-                    <p>Up the mount of glory,<br>攀登上光荣的阶梯</p><br>
-                    <p>That our names may live through time<br>我们的名字就能永存</p><br>
-                    <p>In our country's story;<br>在我们祖国的史册；</p><br>
-                    <p>Happy,when her welfare calls,<br>幸福啊，当她一声召唤，</p><br>
-                    <p>He who conquers,he who falls!<br>他就去拼搏，就去攻坚！</p><br>
-                    <p>Deeper,deeper,let us toil<br>更深，更深，让我们</p><br>
-                    <p>In the mines of knowledge;<br>在知识矿藏中开发；</p><br>
-                    <p>Nature's wealth and learning's spoil<br>自然财富和学术精品</p><br>
-                    <p>Win from school and college;<br>从学校研究院吸纳；</p><br>
-                    <p>Delve we there for richer gems<br>愿我们在此发掘的珍宝，</p><br>
-                    <p>Than the stars of diadems.<br>比王冠的星星更加光耀。</p><br>
-                    <p>Onward,onward,will we press<br>向前，向前，愿我们</p><br>
-                    <p>Through the path of duty;<br>推进这职责的常规；</p><br>
-                    <p>Virtue is true happiness,<br>做好事是真正的福分，</p><br>
-                    <p>Excellence true beauty.<br>美德却是真正的美。</p><br>
-                    <p>Minds are of supernal birth:<br>头脑会超尘脱俗地成长：</p><br>
-                    <p>Let us make a heaven of earth.<br>让我们创造人间的天堂。</p><br>
-                </div>
-                <div id="SignIn_Div_back_2"></div>
-            </div>
-            <script type="text/javascript">
-                <!--
-                var SignIn_Div_back_0 = document.getElementById("SignIn_Div_back_0");
-                var SignIn_Div_back_1 = document.getElementById("SignIn_Div_back_1");
-                var SignIn_Div_back_2 = document.getElementById("SignIn_Div_back_2");
-                var speed=50;    //滚动速度值，值越大速度越慢
-                var nnn=200/SignIn_Div_back_1.offsetHeight;
-                for(i=0;i<nnn;i++){SignIn_Div_back_1.innerHTML+="<br />"+ SignIn_Div_back_1.innerHTML}
-                SignIn_Div_back_2.innerHTML = SignIn_Div_back_1.innerHTML    //克隆2为1
-                function Marquee(){
-                    if(SignIn_Div_back_2.offsetTop-SignIn_Div_back_0.scrollTop<=0)    //当滚动至1与2交界时
-                        SignIn_Div_back_0.scrollTop-=SignIn_Div_back_1.offsetHeight    //0跳到最顶端
-                    else{
-                        SignIn_Div_back_0.scrollTop++     //如果是横向的 将 所有的 height top 改成 width left
-                    }
-                }
-                var MyMar = setInterval(Marquee,speed);        //设置定时器
-                SignIn_Div_back_0.onmouseover = function(){clearInterval(MyMar)}    //鼠标经过时清除定时器达到滚动停止的目的
-                SignIn_Div_back_0.onmouseout = function(){MyMar = setInterval(Marquee,speed)}    //鼠标移开时重设定时器
-                -->
-            </script>
-        </div>
-
+    <!--登录界面-->
 
         <form id="SignIn_Div_Form"><!--登录form-->
             <br><br><br><!--通过padding-top控制的话height无法控制-->
@@ -282,10 +235,8 @@
                 <a  href="" id="SignUp_Btn" title="SignUp">注册</a>
             </nav>
             <br><br><br>
-            <p id="SignUp_Error"></p>
+            <p id="SignIn_Error"></p>
         </form>
-
-
         <form id="SignUp_Div_Form"><!--注册form-->
             <br><br><br>
             <p style="text-align:center;font-size: 20px;letter-spacing:10px;">英语单词学习系统</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
@@ -306,20 +257,58 @@
                     &nbsp;
                     <a href=javascript:void(0) id="SignUp_Tea_Btn" title="SignUp_Tea_Btn" >教师注册</a>
                 </nav>
+                <p id="signuperror"></p>
             </div>
         </form>
+        <div id="SignIn_Div_back" ><!--首页滚动的诗歌-->
+        <script type="text/javascript"></script>
+        <div align="center" id="SignIn_Div_back_0">
+            <div id="SignIn_Div_back_1">
+                <p>Aspirations of youth<br>青春的渴望</p><br>
+                <p>James Montgomery<br>詹姆斯•蒙哥马利</p><br>
+                <p>Higher,higher,will we climb,<br>更高，更高，愿我们</p><br>
+                <p>Up the mount of glory,<br>攀登上光荣的阶梯</p><br>
+                <p>That our names may live through time<br>我们的名字就能永存</p><br>
+                <p>In our country's story;<br>在我们祖国的史册；</p><br>
+                <p>Happy,when her welfare calls,<br>幸福啊，当她一声召唤，</p><br>
+                <p>He who conquers,he who falls!<br>他就去拼搏，就去攻坚！</p><br>
+                <p>Deeper,deeper,let us toil<br>更深，更深，让我们</p><br>
+                <p>In the mines of knowledge;<br>在知识矿藏中开发；</p><br>
+                <p>Nature's wealth and learning's spoil<br>自然财富和学术精品</p><br>
+                <p>Win from school and college;<br>从学校研究院吸纳；</p><br>
+                <p>Delve we there for richer gems<br>愿我们在此发掘的珍宝，</p><br>
+                <p>Than the stars of diadems.<br>比王冠的星星更加光耀。</p><br>
+                <p>Onward,onward,will we press<br>向前，向前，愿我们</p><br>
+                <p>Through the path of duty;<br>推进这职责的常规；</p><br>
+                <p>Virtue is true happiness,<br>做好事是真正的福分，</p><br>
+                <p>Excellence true beauty.<br>美德却是真正的美。</p><br>
+                <p>Minds are of supernal birth:<br>头脑会超尘脱俗地成长：</p><br>
+                <p>Let us make a heaven of earth.<br>让我们创造人间的天堂。</p><br>
+            </div>
+            <div id="SignIn_Div_back_2"></div>
+        </div>
+        <script type="text/javascript">
+
+            var SignIn_Div_back_0 = document.getElementById("SignIn_Div_back_0");
+            var SignIn_Div_back_1 = document.getElementById("SignIn_Div_back_1");
+            var SignIn_Div_back_2 = document.getElementById("SignIn_Div_back_2");
+            var speed=50;    //滚动速度值，值越大速度越慢
+            var nnn=200/SignIn_Div_back_1.offsetHeight;
+            for(i=0;i<nnn;i++){SignIn_Div_back_1.innerHTML+="<br />"+ SignIn_Div_back_1.innerHTML}
+            SignIn_Div_back_2.innerHTML = SignIn_Div_back_1.innerHTML    //克隆2为1
+            function Marquee(){
+                if(SignIn_Div_back_2.offsetTop-SignIn_Div_back_0.scrollTop<=0)    //当滚动至1与2交界时
+                    SignIn_Div_back_0.scrollTop-=SignIn_Div_back_1.offsetHeight    //0跳到最顶端
+                else{
+                    SignIn_Div_back_0.scrollTop++     //如果是横向的 将 所有的 height top 改成 width left
+                }
+            }
+            var MyMar = setInterval(Marquee,speed);        //设置定时器
+            SignIn_Div_back_0.onmouseover = function(){clearInterval(MyMar)}    //鼠标经过时清除定时器达到滚动停止的目的
+            SignIn_Div_back_0.onmouseout = function(){MyMar = setInterval(Marquee,speed)}    //鼠标移开时重设定时器
+
+        </script>
     </div>
 </div><!--登录界面背景-->
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

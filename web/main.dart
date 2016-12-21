@@ -7,7 +7,8 @@ import 'dart:core';
 import 'dart:async';
 import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
-
+import 'package:jsonx/jsonx.dart';
+import 'package:team2exercise/teacherWord.dart';
 var localhost = "127.0.0.1:14080";
 InputElement signin_userid; //登录界面的ID变量
 
@@ -29,7 +30,9 @@ var test_word; //学生听写写入的单词
 //var ConPassWord;
 
 void main() {
-  /// 登录界面
+  //document.querySelector('#AssignWork_Div').style.display="block";
+  //登录界面
+
   document
       .querySelector('#SignIn_Div_Form')
       .style
@@ -60,7 +63,10 @@ void main() {
 
   /// 教师主界面
   /// 待定
-
+querySelector('#newTask').onClick.listen(newTask);
+  /// 布置任务界面
+  var AssignWork_Btn=querySelector('#AssignWord_Btn');
+  AssignWork_Btn.onClick.listen(SubmitWork); // 提交任务按钮
   /// 任务完成情况界面
   querySelector('#Ftask_Content')
     ..text = FtaskContent(); // 任务完成情况
@@ -68,12 +74,11 @@ void main() {
     ..text = '返回主界面'
     ..onClick.listen(ReturnTeacher); //返回教师主界面按钮
 
-  /// 布置任务界面
-  querySelector('#AssignWork_Btn')
-    ..text = '提交'
-    ..onClick.listen(SubmitWork); // 提交作业按钮
+
 
   ///确认单词界面
+
+  //document.querySelector('#ConfirmWord_Div').style.display="block";
   querySelector('#ConfirmWord_Show')
     ..text = WordContent(); //选择的单词内容
   querySelector('#ConfirmWord_Confirm_Btn')
@@ -180,13 +185,42 @@ void SignUp(RouteEvent e) {
       .style
       .display = "none";
 }
+void newTask(MouseEvent event) {
+  var request = HttpRequest.getString("http://127.0.0.1:14080/teacherUnitWord").then(onTeaWord);
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'newTask',
+        path: '/tea/newTask',
+        enter: teaNewTask);
+  querySelector('#newTask').attributes['href'] =router.url('newTask');
+  router.listen();
+}
+void onTeaWord (responseText){
+  var jsonString = responseText;
+  var wordlist = JSON.decode(jsonString);
+  querySelector("#vehicle1").nextNode.text="word1";
+}
+void teaNewTask(RouteEvent e) {
+
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Teacher_Div')
+      .style
+      .display = "none";
+
+  //querySelector("#word1").text="hello";
+}
+
 
 /// 用来接受用户点击登录按钮以后的响应工作
 void SignIn(MouseEvent event) {
   //todo 记录输入的用户名和密码并与数据库进行比较，
   //todo 若对比成功，隐藏登录界面，显示教师或者学生界面（根据相应的标志值判断）
-  var request = HttpRequest.getString("http://127.0.0.1:14080/userinfo").then(
-      onSignIn);
+  var request = HttpRequest.getString("http://127.0.0.1:14080/userinfo").then(onSignIn);
 }
 
 void onSignIn(responseText) {
@@ -197,13 +231,13 @@ void onSignIn(responseText) {
   var userinfo = JSON.decode(jsonString);
   var userinfolist = userinfo["Userinfo"];
   int a = 0;
-  print(signin_userid.value);
+
   for (var x in userinfolist) {
-    print(x["Username"]);
+
     if (x["UserID"] == signin_userid.value) {
-      print(x["Password"]);
+
       if (x["Password"] == signin_password.value) {
-        print(x["Status"]);
+
         if (x["Status"] == "stu") {
           //隐藏登录转到学生界面
           var router1 = new Router(useFragment: true);
@@ -254,6 +288,7 @@ void TeaSignIn(RouteEvent e) {
       .querySelector('#SignIn_Div_Form')
       .style
       .display = "none";
+  document.querySelector('#signInSong').style.display='none';
 }
 
 /// 接受用户点击学生注册按钮的响应
@@ -435,11 +470,30 @@ void ReturnTeacher(MouseEvent event) {
   //todo 隐藏当前界面，显示教师主界面
 }
 
-/// 接受用户点击提交作业按钮的响应
+/// 接受教师用户点击提交作业按钮的响应
 /// 参数[event]是鼠标事件....
 void SubmitWork(MouseEvent event) {
   //todo 记录用户选择的单词数据，存入Json文件
   //todo 隐藏当前界面，显示确认单词界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'showWord',
+        path: '/tea/showWord',
+        enter:showWord);
+  querySelector('#AssignWord_Btn').attributes['href'] =
+      router.url('showWord');
+  router.listen();
+}
+void showWord(RouteEvent e) {
+  document
+      .querySelector('#ConfirmWord_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "none";
 }
 
 /// 返回选择单词的字符串

@@ -13,6 +13,7 @@ URL     | 描述
 /teacher_viewtask    | 从学生任务完成情况表2中获取相关数据（第几课时、日期、各个学生的成绩）
 /teacher_writetask     | 将老师布置的任务数据写入任务表
 /teacher_gettask   | 从任务表中取出数据
+/teacherUnitWord   |从单词表中获取一个单元的单词
 
 main.dart中的URL
 

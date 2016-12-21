@@ -18,6 +18,7 @@ SucSignUp_Btn  | 返回登录界面的按钮
 **Teacher_Div** | **教师主界面**
 Teacher_Ftask　　| 任务完成情况选择框
 Teacher_Unit   | 听写单元的选择框
+ConNewTask      |确定开始布置新任务
 **Ftask_Div**  | **任务完成情况界面**
 Ftask_Content  | 任务完成情况内容框
 Ftask_Btn   | 返回教师主界面的按钮
