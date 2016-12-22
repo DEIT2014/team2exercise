@@ -7,11 +7,12 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
-
+import "package:team2exercise/teacherWord.dart";
 String responseText;//注册时返回到客户端的数据：写入数据库成功，返回0；失败，返回错误值，不为0
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-  "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
+  "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept",
+  "Content-Type":"application/json"};
 
 void main() {
   var myRouter = router()
@@ -24,6 +25,7 @@ void main() {
     ..get('/review', responseReview)
     ..get('/test/get',responseTest)
     ..get('/result',responseResult)
+    ..get('/teacherUnitWord',responseWord)//获取单元单词
   //post
     ..post('/student_signup',responseStuSignUp)
     ..post('/teacher_signup',responseTeaSignUp)
@@ -71,7 +73,30 @@ responseTeaViewTask(request)async{
   String jsonData = encode(stuScores);
   return (new Response.ok(jsonData,headers: _headers));
 }
+//获取单元单词
+responseWord(request)async{
+  //todo 访问数据库，从单词表中获取一个单元的单词
+  var wordList=[];
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select Unit,word,Chinese from wordlist');
+  await data.forEach((row)
+  {
+    unitWord word=new unitWord();
+    word.Unit="${row.Unit}";
+    word.English="${row.word}";
+    word.Chinese="${row.Chinese}";
+    print(word.English);
+    wordList.add(word);//将数据添加到list中
 
+  });
+  String wordListJson=encode(wordList);
+  List<unitWord> word = decode(wordListJson,type:const TypeHelper<List<unitWord>>().type);
+  unitWord word1 = new unitWord();
+  word1 = word[0];
+  print(word1.English);
+  return (new Response.ok('${wordListJson}',headers: _headers));
+
+}
 ///获取教师布置任务的数据
 responseTeaGetTask(request){
   //todo 访问数据库，从任务表中取出任务数据（包括第几课时、日期、单词等）

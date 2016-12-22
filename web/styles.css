@@ -40,9 +40,10 @@ hr.style-five {
 
 
 #Background_Sign{
-    background-color:#66cc99;
+
     height:100%;
     width:100%;
+    background-image: url("img/background2.jpg");
 }
 #SignIn_Div{
     height:100%;

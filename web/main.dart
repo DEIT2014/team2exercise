@@ -9,7 +9,7 @@ import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
 import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
-
+import 'package:team2exercise/teacherWord.dart';
 var localhost = "127.0.0.1:14080";
 InputElement signin_userid; //登录界面的ID变量
 InputElement signin_password; //登录界面的密码变量
@@ -55,6 +55,10 @@ void main() {
 
   /// 教师主界面
   /// 待定
+  querySelector('#newTask').onClick.listen(newTask);
+  /// 布置任务界面
+  var AssignWork_Btn=querySelector('#AssignWord_Btn');
+  AssignWork_Btn.onClick.listen(SubmitWork); // 提交任务按钮
 
   /// 任务完成情况界面
   /// 这里先注释，到时候再看
@@ -177,7 +181,70 @@ void SignUp(RouteEvent e) {
       .style
       .display = "none";
 }
+void newTask(MouseEvent event) {
+  var request = HttpRequest.getString("http://127.0.0.1:14080/teacherUnitWord").then(onTeaWord);
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'newTask',
+        path: '/tea/newTask',
+        enter: teaNewTask);
+  querySelector('#newTask').attributes['href'] =router.url('newTask');
+  router.listen();
+}
+void onTeaWord (responseText){
+  int num=0;
+  var jsonString = responseText;
+  var wordlist = JSON.decode(jsonString);
+  int wordNum=wordlist.length;
+   var onDivold=document.getElementById("word0");
+   var onDivnew=document.createElement("input");
+  onDivnew.id="word3";
+  onDivnew.setAttribute("type","checkbox");
+   onDivold.append(onDivnew);
+ //document.getElementById("word3").nextNode.text="hello";
+  querySelector("#word3").nextNode.text="hello";
+  //var onInputold=document.getElementById("word1");
+  //var onInputnew=document.createElement("input");
+  // onInputold.append(onInputnew);
 
+ /* for(int i=0;i<wordNum;i++) {
+    unitWord firstWord = new unitWord()
+      ..Unit=wordlist[i]["Unit"]
+      ..English=wordlist[i]["English"]
+      ..Chinese=wordlist[i]["Chinese"];
+//querySelector("#word1").nextNode.text=firstWord.Unit;
+    if(firstWord.Unit == 'unit1' ){
+      String showText="英文：${firstWord.English} 中文：${firstWord.Chinese}";
+      ///todo 动态创建div
+      var onDivold=document.getElementById("word$num");
+      var onDivnew=document.createElement("input","checkbox");
+     // onDivnew.setAttribute("type","checkbox");
+     // onDivnew.type="checkbox";
+      num++;
+      onDivnew.id="word$num";
+      onDivnew.append(onDivnew);
+     // var onDivtwo=querySelector('#word$num').nextNode;
+      querySelector('#word$num').nextNode.text=showText;
+    }
+
+  }
+*/
+  //querySelector("#vehicle1").nextNode.text=wordlist[0]["English"].toString();
+}
+void teaNewTask(RouteEvent e) {
+
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Teacher_Div')
+      .style
+      .display = "none";
+
+  //querySelector("#word1").text="hello";
+}
 /// 用来接受用户点击登录按钮以后的响应工作
 void SignIn(MouseEvent event) {
   //todo 记录输入的用户名和密码并与数据库进行比较，
@@ -478,13 +545,29 @@ void ReturnTeacher(MouseEvent event) {
   //todo 隐藏当前界面，显示教师主界面
 }
 
-/// 接受用户点击提交作业按钮的响应
-/// 参数[event]是鼠标事件....
 void SubmitWork(MouseEvent event) {
   //todo 记录用户选择的单词数据，存入Json文件
   //todo 隐藏当前界面，显示确认单词界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'showWord',
+        path: '/tea/showWord',
+        enter:showWord);
+  querySelector('#AssignWord_Btn').attributes['href'] =
+      router.url('showWord');
+  router.listen();
 }
-
+void showWord(RouteEvent e) {
+  document
+      .querySelector('#ConfirmWord_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "none";
+}
 /// 返回选择单词的字符串
 Object WordContent() {
   //todo 根据相应的Json文件，返回单词数据

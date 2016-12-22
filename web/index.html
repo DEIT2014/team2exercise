@@ -99,6 +99,7 @@
             <a href id="SucAssignWord_Btn">返回教师主界面</a>
         </div>
     </form>
+    <!--教师确认选择过的任务单词-->
     <form id="ConfirmWord_Div">
         <div id="ConfirmWord_Show">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
@@ -106,7 +107,7 @@
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
                 <table>
                     <tr>
-                        <td id="">已选择的单词</td>
+                        <td id="choosenWord">已选择的单词</td>
                     </tr>
                     <tr>
                         <td>apple</td>
@@ -118,17 +119,19 @@
             </div>
         </div>
     </form>
+    <!--在一个单元中选择单词作为一次的任务-->
     <form id="AssignWork_Div">
         <div id="AssignWork_WordList">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
                 <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
                 请选择下列单词<br>
-                <input type="checkbox" id="vehicle1" value="Bike">bike
+                <div id="word0"></div>
+
+               <input type="checkbox" id="word2" name="word2">
                 <br>
-                <input type="checkbox" id="vehicle2" value="Car">car
                 <br><br>
-                <input type="submit" id="AssignWork_Btn" value="提交">
+                <a href=javascript:void(0) id="AssignWord_Btn" title="AssignWord_Btn">提交</a>
             </div>
         </div>
     </form>
@@ -184,7 +187,7 @@
                         <option id="六年级上册">六年级上册</option>
                         <option id="六年级下册">六年级下册</option>
                     </select><br><br><br>
-                    <a href id="">确认</a>
+                    <a href=javascript:void(0) id="newTask">确认</a>
                 </div>
                 <div id="Teacher_Ftask">
                     以往任务的完成情况<br><br>
