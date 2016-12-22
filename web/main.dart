@@ -192,18 +192,34 @@ void newTask(MouseEvent event) {
   querySelector('#newTask').attributes['href'] =router.url('newTask');
   router.listen();
 }
-void onTeaWord (responseText){
-  int num=0;
+void onTeaWord (responseText) {
+  int num = 0;
   var jsonString = responseText;
   var wordlist = JSON.decode(jsonString);
-  int wordNum=wordlist.length;
+  /*for (int i = 1; i < 21; i++) {
+    unitWord firstWord = new unitWord()
+      ..Unit = wordlist[i - 1]["Unit"]
+      ..English = wordlist[i - 1]["English"]
+      ..Chinese = wordlist[i - 1]["Chinese"];
+//querySelector("#word1").nextNode.text=firstWord.Unit;
+    if (firstWord.Unit == 'unit1') {
+      String showText = "英文：${firstWord.English} 中文：${firstWord.Chinese}";
+      querySelector("#word$i").nextNode.text = showText;
+    }
+  }
+  */
+
+
    var onDivold=document.getElementById("word0");
    var onDivnew=document.createElement("input");
-  onDivnew.id="word3";
+  onDivnew.setAttribute("id","word3");
+  //var onDivnew;
   onDivnew.setAttribute("type","checkbox");
    onDivold.append(onDivnew);
- //document.getElementById("word3").nextNode.text="hello";
+// document.getElementById("word2").nextNode.text="hello";
   querySelector("#word3").nextNode.text="hello";
+  //querySelector("#word3").onClick.listen(test1);
+
   //var onInputold=document.getElementById("word1");
   //var onInputnew=document.createElement("input");
   // onInputold.append(onInputnew);
@@ -231,6 +247,10 @@ void onTeaWord (responseText){
   }
 */
   //querySelector("#vehicle1").nextNode.text=wordlist[0]["English"].toString();
+}
+void test1(MouseEvent event)
+{
+  querySelector("#word2").nextNode.text="hi";
 }
 void teaNewTask(RouteEvent e) {
 
