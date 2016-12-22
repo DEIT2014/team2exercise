@@ -12,6 +12,7 @@ dependencies:
   shelf:
   sqljocky:
   route_hierarchical:
+  jsonx:
 #  my_dependency: any
 
 dev_dependencies:

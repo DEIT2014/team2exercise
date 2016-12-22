@@ -7,20 +7,17 @@ import 'dart:core';
 import 'dart:async';
 import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
-
+import 'package:jsonx/jsonx.dart';
+import 'package:team2exercise/stuscores.dart';
+import 'package:team2exercise/teacherWord.dart';
 var localhost = "127.0.0.1:14080";
-InputElement signin_username; //登录界面的用户名变量
-
+InputElement signin_userid; //登录界面的ID变量
 InputElement signin_password; //登录界面的密码变量
-
 InputElement signup_username; //注册界面的用户名变量
-
-InputElement signup_class; //注册界面的班级变量
-
+SelectElement signup_class; //注册界面的班级变量
+InputElement signup_userid; //注册界面的用户ID变量
 InputElement signup_password; //注册界面的密码变量
-
 InputElement signup_confirmpw; //注册界面确认密码的变量
-
 var test_word; //学生听写写入的单词
 
 //var PassWord;
@@ -32,7 +29,7 @@ void main() {
       .querySelector('#SignIn_Div_Form')
       .style
       .display = "block";
-  signin_username = querySelector('#SignIn_Username'); //输入用户名
+  signin_userid = querySelector('#SignIn_UserID'); //输入用户ID
   signin_password = querySelector('#SignIn_Password'); //输入密码
   var router = new Router(useFragment: true);
   router.root..addRoute(
@@ -47,24 +44,30 @@ void main() {
   signup_class = querySelector('#SignUp_Class'); //输入班级
   signup_password = querySelector('#SignUp_Password'); //输入密码
   signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
-
+  signup_userid = querySelector("#userID"); //用户ID
   var SignUp_Stu_Btn = querySelector('#SignUp_Stu_Btn'); //学生注册按钮
   SignUp_Stu_Btn.onClick.listen(StuSignUp);
   querySelector('#SignUp_Tea_Btn').onClick.listen(TeaSignUp); //教师注册按钮
 
   /// 注册成功界面
   querySelector('#SucSignUp_Btn')
-    ..text = '确定'
     ..onClick.listen(ReturnSignIn); //返回登录界面按钮
 
   /// 教师主界面
   /// 待定
+  querySelector('#newTask').onClick.listen(newTask);
+  /// 布置任务界面
+  var AssignWork_Btn=querySelector('#AssignWord_Btn');
+  AssignWork_Btn.onClick.listen(SubmitWork); // 提交任务按钮
 
   /// 任务完成情况界面
+  /// 这里先注释，到时候再看
+  /*
   querySelector('#Ftask_Content')
-    ..text = FtaskContent(); // 任务完成情况
+    ..text = FtaskContent(); // 任务完成情况*/
   querySelector('#Ftask_Btn')
-    ..text = '返回主界面'
+    ..onClick.listen(ftaskDiv);
+  querySelector('#Teacher_Btn')
     ..onClick.listen(ReturnTeacher); //返回教师主界面按钮
 
   /// 布置任务界面
@@ -168,7 +171,6 @@ void main() {
     ..onClick.listen(result_return);
 }
 
-
 void SignUp(RouteEvent e) {
   document
       .querySelector('#SignUp_Div_Form')
@@ -179,7 +181,70 @@ void SignUp(RouteEvent e) {
       .style
       .display = "none";
 }
+void newTask(MouseEvent event) {
+  var request = HttpRequest.getString("http://127.0.0.1:14080/teacherUnitWord").then(onTeaWord);
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'newTask',
+        path: '/tea/newTask',
+        enter: teaNewTask);
+  querySelector('#newTask').attributes['href'] =router.url('newTask');
+  router.listen();
+}
+void onTeaWord (responseText){
+  int num=0;
+  var jsonString = responseText;
+  var wordlist = JSON.decode(jsonString);
+  int wordNum=wordlist.length;
+   var onDivold=document.getElementById("word0");
+   var onDivnew=document.createElement("input");
+  onDivnew.id="word3";
+  onDivnew.setAttribute("type","checkbox");
+   onDivold.append(onDivnew);
+ //document.getElementById("word3").nextNode.text="hello";
+  querySelector("#word3").nextNode.text="hello";
+  //var onInputold=document.getElementById("word1");
+  //var onInputnew=document.createElement("input");
+  // onInputold.append(onInputnew);
 
+ /* for(int i=0;i<wordNum;i++) {
+    unitWord firstWord = new unitWord()
+      ..Unit=wordlist[i]["Unit"]
+      ..English=wordlist[i]["English"]
+      ..Chinese=wordlist[i]["Chinese"];
+//querySelector("#word1").nextNode.text=firstWord.Unit;
+    if(firstWord.Unit == 'unit1' ){
+      String showText="英文：${firstWord.English} 中文：${firstWord.Chinese}";
+      ///todo 动态创建div
+      var onDivold=document.getElementById("word$num");
+      var onDivnew=document.createElement("input","checkbox");
+     // onDivnew.setAttribute("type","checkbox");
+     // onDivnew.type="checkbox";
+      num++;
+      onDivnew.id="word$num";
+      onDivnew.append(onDivnew);
+     // var onDivtwo=querySelector('#word$num').nextNode;
+      querySelector('#word$num').nextNode.text=showText;
+    }
+
+  }
+*/
+  //querySelector("#vehicle1").nextNode.text=wordlist[0]["English"].toString();
+}
+void teaNewTask(RouteEvent e) {
+
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Teacher_Div')
+      .style
+      .display = "none";
+
+  //querySelector("#word1").text="hello";
+}
 /// 用来接受用户点击登录按钮以后的响应工作
 void SignIn(MouseEvent event) {
   //todo 记录输入的用户名和密码并与数据库进行比较，
@@ -196,10 +261,10 @@ void onSignIn(responseText) {
   var userinfo = JSON.decode(jsonString);
   var userinfolist = userinfo["Userinfo"];
   int a = 0;
-  print(signin_username.value);
+  print(signin_userid.value);
   for (var x in userinfolist) {
     print(x["Username"]);
-    if (x["Username"] == signin_username.value) {
+    if (x["UserID"] == signin_userid.value) {
       print(x["Password"]);
       if (x["Password"] == signin_password.value) {
         print(x["Status"]);
@@ -229,7 +294,7 @@ void onSignIn(responseText) {
     }
   }
   if (a == 0) {
-    querySelector("#SignIn_Error").text = "用户名或者密码错误，请重新登录";
+    querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
 
@@ -260,23 +325,25 @@ void TeaSignIn(RouteEvent e) {
 void StuSignUp(MouseEvent event) {
   //todo 将数据写入数据库中的用户信息表，并将身份属性值设为stu
   //todo 显示注册成功界面
-  var SignUpUserName= signup_username.value;
-  var SignUpClass=signup_class.value;
-  var SignUpPassword=signup_password.value;
-  var SignUpConPassword=signup_confirmpw.value;
+  var SignUpUserName = signup_username.value;
+  var SignUpClass = signup_class.value;
+  var SignUpPassword = signup_password.value;
+  var SignUpConPassword = signup_confirmpw.value;
+  var SignUpUserID = signup_userid.value;
   //if判断语句：用户名和密码是否为空，空时给出提示
-  if(SignUpUserName==''||  SignUpPassword=='' || SignUpConPassword=='')
-  {
-    querySelector("#signuperror").text="用户名和密码不能为空！";
+  if (SignUpUserName == '' || SignUpPassword == '' || SignUpConPassword == '' ||
+      SignUpUserID == '') {
+    querySelector("#signuperror").text = "用户名、学号和密码不能为空！";
   }
   //else:对数据进行处理
-  else{
+  else {
     //if判断语句：密码和确认密码是否一致，不一致时给出提示（else语句在下面）
     if (signup_password.value == signup_confirmpw.value) {
       Map data = {
         "Username":'${SignUpUserName}',
         "Class":'${SignUpClass}',
-        "Password":'${SignUpPassword}'
+        "Password":'${SignUpPassword}',
+        "UserID":'${ SignUpUserID}'
       };
       var jsonData = JSON.encode(data);
       //创建post的request
@@ -287,17 +354,19 @@ void StuSignUp(MouseEvent event) {
         if (request.readyState == HttpRequest.DONE &&
             (request.status == 200 || request.status == 0)) {
           //if判断语句：注册是否成功，成功跳转到另一个url处，否则给出错误提示：该用户已经注册......
-          if(request.responseText == 'success'){
+          if (request.responseText == 'success') {
             var router2 = new Router(useFragment: true);
             router2.root
               ..addRoute(
-                  name: 'SStuSignUp', path: '/stu/signup/succeed', enter: SStuSignUp);
+                  name: 'SStuSignUp',
+                  path: '/stu/signup/succeed',
+                  enter: SSignUp);
             querySelector('#SignUp_Stu_Btn').attributes['href'] =
                 router2.url('SStuSignUp');
             router2.listen();
           }
-          else{
-            querySelector("#signuperror").text="该用户已注册，请更换用户名或班级";
+          else {
+            querySelector("#signuperror").text = "该用户已注册，请更换学号";
           }
           //end 注册是否成功的if
         }
@@ -309,7 +378,7 @@ void StuSignUp(MouseEvent event) {
 
     }
     //else：两次密码不同，给出提示
-    else{
+    else {
       querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
     }
     //end 两次密码是否一致的if
@@ -317,19 +386,9 @@ void StuSignUp(MouseEvent event) {
   //end 用户名和密码是否为空的if
 }
 
-void SStuSignUp(RouteEvent e) {
+void SSignUp(RouteEvent e) {
   document
-      .querySelector('#SucSignUp_Div')
-      .style
-      .display = "block";
-  document
-      .querySelector('#SignUp_Div_Form')
-      .style
-      .display = "none";
-}
-void STeaSignUp(RouteEvent e) {
-  document
-      .querySelector('#SucSignUp_Div')
+      .querySelector('#Background_Soe')
       .style
       .display = "block";
   document
@@ -342,25 +401,27 @@ void STeaSignUp(RouteEvent e) {
 /// 参数[event]是鼠标事件....
 ///此处为参考代码
 void TeaSignUp(MouseEvent event) {
-  //todo 将数据写入数据库中的用户信息表，并将身份属性值设为tea
+  //todo 将数据写入数中的用户信息表，并将身份属性值设为tea
   //todo 显示注册成功界面
-  var SignUpUserName= signup_username.value;
-  var SignUpClass=signup_class.value;
-  var SignUpPassword=signup_password.value;
-  var SignUpConPassword=signup_confirmpw.value;
+  var SignUpUserName = signup_username.value;
+  var SignUpClass = signup_class.value;
+  var SignUpPassword = signup_password.value;
+  var SignUpConPassword = signup_confirmpw.value;
+  var SignUpUserID = signup_userid.value;
   //if判断语句：用户名和密码是否为空，空时给出提示
-  if(SignUpUserName==''||  SignUpPassword=='' || SignUpConPassword=='')
-  {
-    querySelector("#signuperror").text="用户名和密码不能为空！";
+  if (SignUpUserName == '' || SignUpPassword == '' || SignUpConPassword == '' ||
+      SignUpUserID == '') {
+    querySelector("#signuperror").text = "用户名、工号和密码不能为空！";
   }
   //else:对数据进行处理
-  else{
+  else {
     //if判断语句：密码和确认密码是否一致，不一致时给出提示（else语句在下面）
     if (signup_password.value == signup_confirmpw.value) {
       Map data = {
         "Username":'${SignUpUserName}',
         "Class":'${SignUpClass}',
-        "Password":'${SignUpPassword}'
+        "Password":'${SignUpPassword}',
+        "UserID":'${SignUpUserID}'
       };
       var jsonData = JSON.encode(data);
       //创建post的request
@@ -371,17 +432,19 @@ void TeaSignUp(MouseEvent event) {
         if (request.readyState == HttpRequest.DONE &&
             (request.status == 200 || request.status == 0)) {
           //if判断语句：注册是否成功，成功跳转到另一个url处，否则给出错误提示：该用户已经注册......
-          if(request.responseText == 'success'){
+          if (request.responseText == 'success') {
             var router2 = new Router(useFragment: true);
             router2.root
               ..addRoute(
-                  name: 'STeaSignUp', path: '/tea/signup/succeed', enter: STeaSignUp);
+                  name: 'STeaSignUp',
+                  path: '/tea/signup/succeed',
+                  enter: SSignUp);
             querySelector('#SignUp_Tea_Btn').attributes['href'] =
                 router2.url('STeaSignUp');
             router2.listen();
           }
-          else{
-            querySelector("#signuperror").text="该用户已注册，请更换用户名或班级";
+          else {
+            querySelector("#signuperror").text = "该用户已注册，请更换工号";
           }
           //end 注册是否成功的if
         }
@@ -393,7 +456,7 @@ void TeaSignUp(MouseEvent event) {
 
     }
     //else：两次密码不同，给出提示
-    else{
+    else {
       querySelector("#signuperror").text = "两次输入密码不同，请重新输入！";
     }
     //end 两次密码是否一致的if
@@ -405,11 +468,76 @@ void TeaSignUp(MouseEvent event) {
 /// 参数[event]是鼠标事件....
 void ReturnSignIn(MouseEvent event) {
   //todo 隐藏注册界面和注册成功界面，显示登录界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(name: 'returnSignIn', path: '', enter: returnSignIn);
+  querySelector('#SucSignUp_Btn').attributes['href'] = router.url('returnSignIn');
+  router.listen();
+}
+
+void returnSignIn(RouteEvent e) {
+  document
+      .querySelector('#SignIn_Div_Form')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Background_Soe')
+      .style
+      .display = "none";
 }
 
 /// 返回任务完成情况的内容
-Object FtaskContent() {
+ftaskDiv(MouseEvent event) async {
   //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
+  var router = new Router(useFragment : true);
+  router.root
+    ..addRoute(name:'ftaskContent',path:'/teacher/viewtask',enter:ftaskContent);
+  querySelector('#Ftask_Btn').attributes['href']=router.url('ftaskContent');
+  router.listen();
+}
+
+ftaskContent(RouteEvent e) async{
+  document.querySelector('#Ftask_Div').style.display="block";
+  document.querySelector('#Teacher_Div').style.display="none";
+  var request =await HttpRequest.getString("http://127.0.0.1:14080/teacher_viewtask").then(
+      stuScores);
+}
+
+stuScores(responseText) {
+  ///方法1
+  int stuNum=0;
+  List listData = JSON.decode(responseText);
+  for(Map singleScore in listData) {
+    StuScores firstStu = new StuScores()
+        ..stuClass=singleScore["stuClass"]
+        ..assignmentID=singleScore["assignmentID"]
+        ..stuID=singleScore["stuID"]
+        ..userName=singleScore["userName"]
+        ..correctNum=singleScore["correctNum"]
+        ..wrongNum=singleScore["wrongNum"];
+    if((firstStu.stuClass == 'class1')&&(firstStu.assignmentID == 'a01') ){
+      String showText="班级：${firstStu.stuClass} 学号：${firstStu.stuID} 姓名：${firstStu.userName} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}";
+      ///todo 动态创建div
+      var onDivold=document.getElementById("Ftask_Detail$stuNum");
+      var onDivnew=document.createElement('div');
+      stuNum++;
+      onDivnew.id="Ftask_Detail$stuNum";
+      onDivold.append(onDivnew);
+      querySelector('#Ftask_Detail$stuNum').text=showText;
+    }
+  }
+
+  /*
+  List<StuScores> list = decode('[{"stuClass":"class1","stuID":"1014","assignmentID":"1","correctNum":"12","wrongNum":"3"},{"stuClass":"class2","stuID":"10140340120","assignmentID":"1","correctNum":"10,"wrongNum":"5"}]', type: const TypeHelper<List<StuScores>>().type);
+  List<StuScores> listData = decode(responseText,type: const TypeHelper<List<StuScores>>().type);
+  StuScores firstStu = listData[0];
+  print(firstStu);
+  String stuDetail='班级：${firstStu.stuClass} 学号：${firstStu.stuID} 任务编号：${firstStu.assignmentID} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}';
+  querySelector('#Ftask_Detail')
+    ..text=stuDetail;
+    */
+  //stuDetail='i am here!';
+
 }
 
 /// 接受用户点击返回主界面按钮的响应
@@ -417,13 +545,29 @@ void ReturnTeacher(MouseEvent event) {
   //todo 隐藏当前界面，显示教师主界面
 }
 
-/// 接受用户点击提交作业按钮的响应
-/// 参数[event]是鼠标事件....
 void SubmitWork(MouseEvent event) {
   //todo 记录用户选择的单词数据，存入Json文件
   //todo 隐藏当前界面，显示确认单词界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'showWord',
+        path: '/tea/showWord',
+        enter:showWord);
+  querySelector('#AssignWord_Btn').attributes['href'] =
+      router.url('showWord');
+  router.listen();
 }
-
+void showWord(RouteEvent e) {
+  document
+      .querySelector('#ConfirmWord_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "none";
+}
 /// 返回选择单词的字符串
 Object WordContent() {
   //todo 根据相应的Json文件，返回单词数据

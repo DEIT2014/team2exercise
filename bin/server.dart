@@ -5,11 +5,14 @@ import 'package:sqljocky/sqljocky.dart';
 import 'dart:core';
 import 'dart:io';
 import 'dart:convert';
-
+import 'package:jsonx/jsonx.dart';
+import 'package:team2exercise/stuscores.dart';
+import "package:team2exercise/teacherWord.dart";
 String responseText;//注册时返回到客户端的数据：写入数据库成功，返回0；失败，返回错误值，不为0
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-  "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
+  "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept",
+  "Content-Type":"application/json"};
 
 void main() {
   var myRouter = router()
@@ -22,6 +25,7 @@ void main() {
     ..get('/review', responseReview)
     ..get('/test/get',responseTest)
     ..get('/result',responseResult)
+    ..get('/teacherUnitWord',responseWord)//获取单元单词
   //post
     ..post('/student_signup',responseStuSignUp)
     ..post('/teacher_signup',responseTeaSignUp)
@@ -37,10 +41,10 @@ responseUser(request)async{
   var userdata=new List();//存放所有用户的数据
   var finaluserdata=new Map<String,String>();//存放最终的用户数据
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var data=await pool.query('select Username,Password,Class,Status from userinfo');
+  var data=await pool.query('select UserID,Username,Password,Class,Status from userinfo');
   //下面这个语句比较慢，一定要等它
   await data.forEach((row){
-    singledata={'"Username"':'"${row.Username}"','"Password"':'"${row.Password}"','"Class"':'"${row.Class}"','"Status"':'"${row.Status}"'};//按照这个格式存放单条数据
+    singledata={'"UserID"':'"${row.UserID}"','"Username"':'"${row.Username}"','"Password"':'"${row.Password}"','"Class"':'"${row.Class}"','"Status"':'"${row.Status}"'};//按照这个格式存放单条数据
     userdata.add(singledata);//将该数据加入数组中
   });
   //将用户数据存入数组中
@@ -49,10 +53,50 @@ responseUser(request)async{
 }
 
 ///获取学生完成情况数据
-responseTeaViewTask(request){
-  //todo 访问数据库，从学生任务完成情况表2中获取相关数据（第几课时、日期、各个学生的成绩）
+responseTeaViewTask(request)async{
+  //todo 访问数据库，从testscore表中获取相关数据（姓名、正确几个、错误几个）
+  List stuScores = new List();
+  var pool = new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data = await pool.query('select testscore.Class,testscore.userID,assignmentID,correctNum,wrongNum,Username '
+      'from testscore,userinfo where testscore.userID=userinfo.userID order by userID ASC');
+  await data.forEach((row){
+    StuScores stuScore = new StuScores()
+      ..stuClass = row.Class
+      ..assignmentID = row.assignmentID
+      ..stuID = row.userID
+      ..userName=row.Username
+      ..correctNum = row.correctNum
+      ..wrongNum = row.wrongNum;
+    stuScores.add(stuScore);
+  });
+  print('success!');
+  String jsonData = encode(stuScores);
+  return (new Response.ok(jsonData,headers: _headers));
 }
+//获取单元单词
+responseWord(request)async{
+  //todo 访问数据库，从单词表中获取一个单元的单词
+  var wordList=[];
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select Unit,word,Chinese from wordlist');
+  await data.forEach((row)
+  {
+    unitWord word=new unitWord();
+    word.Unit="${row.Unit}";
+    word.English="${row.word}";
+    word.Chinese="${row.Chinese}";
+    print(word.English);
+    wordList.add(word);//将数据添加到list中
 
+  });
+  String wordListJson=encode(wordList);
+  List<unitWord> word = decode(wordListJson,type:const TypeHelper<List<unitWord>>().type);
+  unitWord word1 = new unitWord();
+  word1 = word[0];
+  print(word1.English);
+  return (new Response.ok('${wordListJson}',headers: _headers));
+
+}
 ///获取教师布置任务的数据
 responseTeaGetTask(request){
   //todo 访问数据库，从任务表中取出任务数据（包括第几课时、日期、单词等）
@@ -91,11 +135,11 @@ responseResult(request)
 responseStuSignUp(request) async{
   //todo 学生注册
   /**有问题的
-  var responseDBText=await request.readAsString().then(insertDataBaseStu);//then返回的到底是什么，怎么样获取insertDataBaseStu的返回值，_Future类的值怎么取？
-  String realText=responseDBText.toString();
-  print(realText);
-  return (new Response.ok('success!',headers: _headers));
-      **/
+      var responseDBText=await request.readAsString().then(insertDataBaseStu);//then返回的到底是什么，怎么样获取insertDataBaseStu的返回值，_Future类的值怎么取？
+      String realText=responseDBText.toString();
+      print(realText);
+      return (new Response.ok('success!',headers: _headers));
+   **/
   await request.readAsString().then(insertDataBaseStu);
   //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
   if(responseText == '0'){
@@ -111,14 +155,16 @@ insertDataBaseStu(data) async{
   String username;
   String userClass;
   String password;
+  String userID;
   Map realdata=JSON.decode(data);
   username=realdata['Username'];
   userClass=realdata['Class'];
   password=realdata['Password'];
+  userID=realdata['UserID'];
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  await query.execute([username,password,userClass,'stu']).then((result){
+  var query=await pool.prepare('insert into userinfo(UserID,Username,Password,Class,Status) values(?,?,?,?,?)');
+  await query.execute([userID,username,password,userClass,'stu']).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
   }).catchError((error){
@@ -144,14 +190,16 @@ insertDataBaseTea(data) async{
   String username;
   String userClass;
   String password;
+  String userID;
   Map realdata=JSON.decode(data);
   username=realdata['Username'];
   userClass=realdata['Class'];
   password=realdata['Password'];
+  userID=realdata['UserID'];
   //todo 将数据存入数据库
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var query=await pool.prepare('insert into userinfo(Username,Password,Class,Status) values(?,?,?,?)');
-  await query.execute([username,password,userClass,'tea']).then((result){
+  var query=await pool.prepare('insert into userinfo(UserID,Username,Password,Class,Status) values(?,?,?,?,?)');
+  await query.execute([userID,username,password,userClass,'tea']).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
   }).catchError((error){

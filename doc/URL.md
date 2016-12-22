@@ -10,7 +10,7 @@ URL     | 描述
 URL     | 描述
 -------- | ---
 /userinfo | 从用户信息表中获取用户登录的信息，包括用户名、密码和身份属性
-/teacher_viewtask    | 从学生任务完成情况表2中获取相关数据（第几课时、日期、各个学生的成绩）
+/teacher_viewtask    | 从testscore表中获取相关数据（姓名、正确几个、错误几个）
 /teacher_writetask     | 将老师布置的任务数据写入任务表
 /teacher_gettask   | 从任务表中取出数据
 
