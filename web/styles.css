@@ -10,6 +10,10 @@ html, body {
 form{
     display:none;
 }
+input.word1{
+    margin-left: 20px;
+}
+
 a{
     border: solid gray 1px;/*设置边框属性*/
     padding-left: 15px;
