@@ -220,6 +220,7 @@ responseTeaWriteTask(request) async{
 
 insertDataBaseTask(data) async{
   var taskWord=JSON.decode(data);
+  var myDate=new DateTime.now();
   for(int i=0;i<taskWord.length;i++)
   {
     String English;
@@ -227,7 +228,7 @@ insertDataBaseTask(data) async{
     //todo 将数据存入数据库
     var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
     var query=await pool.prepare('insert into assignmentcontent(assignmentID,word) values(?,?)');
-    await query.execute(['1',English]).then((result){
+    await query.execute([myDate,English]).then((result){
       print('${result.insertId}');//如果插入成功，这会是0，否则会报错
       responseText='${result.insertId}';
     }).catchError((error){
@@ -236,10 +237,10 @@ insertDataBaseTask(data) async{
       responseText=error.toString();
     });
   }
-var myDate=new DateTime.now();
+
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var query=await pool.prepare('insert into assignment(assignmentID,assignmentName,Class,assignmentNum) values(?,?,?,?)');
-  await query.execute(['1',myDate,'class1',taskWord.length]).then((result){
+  var query=await pool.prepare('insert into assignment(assignmentID,Class,assignmentNum) values(?,?,?)');
+  await query.execute([myDate,'class1',taskWord.length]).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
   }).catchError((error){
