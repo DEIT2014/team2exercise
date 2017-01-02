@@ -535,6 +535,7 @@ void ReturnTeacher(MouseEvent event) {
   querySelector('#SucAssignWord_Btn').attributes['href'] =
       router.url('returnTeacherIndex');
   router.listen();
+  newWordList=[];//将之前选择的单词清空
 }
 void returnTeacherIndex(RouteEvent e) {
   document
@@ -570,7 +571,7 @@ void SubmitWork(MouseEvent event) {
   querySelector('#AssignWord_Btn').attributes['href'] =
       router.url('showWord');
   router.listen();
-  for(int num=1;num<=4;num++)
+  for(int num=1;num<=newWordList.length;num++)
   {
     querySelector("#choosenWord$num").text="中文："+newWordList[num-1]["Chinese"]+' '+"英文："+newWordList[num-1]["English"];
     TableCellElement toAddTd;
