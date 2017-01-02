@@ -78,14 +78,8 @@ void main() {
   ///确认单词界面
   querySelector('#ConfirmWord_Show')
     ..text = WordContent(); //选择的单词内容
- // querySelector('#ConfirmWord_Confirm_Btn')
-   // ..text = '确认'
-    //..onClick.listen(ConfirmWord); //确认单词以及发布作业的按钮
 
   ///布置作业成功界面
-  querySelector('#SucAssignWord_Btn')
-    ..text = '返回主界面'
-    ..onClick.listen(ReturnTeacher); //返回教师主界面的按钮
 
   /// 学生界面
   querySelector('#stu_name')
@@ -519,8 +513,27 @@ stuScores(responseText) {
 /// 接受用户点击返回主界面按钮的响应
 void ReturnTeacher(MouseEvent event) {
   //todo 隐藏当前界面，显示教师主界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'returnTeacherIndex',
+        path: '/tea/index',
+        enter:returnTeacherIndex);
+  querySelector('#SucAssignWord_Btn').attributes['href'] =
+      router.url('returnTeacherIndex');
+  router.listen();
 }
+void returnTeacherIndex(RouteEvent e) {
+  document
+      .querySelector('#Teacher_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#SucAssignWord_Div')
+      .style
+      .display = "none";
 
+}
 void SubmitWork(MouseEvent event) {
   //todo 记录用户选择的单词数据，存入Json文件
   //todo 隐藏当前界面，显示确认单词界面
@@ -566,7 +579,12 @@ void showWord(RouteEvent e) {
       .querySelector('#AssignWork_Div')
       .style
       .display = "none";
+
   querySelector('#ConfirmWord_Reselect_Btn').onClick.listen(ReselectWord);
+  querySelector('#ConfirmWord_Confirm_Btn')
+    ..text = '确认'
+    ..onClick.listen(ConfirmWord); //确认单词以及发布作业的按钮
+
 }
 /// 返回选择单词的字符串
 Object WordContent() {
@@ -578,8 +596,42 @@ Object WordContent() {
 void ConfirmWord(MouseEvent event) {
   //todo 将相应的json文件中的数据写入数据库
   //todo 显示提交单词成功界面
-}
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'SnewTask',
+        path: '/tea/newTask/success',
+        enter:SnewTask);
+  querySelector('#ConfirmWord_Confirm_Btn').attributes['href'] =
+      router.url('SnewTask');
+  router.listen();
+  String jsonData = encode(newWordList);
+  HttpRequest request = new HttpRequest();
+  request.onReadyStateChange.listen((_) {
 
+  });
+  var url = "http://127.0.0.1:14080/teacher_writetask";
+  request.open("POST", url);
+  request.send(jsonData);
+}
+void SnewTask(RouteEvent e) {
+  document
+      .querySelector('#SucAssignWord_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#ConfirmWord_Div')
+      .style
+      .display = "none";
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "none";
+  querySelector('#SucAssignWord_Btn')
+    ..text = '返回主界面'
+    ..onClick.listen(ReturnTeacher); //返回教师主界面的按钮
+
+}
 /// 接受用户点击重新选择单词的按钮的响应
 /// 参数[event]是鼠标事件....
 void ReselectWord(MouseEvent event) {
@@ -594,7 +646,7 @@ void ReselectWord(MouseEvent event) {
   querySelector('#ConfirmWord_Reselect_Btn').attributes['href'] =
       router.url('AnewTask');
   router.listen();
-  //newWordList=[];
+  newWordList=[];//清空之前选择的单词
 }
 void AnewTask(RouteEvent e) {
   document
@@ -605,6 +657,8 @@ void AnewTask(RouteEvent e) {
       .querySelector('#ConfirmWord_Div')
       .style
       .display = "none";
+
+
 }
 
 ///学生界面函数

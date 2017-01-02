@@ -29,7 +29,7 @@ void main() {
   //post
     ..post('/student_signup',responseStuSignUp)
     ..post('/teacher_signup',responseTeaSignUp)
-    ..post('/teacher_writetask',responseTeaWriteTask)
+    ..post('/teacher_writetask',responseTeaWriteTask)//传递教师提交任务的数据
     ..post('/student_test/post',responseStuTest);
 
   io.serve(myRouter.handler, '127.0.0.1', 14080);
@@ -211,10 +211,43 @@ insertDataBaseTea(data) async{
 
 
 ///将教师的布置任务数据写入数据库
-responseTeaWriteTask(request){
+responseTeaWriteTask(request) async{
   //todo 将老师布置的任务数据写入数据库的任务表中
+  await request.readAsString().then(insertDataBaseTask);
+  return (new Response.ok('',headers: _headers));
+
 }
 
+insertDataBaseTask(data) async{
+  var taskWord=JSON.decode(data);
+  for(int i=0;i<taskWord.length;i++)
+  {
+    String English;
+    English=taskWord[i]['English'];
+    //todo 将数据存入数据库
+    var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+    var query=await pool.prepare('insert into assignmentcontent(assignmentID,word) values(?,?)');
+    await query.execute(['1',English]).then((result){
+      print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+      responseText='${result.insertId}';
+    }).catchError((error){
+      //todo 出错的情况下，返回错误的内容
+      print('$error');
+      responseText=error.toString();
+    });
+  }
+var myDate=new DateTime.now();
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into assignment(assignmentID,assignmentName,Class,assignmentNum) values(?,?,?,?)');
+  await query.execute(['1',myDate,'class1',taskWord.length]).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+  }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
+    print('$error');
+    responseText=error.toString();
+  });
+}
 ///并将学生听写单词的中文以及英文写入到一个JSON文件中，并上传给数据库
 responseStuTest(request){
   //todo 将将学生听写单词的中文以及英文写入到一个JSON文件中，并判断正误，以及上传给数据库
