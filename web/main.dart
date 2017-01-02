@@ -22,7 +22,10 @@ var test_word; //学生听写写入的单词
 int tag;//标记该单词是否被教师选择为新任务中的单词
 var newWordList=[];//新任务单词
 var  wordlist=[];
-
+String studentName;
+String teacherNmae;
+String teacherClass;
+String studentClass;
 void main() {
   /// 登录界面
   document
@@ -248,6 +251,8 @@ void onSignIn(responseText) {
               router1.url('stu_signin');
           router1.listen();
           a = 1;
+          studentName=x["Username"];
+          studentClass=x["Class"];
         }
         else {
           //隐藏登录转到教师界面
@@ -259,6 +264,14 @@ void onSignIn(responseText) {
               router2.url('tea_signin');
           router2.listen();
           a = 1;
+          teacherClass=x["Class"];
+          teacherNmae=x["Username"];
+          querySelector("#teacherClass").text=teacherClass;
+          querySelector("#teacherName").text=teacherNmae;
+          querySelector("#teacherClass1").text=teacherClass;
+          querySelector("#teacherName1").text=teacherNmae;
+          querySelector("#teacherClass2").text=teacherClass;
+          querySelector("#teacherName2").text=teacherNmae;
         }
       }
     }
@@ -528,6 +541,7 @@ void returnTeacherIndex(RouteEvent e) {
       .querySelector('#Teacher_Div')
       .style
       .display = "block";
+
   document
       .querySelector('#SucAssignWord_Div')
       .style
