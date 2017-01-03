@@ -92,30 +92,32 @@
             </div>
         </div>
     </form>
-    <form id="SucAssignWord_Div">
+    <form id="SucAssignWord_Div"><!--提交单词成功界面-->
         <div id="SucAssignWord_Div_small" >
             <br><br><br><br><br>
             The task has been released.<br><br><br>
-            <a href id="SucAssignWord_Btn">返回教师主界面</a>
+            <a href=javascript:void(0) id="SucAssignWord_Btn">返回教师主界面</a>
         </div>
     </form>
     <!--教师确认选择过的任务单词-->
     <form id="ConfirmWord_Div">
         <div id="ConfirmWord_Show">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
-                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <p style="font-size: 20px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName1"></span><span></span><span>班级:</span> <span id="teacherClass1"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
                 <table>
                     <tr>
                         <td id="choosenWord">已选择的单词</td>
                     </tr>
                     <tr>
-                        <td>apple</td>
-                        <td>link</td>
+                        <td id="choosenWord1"></td>
+
                     </tr>
                 </table>
-                <a href="" id="ConfirmWord_Confirm_Btn">确认</a>
-                <a href="" id="ConfirmWord_Reselect_Btn">重新选择</a>
+                <br>
+                <a href=javascript:void(0)  id="ConfirmWord_Confirm_Btn">确认</a>
+                <a href=javascript:void(0) id="ConfirmWord_Reselect_Btn">重新选择</a>
+
             </div>
         </div>
     </form>
@@ -123,14 +125,52 @@
     <form id="AssignWork_Div">
         <div id="AssignWork_WordList">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
-                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <p style="font-size: 20px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName2"></span><span></span><span>班级:</span> <span id="teacherClass2"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
                 请选择下列单词<br>
-                <div id="word0"></div>
+                <input type="checkbox" id="word1" class="word1">
 
-               <input type="checkbox" id="word2" name="word2">
+                <input type="checkbox" id="word2" class="word1">
                 <br>
-                <br><br>
+                <input type="checkbox" id="word3" class="word1">
+
+                <input type="checkbox" id="word4" class="word1">
+                <br>
+                <input type="checkbox" id="word5" class="word1">
+
+                <input type="checkbox" id="word6" class="word1">
+                <br>
+                <input type="checkbox" id="word7" class="word1">
+
+                <input type="checkbox" id="word8" class="word1">
+                <br>
+                <input type="checkbox" id="word9" class="word1">
+
+                <input type="checkbox" id="word10" class="word1">
+                <br>
+                <input type="checkbox" id="word11" class="word1">
+
+                <input type="checkbox" id="word12" class="word1">
+                <br>
+                <input type="checkbox" id="word13" class="word1">
+
+                <input type="checkbox" id="word14" class="word1">
+                <br>
+                <input type="checkbox" id="word15" class="word1">
+
+                <input type="checkbox" id="word16" class="word1">
+                <br>
+                <input type="checkbox" id="word17" class="word1">
+
+                <input type="checkbox" id="word18" class="word1">
+                <br>
+                <input type="checkbox" id="word19" class="word1">
+
+                <input type="checkbox" id="word20" class="word1">
+                <br>
+
+                <br>
+
                 <a href=javascript:void(0) id="AssignWord_Btn" title="AssignWord_Btn">提交</a>
             </div>
         </div>
@@ -178,7 +218,7 @@
 
         <div id="Teacher_Div_small">
             <div id="Teacher_Div_small1">
-                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <p style="font-size: 20px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName"></span><span></span><span>班级:</span> <span id="teacherClass"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
 
                 <div id="Teacher_Unit">
@@ -283,7 +323,7 @@
                 <a  href="" id="SignUp_Btn" title="SignUp">注册</a>
             </nav>
             <br><br><br>
-            <p id="SignUp_Error"></p>
+            <p id="SignIn_Error"></p>
         </form>
     <form id="SignUp_Div_Form"><!--注册form-->
             <br><br><br>
@@ -299,6 +339,7 @@
                 <p>学号或工号:<input type="text" id="userID"></p>
                 <p>密&#8197&#8197&#8197&#8197&#8197&#8197码:<input type="password" id="SignUp_Password"></p>
                 <p>确认密码:<input type="password" id="SignUp_ConfirmPW"></p>
+                <p id="signuperror"></p>
                 <br>
                 <nav>
                     <a href=javascript:void(0) id="SignUp_Stu_Btn" title="SignUp_Stu_Btn" >学生注册</a>

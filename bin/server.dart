@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
 import "package:team2exercise/teacherWord.dart";
+import 'package:team2exercise/Assignment.dart';
 String responseText;//注册时返回到客户端的数据：写入数据库成功，返回0；失败，返回错误值，不为0
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -29,7 +30,7 @@ void main() {
   //post
     ..post('/student_signup',responseStuSignUp)
     ..post('/teacher_signup',responseTeaSignUp)
-    ..post('/teacher_writetask',responseTeaWriteTask)
+    ..post('/teacher_writetask',responseTeaWriteTask)//传递教师提交任务的数据
     ..post('/student_test/post',responseStuTest);
 
   io.serve(myRouter.handler, '127.0.0.1', 14080);
@@ -98,8 +99,19 @@ responseWord(request)async{
 
 }
 ///获取教师布置任务的数据
-responseTeaGetTask(request){
-  //todo 访问数据库，从任务表中取出任务数据（包括第几课时、日期、单词等）
+responseTeaGetTask(request)async{
+  //todo 访问数据库，从任务表Assignment中取出任务数据（包括第几课时、日期、单词等）
+  List ASSIGNMENT = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,Class,assignmentNum from assignment');
+  await data.forEach((row){
+    Assignment assignment=new Assignment();
+    assignment.assignmentID="${row.assignmentID}";
+    assignment.Class="${row.Class}";
+    assignment.assignmentNum="${row.assignmentNum}";
+    ASSIGNMENT.add(assignment);
+  });
+  return (new Response.ok(ASSIGNMENT.toString(),headers: _headers));
 }
 
 ///获取登录学生班级姓名信息，并根据班级获得数据中学生待完成任务信息
@@ -211,10 +223,44 @@ insertDataBaseTea(data) async{
 
 
 ///将教师的布置任务数据写入数据库
-responseTeaWriteTask(request){
+responseTeaWriteTask(request) async{
   //todo 将老师布置的任务数据写入数据库的任务表中
+  await request.readAsString().then(insertDataBaseTask);
+  return (new Response.ok('',headers: _headers));
+
 }
 
+insertDataBaseTask(data) async{
+  var taskWord=JSON.decode(data);
+  var myDate=new DateTime.now();
+  for(int i=0;i<taskWord.length;i++)
+  {
+    String English;
+    English=taskWord[i]['English'];
+    //todo 将数据存入数据库
+    var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+    var query=await pool.prepare('insert into assignmentcontent(assignmentID,word) values(?,?)');
+    await query.execute([myDate,English]).then((result){
+      print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+      responseText='${result.insertId}';
+    }).catchError((error){
+      //todo 出错的情况下，返回错误的内容
+      print('$error');
+      responseText=error.toString();
+    });
+  }
+
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into assignment(assignmentID,Class,assignmentNum) values(?,?,?)');
+  await query.execute([myDate,'class1',taskWord.length]).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+  }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
+    print('$error');
+    responseText=error.toString();
+  });
+}
 ///并将学生听写单词的中文以及英文写入到一个JSON文件中，并上传给数据库
 responseStuTest(request){
   //todo 将将学生听写单词的中文以及英文写入到一个JSON文件中，并判断正误，以及上传给数据库

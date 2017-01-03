@@ -19,10 +19,13 @@ InputElement signup_userid; //注册界面的用户ID变量
 InputElement signup_password; //注册界面的密码变量
 InputElement signup_confirmpw; //注册界面确认密码的变量
 var test_word; //学生听写写入的单词
-
-//var PassWord;
-//var ConPassWord;
-
+int tag;//标记该单词是否被教师选择为新任务中的单词
+var newWordList=[];//新任务单词
+var  wordlist=[];
+String studentName;
+String teacherNmae;
+String teacherClass;
+String studentClass;
 void main() {
   /// 登录界面
   document
@@ -78,17 +81,8 @@ void main() {
   ///确认单词界面
   querySelector('#ConfirmWord_Show')
     ..text = WordContent(); //选择的单词内容
-  querySelector('#ConfirmWord_Confirm_Btn')
-    ..text = '确认'
-    ..onClick.listen(ConfirmWord); //确认单词以及发布作业的按钮
-  querySelector('#ConfirmWord_Reselect_Btn')
-    ..text = '重新选择'
-    ..onClick.listen(ReselectWord); //重新选择单词按钮
 
   ///布置作业成功界面
-  querySelector('#SucAssignWord_Btn')
-    ..text = '返回主界面'
-    ..onClick.listen(ReturnTeacher); //返回教师主界面的按钮
 
   /// 学生界面
   querySelector('#stu_name')
@@ -192,46 +186,24 @@ void newTask(MouseEvent event) {
   querySelector('#newTask').attributes['href'] =router.url('newTask');
   router.listen();
 }
-void onTeaWord (responseText){
-  int num=0;
-  var jsonString = responseText;
-  var wordlist = JSON.decode(jsonString);
-  int wordNum=wordlist.length;
-   var onDivold=document.getElementById("word0");
-   var onDivnew=document.createElement("input");
-  onDivnew.id="word3";
-  onDivnew.setAttribute("type","checkbox");
-   onDivold.append(onDivnew);
- //document.getElementById("word3").nextNode.text="hello";
-  querySelector("#word3").nextNode.text="hello";
-  //var onInputold=document.getElementById("word1");
-  //var onInputnew=document.createElement("input");
-  // onInputold.append(onInputnew);
+void onTeaWord (responseText) {
 
- /* for(int i=0;i<wordNum;i++) {
+  var jsonString = responseText;
+  wordlist = JSON.decode(jsonString);
+  for ( tag = 1; tag < 21; tag++) {
     unitWord firstWord = new unitWord()
-      ..Unit=wordlist[i]["Unit"]
-      ..English=wordlist[i]["English"]
-      ..Chinese=wordlist[i]["Chinese"];
-//querySelector("#word1").nextNode.text=firstWord.Unit;
-    if(firstWord.Unit == 'unit1' ){
-      String showText="英文：${firstWord.English} 中文：${firstWord.Chinese}";
-      ///todo 动态创建div
-      var onDivold=document.getElementById("word$num");
-      var onDivnew=document.createElement("input","checkbox");
-     // onDivnew.setAttribute("type","checkbox");
-     // onDivnew.type="checkbox";
-      num++;
-      onDivnew.id="word$num";
-      onDivnew.append(onDivnew);
-     // var onDivtwo=querySelector('#word$num').nextNode;
-      querySelector('#word$num').nextNode.text=showText;
+      ..Unit = wordlist[tag - 1]["Unit"]
+      ..English = wordlist[tag - 1]["English"]
+      ..Chinese = wordlist[tag - 1]["Chinese"];
+    if (firstWord.Unit == 'unit1') {
+      String showText = "英文：${firstWord.English} 中文：${firstWord.Chinese}";
+      querySelector("#word$tag").nextNode.text = showText;
     }
 
   }
-*/
-  //querySelector("#vehicle1").nextNode.text=wordlist[0]["English"].toString();
+
 }
+
 void teaNewTask(RouteEvent e) {
 
   document
@@ -242,6 +214,7 @@ void teaNewTask(RouteEvent e) {
       .querySelector('#Teacher_Div')
       .style
       .display = "none";
+
 
   //querySelector("#word1").text="hello";
 }
@@ -278,6 +251,8 @@ void onSignIn(responseText) {
               router1.url('stu_signin');
           router1.listen();
           a = 1;
+          studentName=x["Username"];
+          studentClass=x["Class"];
         }
         else {
           //隐藏登录转到教师界面
@@ -289,6 +264,14 @@ void onSignIn(responseText) {
               router2.url('tea_signin');
           router2.listen();
           a = 1;
+          teacherClass=x["Class"];
+          teacherNmae=x["Username"];
+          querySelector("#teacherClass").text=teacherClass;
+          querySelector("#teacherName").text=teacherNmae;
+          querySelector("#teacherClass1").text=teacherClass;
+          querySelector("#teacherName1").text=teacherNmae;
+          querySelector("#teacherClass2").text=teacherClass;
+          querySelector("#teacherName2").text=teacherNmae;
         }
       }
     }
@@ -543,11 +526,42 @@ stuScores(responseText) {
 /// 接受用户点击返回主界面按钮的响应
 void ReturnTeacher(MouseEvent event) {
   //todo 隐藏当前界面，显示教师主界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'returnTeacherIndex',
+        path: '/tea/index',
+        enter:returnTeacherIndex);
+  querySelector('#SucAssignWord_Btn').attributes['href'] =
+      router.url('returnTeacherIndex');
+  router.listen();
+  newWordList=[];//将之前选择的单词清空
 }
+void returnTeacherIndex(RouteEvent e) {
+  document
+      .querySelector('#Teacher_Div')
+      .style
+      .display = "block";
 
+  document
+      .querySelector('#SucAssignWord_Div')
+      .style
+      .display = "none";
+
+}
 void SubmitWork(MouseEvent event) {
   //todo 记录用户选择的单词数据，存入Json文件
   //todo 隐藏当前界面，显示确认单词界面
+  for(var i=1;i<21;i++)
+  {unitWord wordString=new unitWord();
+    wordString=wordlist[i-1];
+  CheckboxInputElement wordTag=querySelector("#word$i");
+  if(wordTag.checked && !(newWordList.contains(wordlist[i-1]))){
+    newWordList.add(wordString);
+  }
+  }
+ //
+
   var router = new Router(useFragment: true);
   router.root
     ..addRoute(
@@ -557,7 +571,20 @@ void SubmitWork(MouseEvent event) {
   querySelector('#AssignWord_Btn').attributes['href'] =
       router.url('showWord');
   router.listen();
+  for(int num=1;num<=newWordList.length;num++)
+  {
+    querySelector("#choosenWord$num").text="中文："+newWordList[num-1]["Chinese"]+' '+"英文："+newWordList[num-1]["English"];
+    TableCellElement toAddTd;
+    toAddTd=querySelector("#choosenWord$num");
+    var newTd=new TableCellElement();
+    int i=num+1;
+    newTd.setAttribute("id","choosenWord$i");
+    toAddTd.children.add(newTd);
+  }
+
+
 }
+
 void showWord(RouteEvent e) {
   document
       .querySelector('#ConfirmWord_Div')
@@ -567,6 +594,12 @@ void showWord(RouteEvent e) {
       .querySelector('#AssignWork_Div')
       .style
       .display = "none";
+
+  querySelector('#ConfirmWord_Reselect_Btn').onClick.listen(ReselectWord);
+  querySelector('#ConfirmWord_Confirm_Btn')
+    ..text = '确认'
+    ..onClick.listen(ConfirmWord); //确认单词以及发布作业的按钮
+
 }
 /// 返回选择单词的字符串
 Object WordContent() {
@@ -578,13 +611,69 @@ Object WordContent() {
 void ConfirmWord(MouseEvent event) {
   //todo 将相应的json文件中的数据写入数据库
   //todo 显示提交单词成功界面
-}
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'SnewTask',
+        path: '/tea/newTask/success',
+        enter:SnewTask);
+  querySelector('#ConfirmWord_Confirm_Btn').attributes['href'] =
+      router.url('SnewTask');
+  router.listen();
+  String jsonData = encode(newWordList);
+  HttpRequest request = new HttpRequest();
+  request.onReadyStateChange.listen((_) {
 
+  });
+  var url = "http://127.0.0.1:14080/teacher_writetask";
+  request.open("POST", url);
+  request.send(jsonData);
+}
+void SnewTask(RouteEvent e) {
+  document
+      .querySelector('#SucAssignWord_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#ConfirmWord_Div')
+      .style
+      .display = "none";
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "none";
+  querySelector('#SucAssignWord_Btn')
+    ..text = '返回主界面'
+    ..onClick.listen(ReturnTeacher); //返回教师主界面的按钮
+
+}
 /// 接受用户点击重新选择单词的按钮的响应
 /// 参数[event]是鼠标事件....
 void ReselectWord(MouseEvent event) {
   //todo 删除原来存放在json文件中的临时单词数据，
   //todo 隐藏该界面，显示布置任务界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'AnewTask',
+        path: '/tea/newTask',
+        enter:AnewTask);
+  querySelector('#ConfirmWord_Reselect_Btn').attributes['href'] =
+      router.url('AnewTask');
+  router.listen();
+  newWordList=[];//清空之前选择的单词
+}
+void AnewTask(RouteEvent e) {
+  document
+      .querySelector('#AssignWork_Div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#ConfirmWord_Div')
+      .style
+      .display = "none";
+
+
 }
 
 ///学生界面函数
