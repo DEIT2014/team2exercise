@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
 import "package:team2exercise/teacherWord.dart";
+import 'package:team2exercise/Assignment.dart';
 String responseText;//注册时返回到客户端的数据：写入数据库成功，返回0；失败，返回错误值，不为0
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -98,8 +99,19 @@ responseWord(request)async{
 
 }
 ///获取教师布置任务的数据
-responseTeaGetTask(request){
+responseTeaGetTask(request)async{
   //todo 访问数据库，从任务表中取出任务数据（包括第几课时、日期、单词等）
+  List ASSIGNMENT = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,Class,assignmentNum from assignment');
+  await data.forEach((row){
+    Assignment assignment=new Assignment();
+    assignment.assignmentID="${row.assignmentID}";
+    assignment.Class="${row.Class}";
+    assignment.assignmentNum="${row.assignmentNum}";
+    ASSIGNMENT.add(assignment);
+  });
+  return (new Response.ok(ASSIGNMENT.toString(),headers: _headers));
 }
 
 ///获取登录学生班级姓名信息，并根据班级获得数据中学生待完成任务信息
