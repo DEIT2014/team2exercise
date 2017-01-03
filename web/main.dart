@@ -10,6 +10,7 @@ import 'dart:convert' show JSON;
 import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
 import 'package:team2exercise/teacherWord.dart';
+import 'package:team2exercise/Assignment.dart';
 var localhost = "127.0.0.1:14080";
 InputElement signin_userid; //登录界面的ID变量
 InputElement signin_password; //登录界面的密码变量
@@ -165,6 +166,9 @@ void main() {
     ..onClick.listen(result_return);
 }
 
+
+
+
 void SignUp(RouteEvent e) {
   document
       .querySelector('#SignUp_Div_Form')
@@ -280,6 +284,8 @@ void onSignIn(responseText) {
     querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
+
+
 
 void StuSignIn(RouteEvent e) {
   document
