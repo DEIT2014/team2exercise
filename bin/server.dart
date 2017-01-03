@@ -100,7 +100,7 @@ responseWord(request)async{
 }
 ///获取教师布置任务的数据
 responseTeaGetTask(request)async{
-  //todo 访问数据库，从任务表中取出任务数据（包括第几课时、日期、单词等）
+  //todo 访问数据库，从任务表Assignment中取出任务数据（包括第几课时、日期、单词等）
   List ASSIGNMENT = new List();//存放任务信息
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
   var data=await pool.query('select assignmentID,Class,assignmentNum from assignment');
