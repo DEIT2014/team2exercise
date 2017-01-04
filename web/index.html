@@ -181,18 +181,16 @@
     <form id="Ftask_Div">
         <div id="Ftask_Content">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;" id="Ftask_Title">
-                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <p style="font-size: 20px;letter-spacing:10px;">教师姓名:</span ><span  id="teacherNameView"></span><span></span><span>班级:</span> <span id="teacherClass2View"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
-                <table style="width:100%;" border="5" id="Ftask_Table">
-                    <tr>
-                        <td>班级</td>
-                        <td>学号</td>
-                        <td>姓名</td>
-                        <td>正确单词个数</td>
-                        <td>错误单词个数</td>
-                    </tr>
-                </table><br>
-                <div id="Ftask_Detail0"></div><br><br>
+                <div style="height:300px; overflow: scroll; ">
+                    <table style="height: 250px;" border="3" id="Ftask_table">
+                        <tr>
+                            任务完成情况表
+                        </tr>
+                        <tr id="Ftask_Detail0"></tr>
+                    </table>
+                </div><br><br>
                 <a href id="Teacher_Btn">返回教师主界面</a><br><br><br>
 
             </div>
@@ -202,19 +200,17 @@
     <form id="student">
         <div id="student_small">
             <div id="stu_task">
-                <br><br><br>
-                <p style="font-size: 20px;letter-spacing:10px;">学生姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
-
-                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
-
-                Assignment<br><br>
-                <input type="checkbox" name="stu_task_one" value="stu_task_one">显示第一个待完成任务<br>
-                <input type="checkbox" name="stu_task_two" value="stu_task_two">显示第二个待完成任务<br>
-                <input type="checkbox" name="stu_task_three" value="stu_task_three">显示第三个待完成任务<br>
-                <input type="checkbox" name="stu_task_four" value="stu_task_four">显示第四个待完成任务<br>
+                <br>
+                <div id="show_useinfo" style="text-align: left;font-weight: bold;"></div><br>
+                <div style="font-size: 50px;">任务选择列表</div>
+                <!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br><br>
+                <input type="radio" name="word_unit" value="unit1" style="font-size:30px;">&#8197&#8197&#8197第&#8197一&#8197单&#8197元<br>
+                <input type="radio" name="word_unit" value="unit2" style="font-size:20px;">&#8197&#8197&#8197第&#8197二&#8197单&#8197元<br>
+                <input type="radio" name="word_unit" value="unit3" style="font-size:20px;">&#8197&#8197&#8197第&#8197三&#8197单&#8197元<br>
+                <input type="radio" name="word_unit" value="unit4" style="font-size:20px;">&#8197&#8197&#8197第&#8197四&#8197单&#8197元<br>
             </div><br><br>
-            <a href id="stu_review">复习</a>&nbsp;&nbsp;
-            <a href id="stu_test">测试</a>
+            <a href=javascript:void(0) id="stu_test">开始测试</a>
         </div>
     </form>
     <form id="Teacher_Div">
