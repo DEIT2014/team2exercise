@@ -303,6 +303,7 @@ void onSignIn(responseText) {
     querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
+
 void StuSignIn(RouteEvent e) {
   document
       .querySelector('#student')
@@ -484,16 +485,6 @@ void StuSignIn(RouteEvent e) {
       router.listen();
     }
 
-    void returnSignIn(RouteEvent e) {
-      document
-          .querySelector('#SignIn_Div_Form')
-          .style
-          .display = "block";
-      document
-          .querySelector('#Background_Soe')
-          .style
-          .display = "none";
-    }
 
     /// 返回任务完成情况的内容
     ftaskDiv(MouseEvent event) async {
@@ -523,48 +514,30 @@ void StuSignIn(RouteEvent e) {
           stuScores);
     }
 
-    stuScores(responseText) {
-      ///方法1
-      int stuNum = 0;
-      List listData = JSON.decode(responseText);
-      for (Map singleScore in listData) {
-        StuScores firstStu = new StuScores()
-          ..stuClass = singleScore["stuClass"]
-          ..assignmentID = singleScore["assignmentID"]
-          ..stuID = singleScore["stuID"]
-          ..userName = singleScore["userName"]
-          ..correctNum = singleScore["correctNum"]
-          ..wrongNum = singleScore["wrongNum"];
-        if ((firstStu.stuClass == 'class1') &&
-            (firstStu.assignmentID == 'a01')) {
-          String showText = "班级：${firstStu.stuClass} 学号：${firstStu
-              .stuID} 姓名：${firstStu.userName} 正确个数：${firstStu
-              .correctNum} 错误个数：${firstStu.wrongNum}";
-
-          ///todo 动态创建表格里的行
-          TableElement table = querySelector('#Ftask_table');
-          querySelector("#Ftask_Detail$stuNum").text = showText;
-          //TableCellElement toAddTd;
-          //toAddTd=querySelector("#Ftask_Detail$stuNum");
-          var newTd = new TableRowElement();
-          stuNum++;
-          newTd.setAttribute("id", "Ftask_Detail$stuNum");
-          table.children.add(newTd);
-        }
-      }
-
-      /*
-  List<StuScores> list = decode('[{"stuClass":"class1","stuID":"1014","assignmentID":"1","correctNum":"12","wrongNum":"3"},{"stuClass":"class2","stuID":"10140340120","assignmentID":"1","correctNum":"10,"wrongNum":"5"}]', type: const TypeHelper<List<StuScores>>().type);
-  List<StuScores> listData = decode(responseText,type: const TypeHelper<List<StuScores>>().type);
-  StuScores firstStu = listData[0];
-  print(firstStu);
-  String stuDetail='班级：${firstStu.stuClass} 学号：${firstStu.stuID} 任务编号：${firstStu.assignmentID} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}';
-  querySelector('#Ftask_Detail')
-    ..text=stuDetail;
-    */
-      //stuDetail='i am here!';
-
+stuScores(responseText) {
+  int stuNum=0;
+  List listData = JSON.decode(responseText);
+  //TableElement table=querySelector('#Ftask_table');
+  TableRowElement row0=querySelector('#Ftask_Detail0');
+  for(Map singleScore in listData) {
+    StuScores firstStu = new StuScores()
+      ..stuClass=singleScore["stuClass"]
+      ..assignmentID=singleScore["assignmentID"]
+      ..stuID=singleScore["stuID"]
+      ..userName=singleScore["userName"]
+      ..correctNum=singleScore["correctNum"]
+      ..wrongNum=singleScore["wrongNum"];
+    if((firstStu.stuClass == teacherClass)&&(firstStu.assignmentID ==chosenTaskTeaView) ){
+      String showText="班级：${firstStu.stuClass} 学号：${firstStu.stuID} 姓名：${firstStu.userName} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}";
+      ///todo 动态创建表格里的行
+      querySelector("#Ftask_Detail$stuNum").text=showText;
+      var newTd=new TableRowElement();
+      stuNum++;
+      newTd.setAttribute("id","Ftask_Detail$stuNum");
+      row0.children.add(newTd);
     }
+  }
+}
 
     /// 接受用户点击返回主界面按钮的响应
     void ReturnTeacher(MouseEvent event) {
@@ -690,33 +663,6 @@ void StuSignIn(RouteEvent e) {
         ..text = '返回主界面'
         ..onClick.listen(ReturnTeacher); //返回教师主界面的按钮
 
-    }
-
-    /// 接受用户点击重新选择单词的按钮的响应
-    /// 参数[event]是鼠标事件....
-    void ReselectWord(MouseEvent event) {
-      //todo 删除原来存放在json文件中的临时单词数据，
-      //todo 隐藏该界面，显示布置任务界面
-      var router = new Router(useFragment: true);
-      router.root
-        ..addRoute(
-            name: 'AnewTask',
-            path: '/tea/newTask',
-            enter: AnewTask);
-      querySelector('#ConfirmWord_Reselect_Btn').attributes['href'] =
-          router.url('AnewTask');
-      router.listen();
-      newWordList = []; //清空之前选择的单词
-    }
-    void AnewTask(RouteEvent e) {
-      document
-          .querySelector('#AssignWork_Div')
-          .style
-          .display = "block";
-      document
-          .querySelector('#ConfirmWord_Div')
-          .style
-          .display = "none";
     }
 
     ///学生界面函数
