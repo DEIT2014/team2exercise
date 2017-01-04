@@ -115,9 +115,24 @@ responseTeaGetTask(request)async{
 }
 
 ///获取登录学生班级姓名信息，并根据班级获得数据中学生待完成任务信息
-responseStu(request)
+responseStu(request)async
 {//todo 访问数据库，获取登录学生的待完成任务数据，并转换为json
   //return new Response.ok("学生待完成任务");//可以返回数据库中的数据，修改“”
+  List studentTask = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,Class,status from assignment ');
+  await data.forEach((row){
+    print(row);
+Assignment assignment=new Assignment();
+assignment.assignmentID="${row.assignmentID}";
+assignment.Class="${row.Class}";
+    if("${row.status}"=="false"){
+      studentTask.add(assignment);
+    }
+
+});
+  String taskJson=encode(studentTask);
+return (new Response.ok(taskJson,headers: _headers));
 }
 
 ///获取登录学生已完成任务信息
@@ -127,9 +142,20 @@ responseFinished(request)
 }
 
 ///获取学生选择任务的所有单词信息，包括总共的单词英文、中文、发音
-responseReview(request)
+responseReview(request)async
 {//todo 访问数据库，获取任务中的单词，并转换为JSON
   // return new Response.ok("Word");//可以返回数据库中的数据，修改“”
+  List taskWord = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,word from assignmentcontent');
+  await data.forEach((row){
+Assignment assignment=new Assignment();
+assignment.assignmentID="${row.assignmentID}";
+assignment.word="${row.word}";
+taskWord.add(assignment);
+});
+  String taskWordJson=encode(taskWord);
+return (new Response.ok(taskWordJson,headers: _headers));
 }
 
 ///获取学生所选择任务的所有单词信息，包括总共的单词英文、中文、发音，以及两个不正确的中文意思
@@ -251,8 +277,8 @@ insertDataBaseTask(data) async{
   }
 
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var query=await pool.prepare('insert into assignment(assignmentID,Class,assignmentNum) values(?,?,?)');
-  await query.execute([myDate,'class1',taskWord.length]).then((result){
+  var query=await pool.prepare('insert into assignment(assignmentID,Class,assignmentNum,status) values(?,?,?,?)');
+  await query.execute([myDate,'class1',taskWord.length,"false"]).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
   }).catchError((error){

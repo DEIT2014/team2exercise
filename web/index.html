@@ -72,7 +72,7 @@
     <form id="review">
         <div id="review_small">
             <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
-                <p style="font-size: 20px;letter-spacing:10px;">学生姓名:XXX 班级:X班</p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <p style="font-size: 30px;letter-spacing:10px;"><span>学生姓名:</span ><span  id="studentName"></span><span></span><span>班级:</span> <span id="studentClass"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
                 <table>
                     <tr>
@@ -82,7 +82,7 @@
                     </tr>
                 </table>
                 <div id="">
-                    <div id="review_word">apple</div>
+                    <div id="review_word0"></div>
                     <a href="" id="review_voice">Voice</a>
                     <a href="" id=" 	review_change">Chinese/English</a>
                 </div>
@@ -103,11 +103,11 @@
     <form id="ConfirmWord_Div" >
         <div id="ConfirmWord_Show" align="center">
             <div style="width:100%;height:80%;position: absolute;top: 30px;padding-left: 20px;" align="center">
-                <p style="font-size: 30px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName1"></span><span></span><span>班级:</span> <span id="teacherClass1"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <p style="font-size: 30px;letter-spacing:10px;font-weight: bold;"><span>教师姓名:</span ><span  id="teacherName1"></span><span></span><span>班级:</span> <span id="teacherClass1"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
-                <div style="width:700px; height:300px; overflow:scroll;" align="center">
+                <div style="width:700px; height:280px; overflow:scroll;" align="center">
                 <table border="0" cellspacing="0" width="680px" id="dataTableDetail" align="center">
-                    <tr id="choosenWord" style="font-size: 16px;padding-bottom: 5px;">已选择的单词</tr>
+                    <tr id="choosenWord" style="font-size: 16px;padding-bottom: 3px;">已选择的单词</tr>
                     <tr id="choosenWord1" ></tr>
                 </table>
                 </div>
@@ -123,7 +123,7 @@
     <form id="AssignWork_Div">
         <div id="AssignWork_WordList" >
             <div style="width:100%;height:80%;position: absolute;top: 30px;padding-left: 20px;">
-                <p style="font-size: 30px;letter-spacing:10px;" align="center"><span>教师姓名:</span ><span  id="teacherName2"></span><span></span><span>班级:</span> <span id="teacherClass2"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <p style="font-size: 30px;letter-spacing:10px;font-weight: bold;" align="center"><span>教师姓名:</span ><span  id="teacherName2"></span><span></span><span>班级:</span> <span id="teacherClass2"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
                 <p align="center" style="font-size: 16px;"> 请选择下列单词</p>
                 <div style="font-size: 18px;padding-left: 200px;" >
@@ -199,37 +199,44 @@
     </form>
     <form id="student">
         <div id="student_small">
-            <div id="stu_task">
+            <div id="stu_task" align="center" style="width:100%;height:80%;padding-left: 20px;">
                 <br>
-                <div id="show_useinfo" style="text-align: left;font-weight: bold;"></div><br>
-                <div style="font-size: 50px;">任务选择列表</div>
+                <br>
+                <br>
+                <div id="show_useinfo" align="center" style="font-size:30px; font-weight: bold;letter-spacing:10px;"></div><br>
                 <!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 --><br><br>
-                <input type="radio" name="word_unit" value="unit1" style="font-size:30px;">&#8197&#8197&#8197第&#8197一&#8197单&#8197元<br>
+                <div style="font-size: 16px;" align="center">任务选择列表</div>
+                <br>
+                <div id="assignment">
+                <a id="assignment0" class="assignment" ></a>
+                </div>
+               <!-- <input type="radio" name="word_unit" value="unit1" style="font-size:30px;">&#8197&#8197&#8197第&#8197一&#8197单&#8197元<br>
                 <input type="radio" name="word_unit" value="unit2" style="font-size:20px;">&#8197&#8197&#8197第&#8197二&#8197单&#8197元<br>
                 <input type="radio" name="word_unit" value="unit3" style="font-size:20px;">&#8197&#8197&#8197第&#8197三&#8197单&#8197元<br>
-                <input type="radio" name="word_unit" value="unit4" style="font-size:20px;">&#8197&#8197&#8197第&#8197四&#8197单&#8197元<br>
+                <input type="radio" name="word_unit" value="unit4" style="font-size:20px;">&#8197&#8197&#8197第&#8197四&#8197单&#8197元<br>-->
             </div><br><br>
+            <a  href=javascript:void(0) id="stu_review">复习</a>
             <a href=javascript:void(0) id="stu_test">开始测试</a>
         </div>
     </form>
     <form id="Teacher_Div">
 
-        <div id="Teacher_Div_small">
-            <div id="Teacher_Div_small1">
-                <p style="font-size: 20px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName"></span><span></span><span>班级:</span> <span id="teacherClass"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+        <div id="Teacher_Div_small" align="center">
+            <div id="Teacher_Div_small1" align="center">
+                <p style="font-size: 30px;letter-spacing:10px;font-weight: bold;" align="center"><span>教师姓名:</span ><span  id="teacherName"></span><span></span><span>班级:</span> <span id="teacherClass"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
 
                 <div id="Teacher_Unit">
-                    布置新任务<br><br>
-                    <select>
+                    <p style="font-size: 16px;" >布置新任务</p><br>
+                    <select >
                         <option id="task1">六年级上册</option>
                         <option id="task2">六年级下册</option>
                     </select><br><br><br>
-                    <a href=javascript:void(0) id="newTask">确认</a>
+                    <a href=javascript:void(0) id="newTask" >确认</a>
                 </div>
                 <div id="Teacher_Ftask">
-                    以往任务的完成情况<br><br>
+                    <p style="font-size: 16px;">以往任务的完成情况</p><br>
                     <input type="radio" name="task">第一单元完成情况<br><br>
                     <input type="radio" name="task">第二单元完成情况<br><br>
                     <input type="radio" name="task">第三单元完成情况<br><br>
