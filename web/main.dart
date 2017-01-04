@@ -10,6 +10,7 @@ import 'dart:convert' show JSON;
 import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
 import 'package:team2exercise/teacherWord.dart';
+import 'package:team2exercise/Assignment.dart';
 var localhost = "127.0.0.1:14080";
 InputElement signin_userid; //登录界面的ID变量
 InputElement signin_password; //登录界面的密码变量
@@ -165,6 +166,9 @@ void main() {
     ..onClick.listen(result_return);
 }
 
+
+
+
 void SignUp(RouteEvent e) {
   document
       .querySelector('#SignUp_Div_Form')
@@ -280,6 +284,8 @@ void onSignIn(responseText) {
     querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
+
+
 
 void StuSignIn(RouteEvent e) {
   document
@@ -571,15 +577,16 @@ void SubmitWork(MouseEvent event) {
   querySelector('#AssignWord_Btn').attributes['href'] =
       router.url('showWord');
   router.listen();
+  TableElement table=querySelector("#choosenWord1");
   for(int num=1;num<=newWordList.length;num++)
   {
     querySelector("#choosenWord$num").text="中文："+newWordList[num-1]["Chinese"]+' '+"英文："+newWordList[num-1]["English"];
-    TableCellElement toAddTd;
-    toAddTd=querySelector("#choosenWord$num");
-    var newTd=new TableCellElement();
+
+    var newTd=new TableRowElement();
     int i=num+1;
     newTd.setAttribute("id","choosenWord$i");
-    toAddTd.children.add(newTd);
+    table.children.add(newTd);
+
   }
 
 

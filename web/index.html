@@ -100,35 +100,35 @@
         </div>
     </form>
     <!--教师确认选择过的任务单词-->
-    <form id="ConfirmWord_Div">
-        <div id="ConfirmWord_Show">
-            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
-                <p style="font-size: 20px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName1"></span><span></span><span>班级:</span> <span id="teacherClass1"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+    <form id="ConfirmWord_Div" >
+        <div id="ConfirmWord_Show" align="center">
+            <div style="width:100%;height:80%;position: absolute;top: 30px;padding-left: 20px;" align="center">
+                <p style="font-size: 30px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName1"></span><span></span><span>班级:</span> <span id="teacherClass1"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
-                <table>
-                    <tr>
-                        <td id="choosenWord">已选择的单词</td>
-                    </tr>
-                    <tr>
-                        <td id="choosenWord1"></td>
-
-                    </tr>
+                <div style="width:700px; height:300px; overflow:scroll;" align="center">
+                <table border="0" cellspacing="0" width="680px" id="dataTableDetail" align="center">
+                    <tr id="choosenWord" style="font-size: 16px;padding-bottom: 5px;">已选择的单词</tr>
+                    <tr id="choosenWord1" ></tr>
                 </table>
+                </div>
                 <br>
-                <a href=javascript:void(0)  id="ConfirmWord_Confirm_Btn">确认</a>
+                <div align="center">
+                <a href=javascript:void(0)  id="ConfirmWord_Confirm_Btn" >确认</a>
                 <a href=javascript:void(0) id="ConfirmWord_Reselect_Btn">重新选择</a>
-
+                </div>
             </div>
         </div>
     </form>
     <!--在一个单元中选择单词作为一次的任务-->
     <form id="AssignWork_Div">
-        <div id="AssignWork_WordList">
-            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
-                <p style="font-size: 20px;letter-spacing:10px;"><span>教师姓名:</span ><span  id="teacherName2"></span><span></span><span>班级:</span> <span id="teacherClass2"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+        <div id="AssignWork_WordList" >
+            <div style="width:100%;height:80%;position: absolute;top: 30px;padding-left: 20px;">
+                <p style="font-size: 30px;letter-spacing:10px;" align="center"><span>教师姓名:</span ><span  id="teacherName2"></span><span></span><span>班级:</span> <span id="teacherClass2"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
                 <hr width="100%" style="opacity: 0.20"><!--分割线 -->
-                请选择下列单词<br>
-                <input type="checkbox" id="word1" class="word1">
+                <p align="center" style="font-size: 16px;"> 请选择下列单词</p>
+                <div style="font-size: 18px;padding-left: 200px;" >
+
+                <input type="checkbox" id="word1" class="word1" >
 
                 <input type="checkbox" id="word2" class="word1">
                 <br>
@@ -167,11 +167,14 @@
                 <input type="checkbox" id="word19" class="word1">
 
                 <input type="checkbox" id="word20" class="word1">
+                </div>
                 <br>
 
-                <br>
 
-                <a href=javascript:void(0) id="AssignWord_Btn" title="AssignWord_Btn">提交</a>
+<div align="center">
+    <a href=javascript:void(0) id="AssignWord_Btn" title="AssignWord_Btn">提交</a>
+</div>
+
             </div>
         </div>
     </form>
@@ -224,27 +227,17 @@
                 <div id="Teacher_Unit">
                     布置新任务<br><br>
                     <select>
-                        <option id="六年级上册">六年级上册</option>
-                        <option id="六年级下册">六年级下册</option>
+                        <option id="task1">六年级上册</option>
+                        <option id="task2">六年级下册</option>
                     </select><br><br><br>
                     <a href=javascript:void(0) id="newTask">确认</a>
                 </div>
                 <div id="Teacher_Ftask">
                     以往任务的完成情况<br><br>
-                    <table style="width:100%;border:dashed 1px ;">
-                        <tr>
-                            <td style="border-bottom:dashed 1px ;">第一单元完成情况</td>
-                        </tr>
-                        <tr>
-                            <td style="border-bottom:dashed 1px ;">第二单元完成情况</td>
-                        </tr>
-                        <tr>
-                            <td style="border-bottom:dashed 1px ;">第三单元完成情况</td>
-                        </tr>
-                        <tr>
-                            <td>第四单元完成情况</td>
-                        </tr>
-                    </table><br><br>
+                    <input type="radio" name="task">第一单元完成情况<br><br>
+                    <input type="radio" name="task">第二单元完成情况<br><br>
+                    <input type="radio" name="task">第三单元完成情况<br><br>
+                    <input type="radio" name="task">第四单元完成情况<br><br>
                     <a href="" id="Ftask_Btn">确定</a>
                 </div>
 
