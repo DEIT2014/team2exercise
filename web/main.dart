@@ -28,6 +28,7 @@ String teacherName;
 String teacherClass;
 String studentClass;
 String chosenTask;//选择的任务单元
+String chosenTaskTeaView;//选择查看成绩的任务单元
 void main() {
   /// 登录界面
   document
@@ -73,7 +74,7 @@ void main() {
   querySelector('#Ftask_Btn')
     ..onClick.listen(ftaskDiv);
   querySelector('#Teacher_Btn')
-    ..onClick.listen(ReturnTeacher); //返回教师主界面按钮
+    ..onClick.listen(ReturnTeacher2); //返回教师主界面按钮
 
   /// 布置任务界面
   querySelector('#AssignWork_Btn')
@@ -277,6 +278,8 @@ void onSignIn(responseText) {
           querySelector("#teacherName1").text=teacherName;
           querySelector("#teacherClass2").text=teacherClass;
           querySelector("#teacherName2").text=teacherName;
+          querySelector('#teacherNameView').text=teacherName;
+          querySelector('#teacherClassView').text=teacherClass;
         }
       }
     }
@@ -285,8 +288,6 @@ void onSignIn(responseText) {
     querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
-
-
 
 void StuSignIn(RouteEvent e) {
   document
@@ -480,8 +481,15 @@ void returnSignIn(RouteEvent e) {
 }
 
 /// 返回任务完成情况的内容
-ftaskDiv(MouseEvent event) async {
+ftaskDiv(MouseEvent event) {
   //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
+  var object=document.getElementsByName("task");
+  for(var index = 0;index < object.length;index++){
+    if(object[index].checked){
+      chosenTaskTeaView=object[index].value;
+      break;
+    }
+  }
   var router = new Router(useFragment : true);
   router.root
     ..addRoute(name:'ftaskContent',path:'/teacher/viewtask',enter:ftaskContent);
@@ -497,9 +505,10 @@ ftaskContent(RouteEvent e) async{
 }
 
 stuScores(responseText) {
-  ///方法1
   int stuNum=0;
   List listData = JSON.decode(responseText);
+  //TableElement table=querySelector('#Ftask_table');
+  TableRowElement row0=querySelector('#Ftask_Detail0');
   for(Map singleScore in listData) {
     StuScores firstStu = new StuScores()
         ..stuClass=singleScore["stuClass"]
@@ -508,31 +517,16 @@ stuScores(responseText) {
         ..userName=singleScore["userName"]
         ..correctNum=singleScore["correctNum"]
         ..wrongNum=singleScore["wrongNum"];
-    if((firstStu.stuClass == 'class1')&&(firstStu.assignmentID == 'a01') ){
+    if((firstStu.stuClass == teacherClass)&&(firstStu.assignmentID ==chosenTaskTeaView) ){
       String showText="班级：${firstStu.stuClass} 学号：${firstStu.stuID} 姓名：${firstStu.userName} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}";
       ///todo 动态创建表格里的行
-      TableElement table=querySelector('#Ftask_table');
       querySelector("#Ftask_Detail$stuNum").text=showText;
-      //TableCellElement toAddTd;
-      //toAddTd=querySelector("#Ftask_Detail$stuNum");
       var newTd=new TableRowElement();
       stuNum++;
       newTd.setAttribute("id","Ftask_Detail$stuNum");
-      table.children.add(newTd);
+      row0.children.add(newTd);
     }
   }
-
-  /*
-  List<StuScores> list = decode('[{"stuClass":"class1","stuID":"1014","assignmentID":"1","correctNum":"12","wrongNum":"3"},{"stuClass":"class2","stuID":"10140340120","assignmentID":"1","correctNum":"10,"wrongNum":"5"}]', type: const TypeHelper<List<StuScores>>().type);
-  List<StuScores> listData = decode(responseText,type: const TypeHelper<List<StuScores>>().type);
-  StuScores firstStu = listData[0];
-  print(firstStu);
-  String stuDetail='班级：${firstStu.stuClass} 学号：${firstStu.stuID} 任务编号：${firstStu.assignmentID} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}';
-  querySelector('#Ftask_Detail')
-    ..text=stuDetail;
-    */
-  //stuDetail='i am here!';
-
 }
 
 /// 接受用户点击返回主界面按钮的响应
@@ -550,17 +544,28 @@ void ReturnTeacher(MouseEvent event) {
   newWordList=[];//将之前选择的单词清空
 }
 void returnTeacherIndex(RouteEvent e) {
-  document
-      .querySelector('#Teacher_Div')
-      .style
-      .display = "block";
-
-  document
-      .querySelector('#SucAssignWord_Div')
-      .style
-      .display = "none";
-
+  document.querySelector('#Teacher_Div').style.display = "block";
+  document.querySelector('#SucAssignWord_Div').style.display = "none";
 }
+
+void ReturnTeacher2(MouseEvent event) {
+  //todo 隐藏当前界面，显示教师主界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'returnTeacherIndex',
+        path: '/tea/index',
+        enter:returnTeacherIndex2);
+  querySelector('#Teacher_Btn').attributes['href'] =
+      router.url('returnTeacherIndex');
+  router.listen();
+}
+void returnTeacherIndex2(RouteEvent e) {
+  document.querySelector('#Teacher_Div').style.display = "block";
+  document.querySelector('#Ftask_Div').style.display = "none";
+}
+
+
 void SubmitWork(MouseEvent event) {
   //todo 记录用户选择的单词数据，存入Json文件
   //todo 隐藏当前界面，显示确认单词界面
@@ -695,7 +700,6 @@ void unitChoice(MouseEvent event) {
   //todo 用户点击按钮开始测试的响应工作，要跳转到测试的界面，并隐藏当前界面。
 
   var object=document.getElementsByName("word_unit");
-  //int index=0;
   for(var index = 0;index < object.length;index++){
     if(object[index].checked){
       chosenTask=object[index].value;
