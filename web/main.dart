@@ -43,7 +43,6 @@ String teacherClass;
 String studentClass;
 String chosenTask;//选择的任务单元
 String chosenTaskTeaView;//选择查看成绩的任务单元
-
 void main() {
   /// 登录界面
   document
@@ -304,21 +303,19 @@ void onSignIn(responseText) {
     querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
-    void StuSignIn(RouteEvent e) {
-      document
-          .querySelector('#student')
-          .style
-          .display = "block";
-      document
-          .querySelector('#SignIn_Div_Form')
-          .style
-          .display = "none";
-      querySelector('#show_useinfo').text =
-      '学号：$studentName    姓名：$studentClass'; //显示学生信息
-      var request = HttpRequest.getString(
-          "http://127.0.0.1:14080/student/index").then(onStudentIndex);
-    }
-
+void StuSignIn(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "block";
+  document
+      .querySelector('#SignIn_Div_Form')
+      .style
+      .display = "none";
+  querySelector('#show_useinfo').text='学号：$studentName    姓名：$studentClass';
+  querySelector('#stu_test')
+    ..onClick.listen(unitChoice);
+}
     void TeaSignIn(RouteEvent e) {
       document
           .querySelector('#Teacher_Div')
