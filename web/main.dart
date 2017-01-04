@@ -41,7 +41,8 @@ String studentName;
 String teacherName;
 String teacherClass;
 String studentClass;
-String chosenTask; //选择的任务单元
+String chosenTask;//选择的任务单元
+String chosenTaskTeaView;//选择查看成绩的任务单元
 
 void main() {
   /// 登录界面
@@ -287,12 +288,14 @@ void onSignIn(responseText) {
           a = 1;
           teacherClass = x["Class"];
           teacherName = x["Username"];
-          querySelector("#teacherClass").text = teacherClass;
-          querySelector("#teacherName").text = teacherName;
-          querySelector("#teacherClass1").text = teacherClass;
-          querySelector("#teacherName1").text = teacherName;
-          querySelector("#teacherClass2").text = teacherClass;
-          querySelector("#teacherName2").text = teacherName;
+          querySelector("#teacherClass").text=teacherClass;
+          querySelector("#teacherName").text=teacherName;
+          querySelector("#teacherClass1").text=teacherClass;
+          querySelector("#teacherName1").text=teacherName;
+          querySelector("#teacherClass2").text=teacherClass;
+          querySelector("#teacherName2").text=teacherName;
+          querySelector('#teacherNameView').text=teacherName;
+          querySelector('#teacherClassView').text=teacherClass;
         }
       }
     }
@@ -301,287 +304,6 @@ void onSignIn(responseText) {
     querySelector("#SignIn_Error").text = "学号、工号或者密码错误，请重新登录";
   }
 }
-
-void onStudentIndex(responseText) {
-  var jsonString = responseText;
-  var studentTask = JSON.decode(jsonString);
-  Element toAddA = querySelector("#assignment");
-  int j = 0;
-  for (var i = 1; i <= (studentTask.length); i++) {
-    if (studentTask[i - 1]["Class"] == studentClass) {
-      String unfished;
-      unfished = studentTask[i - 1]["assignmentID"];
-      if (!(unfinishedTask.contains(unfished))) {
-        unfinishedTask.add(unfished);
-        Element toadd = querySelector("#assignment$j");
-        toadd.text = unfinishedTask[j];
-        if (j <= (studentTask.length) / 2) {
-          var newA = new Element.a();
-          int m = j + 1;
-          newA.setAttribute("id", "assignment$m");
-          newA.setAttribute("class", "assignment");
-          toAddA.children.add(newA);
-          j++;
-        }
-      }
-    }
-  }
-  querySelector("#assignment0").onClick.listen(studentTest0);
-  querySelector("#assignment1").onClick.listen(studentTest1);
-  querySelector("#assignment2").onClick.listen(studentTest2);
-  querySelector("#assignment3").onClick.listen(studentTest3);
-  querySelector("#assignment4").onClick.listen(studentTest4);
-  querySelector("#assignment5").onClick.listen(studentTest5);
-}
-
-void studentTest0(MouseEvent event) {
-  var router = new Router(useFragment: true);
-  router.root
-    ..addRoute(
-        name: 'StuTest',
-        path: '/stu/test',
-        enter: StuTest0);
-  querySelector('#assignment0').attributes['href'] =
-      router.url('StuTest');
-  router.listen();
-}
-
-void studentTest1(MouseEvent event) {
-  var router = new Router(useFragment: true);
-  router.root
-    ..addRoute(
-        name: 'StuTest',
-        path: '/stu/test',
-        enter: StuTest1);
-  querySelector('#assignment1').attributes['href'] =
-      router.url('StuTest');
-  router.listen();
-}
-
-void studentTest2(MouseEvent event) {
-  var router = new Router(useFragment: true);
-  router.root
-    ..addRoute(
-        name: 'StuTest',
-        path: '/stu/test',
-        enter: StuTest2);
-  querySelector('#assignment2').attributes['href'] =
-      router.url('StuTest');
-  router.listen();
-}
-
-void studentTest3(MouseEvent event) {
-  var router = new Router(useFragment: true);
-  router.root
-    ..addRoute(
-        name: 'StuTest',
-        path: '/stu/test',
-        enter: StuTest3);
-  querySelector('#assignment3').attributes['href'] =
-      router.url('StuTest');
-  router.listen();
-}
-
-void studentTest4(MouseEvent event) {
-  var router = new Router(useFragment: true);
-  router.root
-    ..addRoute(
-        name: 'StuTest',
-        path: '/stu/test',
-        enter: StuTest4);
-  querySelector('#assignment4').attributes['href'] =
-      router.url('StuTest');
-  router.listen();
-}
-
-void studentTest5(MouseEvent event) {
-  var router = new Router(useFragment: true);
-  router.root
-    ..addRoute(
-        name: 'StuTest',
-        path: '/stu/test',
-        enter: StuTest5);
-  querySelector('#assignment5').attributes['href'] =
-      router.url('StuTest');
-  router.listen();
-}
-
-void StuTest0(RouteEvent e) {
-  document
-      .querySelector('#student')
-      .style
-      .display = "none";
-  document
-      .querySelector('#review')
-      .style
-      .display = "block";
-
-  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
-      ontaskWord0);
-}
-
-void ontaskWord0(responseText) {
-  var jsonString = responseText;
-  var taskWord = JSON.decode(jsonString);
-  Assignment assignment = new Assignment();
-  int i = 0;
-
-  for (Map x in taskWord) {
-    if (x["assignmentID"] == unfinishedTask[0]) {
-      querySelector("#review_word$i").text = x["word"];
-      DivElement toAdd = querySelector("#review_word$i");
-      DivElement newDiv = new DivElement();
-      int j = i + 1;
-      newDiv.setAttribute("id", "review_word$j");
-      toAdd.children.add(newDiv);
-      i++;
-    }
-  }
-}
-
-void StuTest1(RouteEvent e) {
-  document
-      .querySelector('#student')
-      .style
-      .display = "none";
-  document
-      .querySelector('#review')
-      .style
-      .display = "block";
-  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
-      ontaskWord1);
-}
-
-void ontaskWord1(responseText) {
-  var jsonString = responseText;
-  var taskWord = JSON.decode(jsonString);
-  Assignment assignment = new Assignment();
-  int i = 0;
-  for (Map x in taskWord) {
-    if (x["assignmentID"] == unfinishedTask[1]) {
-      querySelector("#review_word$i").text = x["word"];
-      DivElement toAdd = querySelector("#review_word$i");
-      DivElement newDiv = new DivElement();
-      int j = i + 1;
-      newDiv.setAttribute("id", "review_word$j");
-      toAdd.children.add(newDiv);
-      i++;
-    }
-  }}
-  void ontaskWord2(responseText) {
-    var jsonString = responseText;
-    var taskWord = JSON.decode(jsonString);
-    Assignment assignment = new Assignment();
-    int i = 0;
-    for (Map x in taskWord) {
-      if (x["assignmentID"] == unfinishedTask[2]) {
-        querySelector("#review_word$i").text = x["word"];
-        DivElement toAdd = querySelector("#review_word$i");
-        DivElement newDiv = new DivElement();
-        int j = i + 1;
-        newDiv.setAttribute("id", "review_word$j");
-        toAdd.children.add(newDiv);
-        i++;
-      }
-    }
-  }
-  void StuTest2(RouteEvent e) {
-    document
-        .querySelector('#student')
-        .style
-        .display = "none";
-    document
-        .querySelector('#review')
-        .style
-        .display = "block";
-    var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
-        ontaskWord2);
-  }
-
-  void ontaskWord3(responseText) {
-    var jsonString = responseText;
-    var taskWord = JSON.decode(jsonString);
-    Assignment assignment = new Assignment();
-    int i = 0;
-    for (Map x in taskWord) {
-      if (x["assignmentID"] == unfinishedTask[3]) {
-        querySelector("#review_word$i").text = x["word"];
-        DivElement toAdd = querySelector("#review_word$i");
-        DivElement newDiv = new DivElement();
-        int j = i + 1;
-        newDiv.setAttribute("id", "review_word$j");
-        toAdd.children.add(newDiv);
-        i++;
-      }
-    }}
-  void StuTest3(RouteEvent e) {
-    document
-        .querySelector('#student')
-        .style
-        .display = "none";
-    document
-        .querySelector('#review')
-        .style
-        .display = "block";
-    var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
-        ontaskWord3);
-  }
-  void ontaskWord4(responseText) {
-    var jsonString = responseText;
-    var taskWord = JSON.decode(jsonString);
-    Assignment assignment = new Assignment();
-    int i = 0;
-    for (Map x in taskWord) {
-      if (x["assignmentID"] == unfinishedTask[4]) {
-        querySelector("#review_word$i").text = x["word"];
-        DivElement toAdd = querySelector("#review_word$i");
-        DivElement newDiv = new DivElement();
-        int j = i + 1;
-        newDiv.setAttribute("id", "review_word$j");
-        toAdd.children.add(newDiv);
-        i++;
-      }
-    }}
-    void StuTest4(RouteEvent e) {
-      document
-          .querySelector('#student')
-          .style
-          .display = "none";
-      document
-          .querySelector('#review')
-          .style
-          .display = "block";
-      var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
-          ontaskWord4);
-    }
-  void ontaskWord5(responseText) {
-    var jsonString = responseText;
-    var taskWord = JSON.decode(jsonString);
-    Assignment assignment = new Assignment();
-    int i = 0;
-    for (Map x in taskWord) {
-      if (x["assignmentID"] == unfinishedTask[5]) {
-        querySelector("#review_word$i").text = x["word"];
-        DivElement toAdd = querySelector("#review_word$i");
-        DivElement newDiv = new DivElement();
-        int j = i + 1;
-        newDiv.setAttribute("id", "review_word$j");
-        toAdd.children.add(newDiv);
-        i++;
-      }
-    }}
-    void StuTest5(RouteEvent e) {
-      document
-          .querySelector('#student')
-          .style
-          .display = "none";
-      document
-          .querySelector('#review')
-          .style
-          .display = "block";
-      var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
-          ontaskWord4);
-    }
     void StuSignIn(RouteEvent e) {
       document
           .querySelector('#student')
@@ -664,7 +386,6 @@ void ontaskWord1(responseText) {
           var url = "http://127.0.0.1:14080/student_signup";
           request.open("POST", url, async: false);
           request.send(jsonData); //perform the post
-
         }
         //else：两次密码不同，给出提示
         else {
@@ -990,7 +711,6 @@ void ontaskWord1(responseText) {
       router.listen();
       newWordList = []; //清空之前选择的单词
     }
-
     void AnewTask(RouteEvent e) {
       document
           .querySelector('#AssignWork_Div')
