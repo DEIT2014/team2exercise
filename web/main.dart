@@ -485,20 +485,22 @@ void StuSignIn(RouteEvent e) {
       router.listen();
     }
 
-
-    /// 返回任务完成情况的内容
-    ftaskDiv(MouseEvent event) async {
-      //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
-      var router = new Router(useFragment: true);
-      router.root
-        ..addRoute(
-            name: 'ftaskContent',
-            path: '/teacher/viewtask',
-            enter: ftaskContent);
-      querySelector('#Ftask_Btn').attributes['href'] =
-          router.url('ftaskContent');
-      router.listen();
+/// 返回任务完成情况的内容
+ftaskDiv(MouseEvent event) {
+  //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
+  var object=document.getElementsByName("task");
+  for(var index = 0;index < object.length;index++){
+    if(object[index].checked){
+      chosenTaskTeaView=object[index].value;
+      break;
     }
+  }
+    var router = new Router(useFragment : true);
+  router.root
+    ..addRoute(name:'ftaskContent',path:'/teacher/viewtask',enter:ftaskContent);
+  querySelector('#Ftask_Btn').attributes['href']=router.url('ftaskContent');
+  router.listen();
+}
 
     ftaskContent(RouteEvent e) async {
       document
@@ -539,66 +541,76 @@ stuScores(responseText) {
   }
 }
 
-    /// 接受用户点击返回主界面按钮的响应
-    void ReturnTeacher(MouseEvent event) {
-      //todo 隐藏当前界面，显示教师主界面
-      var router = new Router(useFragment: true);
-      router.root
-        ..addRoute(
-            name: 'returnTeacherIndex',
-            path: '/tea/index',
-            enter: returnTeacherIndex);
-      querySelector('#SucAssignWord_Btn').attributes['href'] =
-          router.url('returnTeacherIndex');
-      router.listen();
-      newWordList = []; //将之前选择的单词清空
-    }
+/// 接受用户点击返回主界面按钮的响应
+void ReturnTeacher(MouseEvent event) {
+  //todo 隐藏当前界面，显示教师主界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'returnTeacherIndex',
+        path: '/tea/index',
+        enter:returnTeacherIndex);
+  querySelector('#SucAssignWord_Btn').attributes['href'] =
+      router.url('returnTeacherIndex');
+  router.listen();
+  newWordList=[];//将之前选择的单词清空
+}
+void returnTeacherIndex(RouteEvent e) {
+  document.querySelector('#Teacher_Div').style.display = "block";
+  document.querySelector('#SucAssignWord_Div').style.display = "none";
+}
 
-    void returnTeacherIndex(RouteEvent e) {
-      document
-          .querySelector('#Teacher_Div')
-          .style
-          .display = "block";
+void ReturnTeacher2(MouseEvent event) {
+  //todo 隐藏当前界面，显示教师主界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'returnTeacherIndex',
+        path: '/tea/index',
+        enter:returnTeacherIndex2);
+  querySelector('#Teacher_Btn').attributes['href'] =
+      router.url('returnTeacherIndex');
+  router.listen();
+}
+void returnTeacherIndex2(RouteEvent e) {
+  document.querySelector('#Teacher_Div').style.display = "block";
+  document.querySelector('#Ftask_Div').style.display = "none";
+}
 
-      document
-          .querySelector('#SucAssignWord_Div')
-          .style
-          .display = "none";
-    }
 
-    void SubmitWork(MouseEvent event) {
-      //todo 记录用户选择的单词数据，存入Json文件
-      //todo 隐藏当前界面，显示确认单词界面
-      for (var i = 1; i < 21; i++) {
-        unitWord wordString = new unitWord();
-        wordString = wordlist[i - 1];
-        CheckboxInputElement wordTag = querySelector("#word$i");
-        if (wordTag.checked && !(newWordList.contains(wordlist[i - 1]))) {
-          newWordList.add(wordString);
-        }
-      }
-      //
+void SubmitWork(MouseEvent event) {
+  //todo 记录用户选择的单词数据，存入Json文件
+  //todo 隐藏当前界面，显示确认单词界面
+  for(var i=1;i<21;i++)
+  {unitWord wordString=new unitWord();
+  wordString=wordlist[i-1];
+  CheckboxInputElement wordTag=querySelector("#word$i");
+  if(wordTag.checked && !(newWordList.contains(wordlist[i-1]))){
+    newWordList.add(wordString);
+  }
+  }
+  //
 
-      var router = new Router(useFragment: true);
-      router.root
-        ..addRoute(
-            name: 'showWord',
-            path: '/tea/showWord',
-            enter: showWord);
-      querySelector('#AssignWord_Btn').attributes['href'] =
-          router.url('showWord');
-      router.listen();
-      TableRowElement table = querySelector("#choosenWord1");
-      for (int num = 1; num <= newWordList.length; num++) {
-        querySelector("#choosenWord$num").text =
-            "中文：" + newWordList[num - 1]["Chinese"] + ' ' + "英文：" +
-                newWordList[num - 1]["English"];
-        var newTd = new TableRowElement();
-        int i = num + 1;
-        newTd.setAttribute("id", "choosenWord$i");
-        table.children.add(newTd);
-      }
-    }
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'showWord',
+        path: '/tea/showWord',
+        enter:showWord);
+  querySelector('#AssignWord_Btn').attributes['href'] =
+      router.url('showWord');
+  router.listen();
+  TableElement table=querySelector("#choosenWord1");
+  for(int num=1;num<=newWordList.length;num++)
+  {
+    querySelector("#choosenWord$num").text="中文："+newWordList[num-1]["Chinese"]+' '+"英文："+newWordList[num-1]["English"];
+
+    var newTd=new TableRowElement();
+    int i=num+1;
+    newTd.setAttribute("id","choosenWord$i");
+    table.children.add(newTd);
+
+  }
 
     void showWord(RouteEvent e) {
       document
@@ -662,7 +674,11 @@ stuScores(responseText) {
       querySelector('#SucAssignWord_Btn')
         ..text = '返回主界面'
         ..onClick.listen(ReturnTeacher); //返回教师主界面的按钮
-
+      var object=document.getElementsByName("word_unit");
+      for(var index = 0;index < object.length;index++){
+        if(object[index].checked){
+          chosenTask=object[index].value;
+          break;
     }
 
     ///学生界面函数
