@@ -24,9 +24,10 @@ int tag;//标记该单词是否被教师选择为新任务中的单词
 var newWordList=[];//新任务单词
 var  wordlist=[];
 String studentName;
-String teacherNmae;
+String teacherName;
 String teacherClass;
 String studentClass;
+String chosenTask;//选择的任务单元
 void main() {
   /// 登录界面
   document
@@ -269,13 +270,13 @@ void onSignIn(responseText) {
           router2.listen();
           a = 1;
           teacherClass=x["Class"];
-          teacherNmae=x["Username"];
+          teacherName=x["Username"];
           querySelector("#teacherClass").text=teacherClass;
-          querySelector("#teacherName").text=teacherNmae;
+          querySelector("#teacherName").text=teacherName;
           querySelector("#teacherClass1").text=teacherClass;
-          querySelector("#teacherName1").text=teacherNmae;
+          querySelector("#teacherName1").text=teacherName;
           querySelector("#teacherClass2").text=teacherClass;
-          querySelector("#teacherName2").text=teacherNmae;
+          querySelector("#teacherName2").text=teacherName;
         }
       }
     }
@@ -296,6 +297,9 @@ void StuSignIn(RouteEvent e) {
       .querySelector('#SignIn_Div_Form')
       .style
       .display = "none";
+  querySelector('#show_useinfo').text='学号：$studentName    姓名：$studentClass';
+  querySelector('#stu_test')
+    ..onClick.listen(unitChoice);
 }
 
 void TeaSignIn(RouteEvent e) {
@@ -506,13 +510,15 @@ stuScores(responseText) {
         ..wrongNum=singleScore["wrongNum"];
     if((firstStu.stuClass == 'class1')&&(firstStu.assignmentID == 'a01') ){
       String showText="班级：${firstStu.stuClass} 学号：${firstStu.stuID} 姓名：${firstStu.userName} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}";
-      ///todo 动态创建div
-      var onDivold=document.getElementById("Ftask_Detail$stuNum");
-      var onDivnew=document.createElement('div');
+      ///todo 动态创建表格里的行
+      TableElement table=querySelector('#Ftask_table');
+      querySelector("#Ftask_Detail$stuNum").text=showText;
+      //TableCellElement toAddTd;
+      //toAddTd=querySelector("#Ftask_Detail$stuNum");
+      var newTd=new TableRowElement();
       stuNum++;
-      onDivnew.id="Ftask_Detail$stuNum";
-      onDivold.append(onDivnew);
-      querySelector('#Ftask_Detail$stuNum').text=showText;
+      newTd.setAttribute("id","Ftask_Detail$stuNum");
+      table.children.add(newTd);
     }
   }
 
@@ -684,6 +690,34 @@ void AnewTask(RouteEvent e) {
 }
 
 ///学生界面函数
+///学生部分
+void unitChoice(MouseEvent event) {
+  //todo 用户点击按钮开始测试的响应工作，要跳转到测试的界面，并隐藏当前界面。
+
+  var object=document.getElementsByName("word_unit");
+  //int index=0;
+  for(var index = 0;index < object.length;index++){
+    if(object[index].checked){
+      chosenTask=object[index].value;
+      break;
+    }
+  }
+  var router = new Router(useFragment : true);
+  router.root
+    ..addRoute(name:'vocabulary1',path:'/stu/vocabulary1',enter:vocabulary1);//todo 这里的vocabulary1函数指的是跳转到显示单词界面的函数
+  querySelector('#stu_test').attributes['href']=router.url('vocabulary1');
+  router.listen();
+  var request = HttpRequest.getString("http://127.0.0.1:14080/student/index").then(
+      getWord);//todo 这里的getWord函数指的是获取到数据后显示的单词处理
+}
+
+void vocabulary1(RouteEvent e){
+
+}
+
+void getWord(responseText){
+
+}
 
 /// 返回学生界面学生姓名
 Object stu_name_show() {
