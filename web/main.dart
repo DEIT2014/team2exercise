@@ -259,6 +259,8 @@ void onSignIn(responseText) {
           querySelector("#studentName").text=studentName;
           querySelector("#studentClass1").text=studentClass;
           querySelector("#studentName1").text=studentName;
+          querySelector("#studentClass2").text=studentClass;
+          querySelector("#studentName2").text=studentName;
         }
         else {
           //隐藏登录转到教师界面
@@ -298,7 +300,7 @@ void StuSignIn(RouteEvent e) {
       .querySelector('#SignIn_Div_Form')
       .style
       .display = "none";
-  querySelector('#show_useinfo').text='学号：$studentName    姓名：$studentClass';
+  querySelector('#show_useinfo').text='姓名：$studentName    班级：$studentClass';
   var request = HttpRequest.getString(
       "http://127.0.0.1:14080/student/index").then(onStudentIndex);
 }
