@@ -23,6 +23,7 @@ var test_word; //学生听写写入的单词
 int tag;//标记该单词是否被教师选择为新任务中的单词
 var newWordList=[];//新任务单词
 var  wordlist=[];
+var unfinishedTask = []; //学生首页界面未完成任务
 String studentName;
 String teacherName;
 String teacherClass;
@@ -44,7 +45,7 @@ void main() {
   querySelector('#SignUp_Btn').attributes['href'] = router.url('signup');
   router.listen();
   querySelector("#SignIn_Btn").onClick.listen(SignIn);
-
+  querySelector("#review_test").onClick.listen(reviewTest);
   /// 注册界面
   signup_username = querySelector('#SignUp_Username'); //输入用户名
   signup_class = querySelector('#SignUp_Class'); //输入班级
@@ -152,9 +153,6 @@ void main() {
     ..text = test_option_two_show(); //向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_option_three')
     ..text = test_option_three_show(); //向服务器请求读取数据库中随机的单词中文或者正确的单词中文
-  querySelector('#test_submit')
-    ..text = '提交'
-    ..onClick.listen(test_submit);
 
   ///结果界面
   querySelector('#result_correct_num')
@@ -167,9 +165,6 @@ void main() {
     ..text = '返回主页'
     ..onClick.listen(result_return);
 }
-
-
-
 
 void SignUp(RouteEvent e) {
   document
@@ -259,6 +254,8 @@ void onSignIn(responseText) {
           a = 1;
           studentName=x["Username"];
           studentClass=x["Class"];
+          querySelector("#studentClass").text=studentClass;
+          querySelector("#studentName").text=studentName;
         }
         else {
           //隐藏登录转到教师界面
@@ -299,10 +296,333 @@ void StuSignIn(RouteEvent e) {
       .style
       .display = "none";
   querySelector('#show_useinfo').text='学号：$studentName    姓名：$studentClass';
-  querySelector('#stu_test')
-    ..onClick.listen(unitChoice);
+  var request = HttpRequest.getString(
+      "http://127.0.0.1:14080/student/index").then(onStudentIndex);
+}
+void onStudentIndex(responseText) {
+  var jsonString = responseText;
+  var studentTask = JSON.decode(jsonString);
+  Element toAddA = querySelector("#assignment");
+  int j = 0;
+  for (var i = 1; i <= (studentTask.length); i++) {
+    if (studentTask[i - 1]["Class"] == studentClass) {
+      String unfished;
+      unfished = studentTask[i - 1]["assignmentID"];
+      if (!(unfinishedTask.contains(unfished))) {
+        unfinishedTask.add(unfished);
+        Element toadd = querySelector("#assignment$j");
+        toadd.text = unfinishedTask[j];
+        if (j <= ((studentTask.length) / 2)+1) {
+          var newA = new Element.a();
+          int m = j + 1;
+          newA.setAttribute("id", "assignment$m");
+          newA.setAttribute("class", "assignment");
+          toAddA.children.add(newA);
+          j++;
+        }
+      }
+    }
+  }
+  querySelector("#assignment0").onClick.listen(studentTest0);
+  querySelector("#assignment1").onClick.listen(studentTest1);
+  querySelector("#assignment2").onClick.listen(studentTest2);
+  querySelector("#assignment3").onClick.listen(studentTest3);
+  querySelector("#assignment4").onClick.listen(studentTest4);
+  querySelector("#assignment5").onClick.listen(studentTest5);
+}
+void studentTest0(MouseEvent event) {
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTest',
+        path: '/stu/test',
+        enter: StuTest0);
+  querySelector('#assignment0').attributes['href'] =
+      router.url('StuTest');
+  router.listen();
 }
 
+void studentTest1(MouseEvent event) {
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTest',
+        path: '/stu/test',
+        enter: StuTest1);
+  querySelector('#assignment1').attributes['href'] =
+      router.url('StuTest');
+  router.listen();
+}
+
+void studentTest2(MouseEvent event) {
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTest',
+        path: '/stu/test',
+        enter: StuTest2);
+  querySelector('#assignment2').attributes['href'] =
+      router.url('StuTest');
+  router.listen();
+}
+
+void studentTest3(MouseEvent event) {
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTest',
+        path: '/stu/test',
+        enter: StuTest3);
+  querySelector('#assignment3').attributes['href'] =
+      router.url('StuTest');
+  router.listen();
+}
+
+void studentTest4(MouseEvent event) {
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTest',
+        path: '/stu/test',
+        enter: StuTest4);
+  querySelector('#assignment4').attributes['href'] =
+      router.url('StuTest');
+  router.listen();
+}
+
+void studentTest5(MouseEvent event) {
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTest',
+        path: '/stu/test',
+        enter: StuTest5);
+  querySelector('#assignment5').attributes['href'] =
+      router.url('StuTest');
+  router.listen();
+}
+
+void StuTest0(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "none";
+  document
+      .querySelector('#review')
+      .style
+      .display = "block";
+  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
+      ontaskWord0);
+
+}
+void reviewTest(MouseEvent event){
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuReviewTest',
+        path: '/stu/review/test',
+        enter: StuReviewTest);
+  querySelector('#review_test').attributes['href'] =
+      router.url('StuReviewTest');
+  router.listen();
+}
+void StuReviewTest(RouteEvent e) {
+  document
+      .querySelector('#review')
+      .style
+      .display = "none";
+  document
+      .querySelector('#test')
+      .style
+      .display = "block";
+  querySelector("#test_submit").onClick.listen(testSubmit);
+
+}
+void testSubmit(MouseEvent event){
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTestSubmit',
+        path: '/stu/test/submit',
+        enter: StuTestSubmit);
+  querySelector('#test_submit').attributes['href'] =
+      router.url('StuTestSubmit');
+  router.listen();
+}
+void StuTestSubmit(RouteEvent e) {
+  document
+      .querySelector('#test')
+      .style
+      .display = "none";
+  document
+      .querySelector('#result')
+      .style
+      .display = "block";
+  querySelector("#test_submit").onClick.listen(testSubmit);
+
+}
+void ontaskWord0(responseText) {
+  var jsonString = responseText;
+  var taskWord = JSON.decode(jsonString);
+  Assignment assignment = new Assignment();
+  int i = 0;
+
+  for (Map x in taskWord) {
+    if (x["assignmentID"] == unfinishedTask[0]) {
+      querySelector("#review_word$i").text = x["word"];
+      DivElement toAdd = querySelector("#review_word$i");
+      DivElement newDiv = new DivElement();
+      int j = i + 1;
+      newDiv.setAttribute("id", "review_word$j");
+      toAdd.children.add(newDiv);
+      i++;
+    }
+  }
+}
+
+void StuTest1(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "none";
+  document
+      .querySelector('#review')
+      .style
+      .display = "block";
+  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
+      ontaskWord1);
+}
+
+void ontaskWord1(responseText) {
+  var jsonString = responseText;
+  var taskWord = JSON.decode(jsonString);
+  Assignment assignment = new Assignment();
+  int i = 0;
+  for (Map x in taskWord) {
+    if (x["assignmentID"] == unfinishedTask[1]) {
+      querySelector("#review_word$i").text = x["word"];
+      DivElement toAdd = querySelector("#review_word$i");
+      DivElement newDiv = new DivElement();
+      int j = i + 1;
+      newDiv.setAttribute("id", "review_word$j");
+      toAdd.children.add(newDiv);
+      i++;
+    }
+  }}
+void ontaskWord2(responseText) {
+  var jsonString = responseText;
+  var taskWord = JSON.decode(jsonString);
+  Assignment assignment = new Assignment();
+  int i = 0;
+  for (Map x in taskWord) {
+    if (x["assignmentID"] == unfinishedTask[2]) {
+      querySelector("#review_word$i").text = x["word"];
+      DivElement toAdd = querySelector("#review_word$i");
+      DivElement newDiv = new DivElement();
+      int j = i + 1;
+      newDiv.setAttribute("id", "review_word$j");
+      toAdd.children.add(newDiv);
+      i++;
+    }
+  }
+}
+void StuTest2(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "none";
+  document
+      .querySelector('#review')
+      .style
+      .display = "block";
+  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
+      ontaskWord2);
+}
+
+void ontaskWord3(responseText) {
+  var jsonString = responseText;
+  var taskWord = JSON.decode(jsonString);
+  Assignment assignment = new Assignment();
+  int i = 0;
+  for (Map x in taskWord) {
+    if (x["assignmentID"] == unfinishedTask[3]) {
+      querySelector("#review_word$i").text = x["word"];
+      DivElement toAdd = querySelector("#review_word$i");
+      DivElement newDiv = new DivElement();
+      int j = i + 1;
+      newDiv.setAttribute("id", "review_word$j");
+      toAdd.children.add(newDiv);
+      i++;
+    }
+  }}
+void StuTest3(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "none";
+  document
+      .querySelector('#review')
+      .style
+      .display = "block";
+  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
+      ontaskWord3);
+}
+void ontaskWord4(responseText) {
+  var jsonString = responseText;
+  var taskWord = JSON.decode(jsonString);
+  Assignment assignment = new Assignment();
+  int i = 0;
+  for (Map x in taskWord) {
+    if (x["assignmentID"] == unfinishedTask[4]) {
+      querySelector("#review_word$i").text = x["word"];
+      DivElement toAdd = querySelector("#review_word$i");
+      DivElement newDiv = new DivElement();
+      int j = i + 1;
+      newDiv.setAttribute("id", "review_word$j");
+      toAdd.children.add(newDiv);
+      i++;
+    }
+  }}
+void StuTest4(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "none";
+  document
+      .querySelector('#review')
+      .style
+      .display = "block";
+  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
+      ontaskWord4);
+}
+void ontaskWord5(responseText) {
+  var jsonString = responseText;
+  var taskWord = JSON.decode(jsonString);
+  Assignment assignment = new Assignment();
+  int i = 0;
+  for (Map x in taskWord) {
+    if (x["assignmentID"] == unfinishedTask[5]) {
+      querySelector("#review_word$i").text = x["word"];
+      DivElement toAdd = querySelector("#review_word$i");
+      DivElement newDiv = new DivElement();
+      int j = i + 1;
+      newDiv.setAttribute("id", "review_word$j");
+      toAdd.children.add(newDiv);
+      i++;
+    }
+  }}
+void StuTest5(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "none";
+  document
+      .querySelector('#review')
+      .style
+      .display = "block";
+  var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
+      ontaskWord5);
+}
 void TeaSignIn(RouteEvent e) {
   document
       .querySelector('#Teacher_Div')
@@ -859,9 +1179,7 @@ Object test_option_three_show() {
 }
 
 /// 参数[event]是鼠标事件....
-void test_submit(MouseEvent event) {
-  //todo 用户点击按钮提交单词的响应工作，要保留用户提交的数据并判断正误，也要把数据写入数据库，并且转换到下一个单词听写测试的界面或者最终结果。
-}
+
 
 void test_voice_play() {
   //todo 默认打开一个听写单词界面即播放三遍单词音频
