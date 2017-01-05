@@ -11,6 +11,7 @@ import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
 import 'package:team2exercise/teacherWord.dart';
 import 'package:team2exercise/Assignment.dart';
+import 'package:team2exercise/testResult.dart';
 var localhost = "127.0.0.1:14080";
 InputElement signin_userid; //登录界面的ID变量
 InputElement signin_password; //登录界面的密码变量
@@ -439,6 +440,8 @@ void StuReviewTest(RouteEvent e) {
 
 }
 void testSubmit(MouseEvent event){
+  var request = HttpRequest.getString("http://127.0.0.1:14080/result").then(
+      ontestResult);
   var router = new Router(useFragment: true);
   router.root
     ..addRoute(
@@ -449,6 +452,22 @@ void testSubmit(MouseEvent event){
       router.url('StuTestSubmit');
   router.listen();
 }
+void ontestResult(responseText) {
+  var jsonString = responseText;
+  var testResultList = JSON.decode(jsonString);
+  testResult testResult1=new testResult();
+  int i = 0;
+  for (Map x in testResultList) {
+    if (x["assignmentID"] == unfinishedTask[0]) {
+      querySelector("#review_word$i").text = x["word"];
+      DivElement toAdd = querySelector("#review_word$i");
+      DivElement newDiv = new DivElement();
+      int j = i + 1;
+      newDiv.setAttribute("id", "review_word$j");
+      toAdd.children.add(newDiv);
+      i++;
+    }
+  }}
 void StuTestSubmit(RouteEvent e) {
   document
       .querySelector('#test')
@@ -459,8 +478,8 @@ void StuTestSubmit(RouteEvent e) {
       .style
       .display = "block";
   querySelector("#test_submit").onClick.listen(testSubmit);
-
 }
+
 void ontaskWord0(responseText) {
   var jsonString = responseText;
   var taskWord = JSON.decode(jsonString);
