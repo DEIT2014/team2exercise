@@ -9,7 +9,7 @@ import 'package:jsonx/jsonx.dart';
 import 'package:team2exercise/stuscores.dart';
 import "package:team2exercise/teacherWord.dart";
 import 'package:team2exercise/Assignment.dart';
-
+import 'package:team2exercise/testResult.dart';
 String responseText;//注册时返回到客户端的数据：写入数据库成功，返回0；失败，返回错误值，不为0
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -26,7 +26,7 @@ void main() {
     ..get('/finished',responseFinished)
     ..get('/review', responseReview)
     ..get('/test/get',responseTest)
-    ..get('/result',responseResult)
+    ..get('/result',responseResult)//获取结果
     ..get('/teacherUnitWord',responseWord)//获取单元单词
   //post
     ..post('/student_signup',responseStuSignUp)
@@ -165,9 +165,23 @@ responseTest(request)
   // return new Response.ok("Test");//可以返回数据库中的数据，修改“”
 }
 ///获取学生该次听写任务的正确或者错误结果数据
-responseResult(request)
+responseResult(request)async
 {//todo 访问数据库，从已完成任务表中获取登录学生本次测试任务结果的数据，并转换为JSON
   // return new Response.ok("Result");//可以返回数据库中的数据，修改“”
+  List testResultList = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select userID,assignmentID,word,wordResult,Result from testResult');
+  await data.forEach((row){
+testResult testResult1=new testResult();
+testResult1.userID="${row.userID}";
+testResult1.assignmentID="${row.assignmentID}";
+testResult1.word="${row.word}";
+testResult1.wordResult="${row.wordResult}";
+testResult1.Result ="${row.Result}";
+testResultList.add(testResult1);
+});
+String testResultJson=encode(testResultList);
+return (new Response.ok(testResultJson,headers: _headers));
 }
 
 ///
@@ -278,8 +292,8 @@ insertDataBaseTask(data) async{
   }
 
   var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var query=await pool.prepare('insert into assignment(assignmentID,Class,assignmentNum) values(?,?,?)');
-  await query.execute([myDate,'class1',taskWord.length]).then((result){
+  var query=await pool.prepare('insert into assignment(assignmentID,Class,assignmentNum,status) values(?,?,?,?)');
+  await query.execute([myDate,'class1',taskWord.length,"false"]).then((result){
     print('${result.insertId}');//如果插入成功，这会是0，否则会报错
     responseText='${result.insertId}';
   }).catchError((error){
