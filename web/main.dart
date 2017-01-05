@@ -45,7 +45,7 @@ void main() {
   querySelector('#SignUp_Btn').attributes['href'] = router.url('signup');
   router.listen();
   querySelector("#SignIn_Btn").onClick.listen(SignIn);
-
+  querySelector("#review_test").onClick.listen(reviewTest);
   /// 注册界面
   signup_username = querySelector('#SignUp_Username'); //输入用户名
   signup_class = querySelector('#SignUp_Class'); //输入班级
@@ -153,9 +153,6 @@ void main() {
     ..text = test_option_two_show(); //向服务器请求读取数据库中随机的单词中文或者正确的单词中文
   querySelector('#test_option_three')
     ..text = test_option_three_show(); //向服务器请求读取数据库中随机的单词中文或者正确的单词中文
-  querySelector('#test_submit')
-    ..text = '提交'
-    ..onClick.listen(test_submit);
 
   ///结果界面
   querySelector('#result_correct_num')
@@ -315,7 +312,7 @@ void onStudentIndex(responseText) {
         unfinishedTask.add(unfished);
         Element toadd = querySelector("#assignment$j");
         toadd.text = unfinishedTask[j];
-        if (j <= (studentTask.length) / 2) {
+        if (j <= ((studentTask.length) / 2)+1) {
           var newA = new Element.a();
           int m = j + 1;
           newA.setAttribute("id", "assignment$m");
@@ -414,11 +411,56 @@ void StuTest0(RouteEvent e) {
       .querySelector('#review')
       .style
       .display = "block";
-
   var request = HttpRequest.getString("http://127.0.0.1:14080/review").then(
       ontaskWord0);
-}
 
+}
+void reviewTest(MouseEvent event){
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuReviewTest',
+        path: '/stu/review/test',
+        enter: StuReviewTest);
+  querySelector('#review_test').attributes['href'] =
+      router.url('StuReviewTest');
+  router.listen();
+}
+void StuReviewTest(RouteEvent e) {
+  document
+      .querySelector('#review')
+      .style
+      .display = "none";
+  document
+      .querySelector('#test')
+      .style
+      .display = "block";
+  querySelector("#test_submit").onClick.listen(testSubmit);
+
+}
+void testSubmit(MouseEvent event){
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTestSubmit',
+        path: '/stu/test/submit',
+        enter: StuTestSubmit);
+  querySelector('#test_submit').attributes['href'] =
+      router.url('StuTestSubmit');
+  router.listen();
+}
+void StuTestSubmit(RouteEvent e) {
+  document
+      .querySelector('#test')
+      .style
+      .display = "none";
+  document
+      .querySelector('#result')
+      .style
+      .display = "block";
+  querySelector("#test_submit").onClick.listen(testSubmit);
+
+}
 void ontaskWord0(responseText) {
   var jsonString = responseText;
   var taskWord = JSON.decode(jsonString);
@@ -1137,9 +1179,7 @@ Object test_option_three_show() {
 }
 
 /// 参数[event]是鼠标事件....
-void test_submit(MouseEvent event) {
-  //todo 用户点击按钮提交单词的响应工作，要保留用户提交的数据并判断正误，也要把数据写入数据库，并且转换到下一个单词听写测试的界面或者最终结果。
-}
+
 
 void test_voice_play() {
   //todo 默认打开一个听写单词界面即播放三遍单词音频
