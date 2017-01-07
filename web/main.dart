@@ -506,7 +506,7 @@ void StuTestSubmit(RouteEvent e) {
       .querySelector('#result')
       .style
       .display = "block";
-  querySelector("#test_submit").onClick.listen(testSubmit);
+
 }
 
 void ontaskWord0(responseText) {
