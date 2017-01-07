@@ -26,6 +26,7 @@ var newWordList=[];//新任务单词
 var  wordlist=[];
 var unfinishedTask = []; //学生首页界面未完成任务
 String studentName;
+String studentID;
 String teacherName;
 String teacherClass;
 String studentClass;
@@ -162,9 +163,7 @@ void main() {
     ..text = result_wrong_one_show(); //向服务器请求读取数据库中第一个错误单词的中英文
   querySelector('#result_wrong_two')
     ..text = result_wrong_two_show(); //向服务器请求读取数据库中第二个错误单词的中英文
-  querySelector('#result_return')
-    ..text = '返回主页'
-    ..onClick.listen(result_return);
+
 }
 
 void SignUp(RouteEvent e) {
@@ -255,8 +254,13 @@ void onSignIn(responseText) {
           a = 1;
           studentName=x["Username"];
           studentClass=x["Class"];
+          studentID=x["UserID"];
           querySelector("#studentClass").text=studentClass;
           querySelector("#studentName").text=studentName;
+          querySelector("#studentClass1").text=studentClass;
+          querySelector("#studentName1").text=studentName;
+          querySelector("#studentClass2").text=studentClass;
+          querySelector("#studentName2").text=studentName;
         }
         else {
           //隐藏登录转到教师界面
@@ -296,7 +300,7 @@ void StuSignIn(RouteEvent e) {
       .querySelector('#SignIn_Div_Form')
       .style
       .display = "none";
-  querySelector('#show_useinfo').text='学号：$studentName    姓名：$studentClass';
+  querySelector('#show_useinfo').text='姓名：$studentName    班级：$studentClass';
   var request = HttpRequest.getString(
       "http://127.0.0.1:14080/student/index").then(onStudentIndex);
 }
@@ -451,26 +455,51 @@ void testSubmit(MouseEvent event){
   querySelector('#test_submit').attributes['href'] =
       router.url('StuTestSubmit');
   router.listen();
+  querySelector('#result_return')
+    ..text = '返回主页'
+    ..onClick.listen(result_return);
 }
 void ontestResult(responseText) {
   var jsonString = responseText;
   var testResultList = JSON.decode(jsonString);
   testResult testResult1=new testResult();
-  int i = 0;
+  int right=0;
+  int wrong=0;
   for (Map x in testResultList) {
-    if (x["assignmentID"] == unfinishedTask[0]) {
-      querySelector("#review_word$i").text = x["word"];
-      DivElement toAdd = querySelector("#review_word$i");
-      DivElement newDiv = new DivElement();
-      int j = i + 1;
-      newDiv.setAttribute("id", "review_word$j");
-      toAdd.children.add(newDiv);
-      i++;
+    if ((x["userID"] == studentID) &&(x["assignmentID"]== unfinishedTask[0])) {
+      if(x["Result"]=="错误"){
+        querySelector("#result_wrong_word$wrong").text ="正确单词："+ x["word"];
+        querySelector("#result_wrong$wrong").text="你的单词"+x["wordResult"];
+        DivElement toAdd = querySelector("#result_wrong$wrong");
+        DivElement newDiv1 = new DivElement();
+        DivElement newDiv2=new DivElement();
+        int j = wrong + 1;
+        newDiv1.setAttribute("id", "result_wrong$j");
+        newDiv2.setAttribute("id","result_wrong_word$j");
+        toAdd.children.add(newDiv2);
+        toAdd.children.add(newDiv1);
+        wrong++;
+      }
+     else{
+       querySelector("#result_right$right").text=x["word"];
+        DivElement toAdd=querySelector("#result_right$right");
+        DivElement newDiv=new DivElement();
+        int i=right+1;
+        newDiv.setAttribute("id","result_right$i");
+        toAdd.children.add(newDiv);
+        right++;
+      }
     }
+
+
   }}
 void StuTestSubmit(RouteEvent e) {
   document
       .querySelector('#test')
+      .style
+      .display = "none";
+  document
+      .querySelector('#review')
       .style
       .display = "none";
   document
@@ -485,7 +514,6 @@ void ontaskWord0(responseText) {
   var taskWord = JSON.decode(jsonString);
   Assignment assignment = new Assignment();
   int i = 0;
-
   for (Map x in taskWord) {
     if (x["assignmentID"] == unfinishedTask[0]) {
       querySelector("#review_word$i").text = x["word"];
@@ -1222,4 +1250,21 @@ Object result_wrong_two_show() {
 /// 参数[event]是鼠标事件....
 void result_return(MouseEvent event) {
   //todo 用户点击按钮返回主页的响应工作，返回到学生首页，并隐藏当前界面。
+  var router = new Router(useFragment : true);
+  router.root
+    ..addRoute(name:'returnStuIndex',path:'',enter:returnStuIndex);//跳转到学生首页
+  querySelector('#result_return').attributes['href']=router.url('returnStuIndex');
+  router.listen();
+}
+void returnStuIndex(RouteEvent e) {
+  document
+      .querySelector('#student')
+      .style
+      .display = "block";
+  document
+      .querySelector('#result')
+      .style
+      .display = "none";
+
+
 }
