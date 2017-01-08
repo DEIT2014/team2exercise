@@ -26,7 +26,7 @@ void main() {
     ..get('/finished',responseFinished)
     ..get('/review', responseReview)
     ..get('/test/get',responseTest)
-    ..get('/result',responseResult)//获取结果
+    ..get('/result',responseResult)//获取学生输入的单词情况
     ..get('/teacherUnitWord',responseWord)//获取单元单词
   //post
     ..post('/student_signup',responseStuSignUp)
@@ -75,6 +75,104 @@ responseTeaViewTask(request)async{
   String jsonData = encode(stuScores);
   return (new Response.ok(jsonData,headers: _headers));
 }
+
+///获取教师布置任务的数据
+responseTeaGetTask(request)async{
+  //todo 访问数据库，从任务表Assignment中取出任务数据（包括第几课时、日期、单词等）
+  List ASSIGNMENT = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,Class,assignmentNum from assignment');
+  await data.forEach((row){
+    Assignment assignment=new Assignment();
+    assignment.assignmentID="${row.assignmentID}";
+    assignment.Class="${row.Class}";
+    assignment.assignmentNum="${row.assignmentNum}";
+    ASSIGNMENT.add(assignment);
+  });
+  return (new Response.ok(ASSIGNMENT.toString(),headers: _headers));
+}
+
+///获取登录学生班级姓名信息，并根据班级获得数据中学生待完成任务信息
+responseStu(request)async {
+  //todo 访问数据库，获取登录学生的待完成任务数据，并转换为json
+  //return new Response.ok("学生待完成任务");//可以返回数据库中的数据，修改“”
+  List studentTask = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,Class,status from assignment ');
+  await data.forEach((row){
+print(row);
+Assignment assignment=new Assignment();
+assignment.assignmentID="${row.assignmentID}";
+assignment.Class="${row.Class}";
+if("${row.status}"=="false"){
+studentTask.add(assignment);
+}
+
+});
+String taskJson=encode(studentTask);
+return (new Response.ok(taskJson,headers: _headers));
+}
+
+///获取登录学生已完成任务信息
+responseFinished(request) {
+//todo 访问数据库，获取登录学生的已完成任务信息，包括任务名称，以及每个单词的完成正误情况
+  //return new Response.ok("已完成任务 ");//可以返回数据库中的数据，修改“”
+}
+
+///获取学生选择任务的所有单词信息，包括总共的单词英文、中文、发音
+responseReview(request)async {
+  //todo 访问数据库，获取任务中的单词，并转换为JSON
+  // return new Response.ok("Word");//可以返回数据库中的数据，修改“”
+  List taskWord = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,word from assignmentcontent');
+  await data.forEach((row){
+    Assignment assignment=new Assignment();
+    assignment.assignmentID="${row.assignmentID}";
+    assignment.word="${row.word}";
+    taskWord.add(assignment);
+  });
+  String taskWordJson=encode(taskWord);
+  return (new Response.ok(taskWordJson,headers: _headers));
+}
+
+///获取学生所选择任务的所有单词信息，包括总共的单词英文、中文、发音，以及两个不正确的中文意思
+responseTest(request) async{
+  //todo 访问数据库，获取登录学生选择测试任务的数据，并转换为JSON
+  List testWordList = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,assignmentcontent.word,chinese from assignmentcontent,wordlist where assignmentcontent.word=wordlist.word');
+  await data.forEach((row){
+    Map testWord={
+      'assignmentID':row.assignmentID,
+      'word':row.word,
+      'chinese':row.chinese
+    };
+    testWordList.add(testWord);
+  });
+  String testWordJson=encode(testWordList);
+  return (new Response.ok(testWordJson,headers: _headers));
+
+}
+///获取学生该次听写任务的正确或者错误结果数据
+responseResult(request)async {
+  //todo 访问数据库，从已完成任务表中获取登录学生本次测试任务结果的数据，并转换为JSON
+  // return new Response.ok("Result");//可以返回数据库中的数据，修改“”
+  List testResultList = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select userID,assignmentID,word,wordResult,Result from testResult');
+  await data.forEach((row){
+testResult testResult1=new testResult();
+testResult1.userID="${row.userID}";
+testResult1.assignmentID="${row.assignmentID}";
+testResult1.word="${row.word}";
+testResult1.wordResult="${row.wordResult}";
+testResult1.Result ="${row.Result}";
+testResultList.add(testResult1);
+});
+String testResultJson=encode(testResultList);
+return (new Response.ok(testResultJson,headers: _headers));
+}
 //获取单元单词
 responseWord(request)async{
   //todo 访问数据库，从单词表中获取一个单元的单词
@@ -99,92 +197,12 @@ responseWord(request)async{
   return (new Response.ok('${wordListJson}',headers: _headers));
 
 }
-///获取教师布置任务的数据
-responseTeaGetTask(request)async{
-  //todo 访问数据库，从任务表Assignment中取出任务数据（包括第几课时、日期、单词等）
-  List ASSIGNMENT = new List();//存放任务信息
-  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var data=await pool.query('select assignmentID,Class,assignmentNum from assignment');
-  await data.forEach((row){
-    Assignment assignment=new Assignment();
-    assignment.assignmentID="${row.assignmentID}";
-    assignment.Class="${row.Class}";
-    assignment.assignmentNum="${row.assignmentNum}";
-    ASSIGNMENT.add(assignment);
-  });
-  return (new Response.ok(ASSIGNMENT.toString(),headers: _headers));
-}
 
-///获取登录学生班级姓名信息，并根据班级获得数据中学生待完成任务信息
-responseStu(request)async
-{//todo 访问数据库，获取登录学生的待完成任务数据，并转换为json
-  //return new Response.ok("学生待完成任务");//可以返回数据库中的数据，修改“”
-  List studentTask = new List();//存放任务信息
-  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var data=await pool.query('select assignmentID,Class,status from assignment ');
-  await data.forEach((row){
-print(row);
-Assignment assignment=new Assignment();
-assignment.assignmentID="${row.assignmentID}";
-assignment.Class="${row.Class}";
-if("${row.status}"=="false"){
-studentTask.add(assignment);
-}
 
-});
-String taskJson=encode(studentTask);
-return (new Response.ok(taskJson,headers: _headers));
-}
 
-///获取登录学生已完成任务信息
-responseFinished(request)
-{//todo 访问数据库，获取登录学生的已完成任务信息，包括任务名称，以及每个单词的完成正误情况
-  //return new Response.ok("已完成任务 ");//可以返回数据库中的数据，修改“”
-}
+///post
 
-///获取学生选择任务的所有单词信息，包括总共的单词英文、中文、发音
-responseReview(request)async
-{//todo 访问数据库，获取任务中的单词，并转换为JSON
-  // return new Response.ok("Word");//可以返回数据库中的数据，修改“”
-  List taskWord = new List();//存放任务信息
-  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var data=await pool.query('select assignmentID,word from assignmentcontent');
-  await data.forEach((row){
-    Assignment assignment=new Assignment();
-    assignment.assignmentID="${row.assignmentID}";
-    assignment.word="${row.word}";
-    taskWord.add(assignment);
-  });
-  String taskWordJson=encode(taskWord);
-  return (new Response.ok(taskWordJson,headers: _headers));
-}
-
-///获取学生所选择任务的所有单词信息，包括总共的单词英文、中文、发音，以及两个不正确的中文意思
-responseTest(request)
-{//todo 访问数据库，获取登录学生选择测试任务的数据，并转换为JSON
-  // return new Response.ok("Test");//可以返回数据库中的数据，修改“”
-}
-///获取学生该次听写任务的正确或者错误结果数据
-responseResult(request)async
-{//todo 访问数据库，从已完成任务表中获取登录学生本次测试任务结果的数据，并转换为JSON
-  // return new Response.ok("Result");//可以返回数据库中的数据，修改“”
-  List testResultList = new List();//存放任务信息
-  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
-  var data=await pool.query('select userID,assignmentID,word,wordResult,Result from testResult');
-  await data.forEach((row){
-testResult testResult1=new testResult();
-testResult1.userID="${row.userID}";
-testResult1.assignmentID="${row.assignmentID}";
-testResult1.word="${row.word}";
-testResult1.wordResult="${row.wordResult}";
-testResult1.Result ="${row.Result}";
-testResultList.add(testResult1);
-});
-String testResultJson=encode(testResultList);
-return (new Response.ok(testResultJson,headers: _headers));
-}
-
-///
+///学生注册
 responseStuSignUp(request) async{
   //todo 学生注册
   /**有问题的
@@ -303,6 +321,78 @@ insertDataBaseTask(data) async{
   });
 }
 ///并将学生听写单词的中文以及英文写入到一个JSON文件中，并上传给数据库
-responseStuTest(request){
-  //todo 将将学生听写单词的中文以及英文写入到一个JSON文件中，并判断正误，以及上传给数据库
+responseStuTest(request) async{
+  //todo 将将学生听写单词的中文以及英文写入数据库
+  await request.readAsString().then(insertDataBaseStuTest);
+  //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
+  if(responseText == '0'){
+    return (new Response.ok('success',headers: _headers));
+  }
+  else{
+    return (new Response.ok('failure',headers: _headers));
+  }
+}
+
+insertDataBaseStuTest(data) async{
+  insertDataBaseStuResult(data);
+  inserDataBaseStuScore(data);
+
+}
+
+insertDataBaseStuResult(data) async{
+//todo write data into database:testresult
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into testresult(userID,assignmentID,word,wordResult,Result) values(?,?,?,?,?)');
+
+  String userID;
+  String assignmentID;
+  String word;
+  String wordResult;
+  String result;
+  List realdataList=JSON.decode(data);
+  for(var realdata in realdataList){
+    userID=realdata['userID'];
+    assignmentID=realdata['assignmentID'];
+    word=realdata['word'];
+    wordResult=realdata['wordResult'];
+    result=realdata['result'];
+    //todo 将数据存入数据库
+    await query.execute([userID,assignmentID,word,wordResult,result]).then((result){
+      print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+      responseText='${result.insertId}';
+    }).catchError((error){
+      //todo 出错的情况下，返回错误的内容
+      print('$error');
+      responseText=error.toString();
+    });
+  }
+}
+
+inserDataBaseStuScore(data) async{
+  //todo write data into database:testscore
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into testscore(class,userID,assignmentID,correctNum,wrongNum) values(?,?,?,?,?)');
+
+  String Class,userID,assignmentID;
+  int correctNum=0,wrongNum=0;
+  List realDataList=JSON.decode(data);
+  for(var data in realDataList){
+    if(data["result"]=='正确'){
+      correctNum++;
+    }
+    else{
+      wrongNum++;
+    }
+  }
+  Class=realDataList[0]["class"];
+  userID=realDataList[0]["userID"];
+  assignmentID=realDataList[0]["assignmentID"];
+  await query.execute([Class,userID,assignmentID,correctNum,wrongNum]).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+  }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
+    print('$error');
+    responseText=error.toString();
+  });
 }

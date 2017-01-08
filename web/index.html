@@ -46,28 +46,13 @@
         </div>
     </form>
     <form id="test">
-        <div style="    width:100%;height:80%;position: absolute;top: 50px;background-color:white;opacity: 0.70;/*设置透明度*/text-align: center;">
-            <div style="width:60%;height:80%;position: absolute;top: 50px;padding-left: 20px;">
-                <p style="font-size: 30px;letter-spacing:10px;font-weight: bold;"><span>学生姓名:</span ><span  id="studentName2"></span><span></span><span>班级:</span> <span id="studentClass2"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
-
-                <hr width="100%" style="opacity: 0.20"><!--分割线 --><br>
-                <table>
-                    <tr>
-                        <td id="test_now_num"></td>
-                        <td id="test_total_num"></td>
-                    </tr>
-                </table>
-                <div>
-                    <p>Listen and Write</p>
-                    请写下你听到的单词：<br><br>
-                    <input type="text" name="test_word">
-                    <br><br>
-                    请选出最匹配的中文释义：<br><br>
-                    <input type="checkbox" name="test_option_one">香蕉
-                    <input type="checkbox" name="test_option_two">苹果
-                    <input type="checkbox" name="test_option_three">橘子
-                </div>
-                <br>
+        <div style="    width:100%;height:80%;position: absolute;top: 50px;background-color:white;opacity: 0.70;/*设置透明度*/">
+            <div style="width:100%;height:80%;position: absolute;top: 50px;" align="center">
+                <p style="font-size: 30px;letter-spacing:10px;font-weight: bold;">学生姓名:</span ><span  id="studentTestName"></span><span></span><span>班级:</span> <span id="studentTestClass"></span></p><!--p标签只能用letter-spacing才能控制word-spacing不行-->
+                <hr width="100%" style="opacity: 0.20"><!--分割线 -->
+                    <p style="font-size: 20pt;font-weight: bold;">请输入根据下列中文写出相对应的英文单词：</p>
+                    <div id='testword_list' style="font-weight: bold;overflow: scroll;height: 180px;width: 600px;text-align: left;" >
+                    </div>
                 <br>
                 <a href=javascript:void(0) id="test_submit">提交</a>
             </div>
@@ -228,10 +213,10 @@
                 </div>
                 <div id="Teacher_Ftask">
                     <p style="font-size: 16px;">以往任务的完成情况</p><br>
-                    <input type="radio" name="task" value="a01">第一单元完成情况<br><br>
-                    <input type="radio" name="task" value="a02">第二单元完成情况<br><br>
-                    <input type="radio" name="task" value="a03">第三单元完成情况<br><br>
-                    <input type="radio" name="task" value="a04">第四单元完成情况<br><br>
+                    <input type="radio" name="task" value="a01">第一次任务完成情况<br><br>
+                    <input type="radio" name="task" value="a02">第二次任务完成情况<br><br>
+                    <input type="radio" name="task" value="a03">第三次任务完成情况<br><br>
+                    <input type="radio" name="task" value="a04">第四次任务完成情况<br><br>
                     <a href="" id="Ftask_Btn">确定</a>
                 </div>
 
