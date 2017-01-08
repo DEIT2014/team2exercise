@@ -1,0 +1,505 @@
+# 产品创意
+## 产品名称：英语单词听写web app
+## 创意
+> 该产品的设计创意的原型是由王冰倩同学提出的。这门课程最开始第一次的小组作业我们小组做的是一个Angular2的web app，而那个作业的内容就是一个迷你的英文词典。我们在选题的时候有思考过可不可以将这个词典的功能拓展，但是似乎比较困难。说到英语，王冰倩同学就提到
+> 她的弟弟平时的英语学习经常遇到的一个问题，就是他的老师会布置英语听写的家庭作业，但是冰倩同学的爸爸妈妈的发音并不是很标准，所以不能很好的给冰倩同学的弟弟听写。因此，她提出能不能设计一个能够自动听写的web app。一方面，现在市面上教师、学生之间布置听写以及
+> 完成听写任务的app不是很多；另一方面，现在的英语单词学习app的测试题在听写功能这个方面较少，往往是选择题较多，因此，我们的web app也有独创的部分。因此，有了这个原型以后，我们就开始将这个web app具体要实现的目标细化，即：该web app有两种用户身份，一个是
+> 教师，另一个是学生。教师可以布置任务，可以查看任务，而学生可以完成听写任务和查看自己的历史完成情况。在具体功能的细化方面，老师给了我们很好的指导意见，一开始我们考虑到小学生的词汇量比较少，对词汇要求的掌握比较低，所以很多词汇往往只需要记住最简单的那几个
+> 意思即可，因此我们希望教师在布置任务的时候可以自己输入单词和中文意思。但在和老师交流的过程中，老师提出这样会增加使用这个web app的教师的工作量，建议我们将单词录入到数据库中，教师在布置任务的时候可以直接勾选，而不是输入。
+## 针对人群
+>这款单词听写web app的目标用户针对的是小学六年级的学生和教师，一方面考虑到听写单词的作业在小学比较多，因此目标群体主要是小学生，因此我们的数据库中只录入了小学六年级的单词。
+## 需求
+> 首先，小学生的英语作业中经常会有听写单词的部分，而家长的英语水平参差不齐，有些家长可以很好地帮孩子进行听写，但是有些英语水平不高的家长就没有办法协同孩子一起完成这个任务。因此一款听写app就能够解决这个问题了。
+> 其次，现在市场上的听写单词app很少，大多数英语学习软件的测试功能都是选择题或者简答题，听写的部分很少。
+> 第三，我们认为听写单词的方式能够帮助学生在记词的同时，也能记音，加深印象。
+> 第四，我们这个app的设计是教师和学生两种用户角色，教师可以布置任务，学生可以完成教师布置的任务，一方面，这满足了前述的需求，另一方面，这对于学校的英语学来说也是一个突破，因为教师参与到了学生的这部分英语学习中，并可以对他们的完成情况进行监控。
+> 第五，功能设计合理。学生部分：在测试前，增加了复习功能，可以帮助学生快速地复习。教师部分：布置任务部分，教师可以根据自己的需要选择每一个单元里的某些单词，体现出个性化；另外，教师也可以查看学生的以往任务完成情况，能够对全班学生的单词掌握情况有一个具象化的了解。
+> 最后，我们的web app界面设计比较美观大方
+## 设计的功能列表以及其完成情况
+
+ 设计的功能|承担该功能的组员|任务完成度
+ --|--|--
+  登录、注册功能|姜慧敏、王冰倩、潘晨煜|已完成
+  教师端发布听写任务功能|王冰倩、潘晨煜|已完成
+  教师首页显示功能|潘晨煜|已完成
+  教师端详细查看任务完成情况功能|姜慧敏、潘晨煜|已完成
+  学生首页显示待完成任务功能|王冰倩|已完成
+  学生端复习单词功能|王冰倩|已完成
+  学生端测试结果显示功能|王冰倩|已完成，但有小问题
+  学生端听写测试功能|姜慧敏|已完成一半，由于时间问题，把听写的功能改成了默写的功能
+## 原型展示
+
+![new mockup 1](https://cloud.githubusercontent.com/assets/22018510/21743051/9cceeef8-d535-11e6-8f11-6ae195d2e3b2.png)
+
+![new mockup 2](https://cloud.githubusercontent.com/assets/22018510/21743052/9cde3e1c-d535-11e6-83ca-d553dfca8717.png)
+
+![new mockup 3](https://cloud.githubusercontent.com/assets/22018510/21743053/9ce2f38a-d535-11e6-8ccb-5342d3753d07.png)
+
+![new mockup 4](https://cloud.githubusercontent.com/assets/22018510/21743054/9cf456a2-d535-11e6-9b5b-4ae15d0ff6a2.png)
+
+![new mockup 5](https://cloud.githubusercontent.com/assets/22018510/21743055/9d123564-d535-11e6-83ea-9ea0519aaa70.png)
+
+![new mockup 6](https://cloud.githubusercontent.com/assets/22018510/21743056/9d1a3ab6-d535-11e6-8069-f7364e72f361.png)
+
+![result window](https://cloud.githubusercontent.com/assets/22018510/21743057/9d2d4e3a-d535-11e6-9bd2-071f57d07a13.png)
+
+![review](https://cloud.githubusercontent.com/assets/22018510/21743058/9d314c1a-d535-11e6-80c0-76ab2b28529b.png)
+
+![student window1](https://cloud.githubusercontent.com/assets/22018510/21743059/9d410538-d535-11e6-895c-66c1b6eac352.png)
+
+![test window](https://cloud.githubusercontent.com/assets/22018510/21743060/9d4195d4-d535-11e6-9dcc-59db67dd7d18.png)
+
+![default](https://cloud.githubusercontent.com/assets/22018510/21743061/9d5540a2-d535-11e6-915a-a436d00f4dfc.png)
+
+# 产品技术方案
+> **数据库**：我们的这个web app运用到了数据库的部分，数据库中主要包含了6张表。六张表的表名、字段、主键情况如下表所示。
+表名|含义|字段|主键
+ --|--|--|--
+  userinfo()|用户信息表|userID(学号或工号)、username(用户名)、password(密码)、class(班级)、status(身份)|userID
+  wordlist|单词表|unit(单元数)、word(单词)、Chinese(中文)、voice(音频)|unit与word
+  assignment|任务表|assignmentID(任务编号：时间)、class(班级)、assignmentNum(任务中单词个数)、status(任务状态)|assignmentID和class
+  assignmentcontent|任务内容表|assignmentID(任务编号)、word(单词)|assignmentID和word
+  testresult|学生默写单词表|userID(学号)、assignmentID(任务编号)、word(单词)、wordResult(学生写的单词)、result(结果)|userID和assignmentID和word
+  testscore|学生成绩表|class(班级)、userID(学号)、assignmentID(任务编号)、correctNum(正确个数)、wrongNum(错误个数)|userID和assignmentID
+  
+# 我在小组中的分工
+> **个人分工**
+> 我是本小组的组长，我负责的任务主要有：1、代码工作：注册和登录部分服务器端的代码、教师界面查看以往成绩的代码、学生部分听写部分的代码,以及最后的代码的整理和一部分的注释；2、组长工作：负责询问组内同学的完成情况，
+> 以及组织开会，讨论接下来的任务分工。我觉得自己的工作基本可以，最大的成功就在于把服务器打通了。但是有很多不足的地方：首先，我自己的代码部分一直进展的都很慢，因为没有每天花很多时间在里面，因此很多代码都是突击
+> 赶出来的，因此质量不是很高。其次，作为一名组长，我要自我检讨一下。很多时候，由于我个人的原因，所以上课小组完成进度都是由王冰倩同学汇报的。而且身为组长，很多消息都没有及时地接受
+> 并传达给小组成员，而往往都是王冰倩同学告诉我的。
+> **对小组成员的评价**
+> 所有人的努力都是值得肯定的。整个web app的风格设计都是由潘晨煜同学完成的，除了每个界面上展示的内容是我和王冰倩同学自己设置的以外，整个界面设计非常美观大方，值得肯定。而王冰倩
+> 同学则在写代码方面做了很多的努力，很多功能都是由她完成的，而且积极性非常高，她的表现非常优秀。
+
+# 我的编程实践活动
+## 我的代码
+
+```dart
+//服务器server.dart的部分
+void main() {
+  var myRouter = router()
+  //get
+    ..get('/userinfo',responseUser)
+    ..get('/teacher_viewtask',responseTeaViewTask)
+    ..get('/test/get',responseTest)
+  //post
+    ..post('/student_signup',responseStuSignUp)
+    ..post('/teacher_signup',responseTeaSignUp)
+    ..post('/student_test/post',responseStuTest);
+
+  io.serve(myRouter.handler, '127.0.0.1', 14080);
+}
+
+///获取数据库中所有用户的信息（登录时）
+responseUser(request)async{
+  //todo 访问数据库，从用户信息表中获取并返回用户登录的信息，包括用户名、密码和身份属性
+  var singledata=new Map<String,String>();//存放单个用户数据
+  var userdata=new List();//存放所有用户的数据
+  var finaluserdata=new Map<String,String>();//存放最终的用户数据
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select UserID,Username,Password,Class,Status from userinfo');
+  //下面这个语句比较慢，一定要等它
+  await data.forEach((row){
+    singledata={'"UserID"':'"${row.UserID}"','"Username"':'"${row.Username}"','"Password"':'"${row.Password}"','"Class"':'"${row.Class}"','"Status"':'"${row.Status}"'};//按照这个格式存放单条数据
+    userdata.add(singledata);//将该数据加入数组中
+  });
+  //将用户数据存入数组中
+  finaluserdata={'"Userinfo"':userdata};
+  return (new Response.ok(finaluserdata.toString(),headers: _headers));
+}
+
+///获取学生完成情况数据
+responseTeaViewTask(request)async{
+  //todo 访问数据库，从testscore表中获取相关数据（姓名、正确几个、错误几个）
+  List stuScores = new List();
+  var pool = new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data = await pool.query('select testscore.Class,testscore.userID,assignmentID,correctNum,wrongNum,Username '
+      'from testscore,userinfo where testscore.userID=userinfo.userID order by userID ASC');
+  await data.forEach((row){
+    StuScores stuScore = new StuScores()
+      ..stuClass = row.Class
+      ..assignmentID = row.assignmentID
+      ..stuID = row.userID
+      ..userName=row.Username
+      ..correctNum = row.correctNum
+      ..wrongNum = row.wrongNum;
+    stuScores.add(stuScore);
+  });
+  print('success!');
+  String jsonData = encode(stuScores);
+  return (new Response.ok(jsonData,headers: _headers));
+}
+
+///获取学生所选择任务的所有单词信息，包括总共的单词英文、中文、发音，以及两个不正确的中文意思
+responseTest(request) async{
+  //todo 访问数据库，获取登录学生选择测试任务的数据，并转换为JSON
+  List testWordList = new List();//存放任务信息
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var data=await pool.query('select assignmentID,assignmentcontent.word,chinese from assignmentcontent,wordlist where assignmentcontent.word=wordlist.word');
+  await data.forEach((row){
+    Map testWord={
+      'assignmentID':row.assignmentID,
+      'word':row.word,
+      'chinese':row.chinese
+    };
+    testWordList.add(testWord);
+  });
+  String testWordJson=encode(testWordList);
+  return (new Response.ok(testWordJson,headers: _headers));
+
+}
+
+///学生注册
+responseStuSignUp(request) async{
+  //todo 学生注册
+  /**有问题的
+      var responseDBText=await request.readAsString().then(insertDataBaseStu);//then返回的到底是什么，怎么样获取insertDataBaseStu的返回值，_Future类的值怎么取？
+      String realText=responseDBText.toString();
+      print(realText);
+      return (new Response.ok('success!',headers: _headers));
+   **/
+  await request.readAsString().then(insertDataBaseStu);
+  //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
+  if(responseText == '0'){
+    return (new Response.ok('success',headers: _headers));
+  }
+  else{
+    return (new Response.ok('failure',headers: _headers));
+  }
+
+}
+
+///对读取到的客户端学生注册的信息进行处理
+insertDataBaseStu(data) async{
+  String username;
+  String userClass;
+  String password;
+  String userID;
+  Map realdata=JSON.decode(data);
+  username=realdata['Username'];
+  userClass=realdata['Class'];
+  password=realdata['Password'];
+  userID=realdata['UserID'];
+  //todo 将数据存入数据库
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into userinfo(UserID,Username,Password,Class,Status) values(?,?,?,?,?)');
+  await query.execute([userID,username,password,userClass,'stu']).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+  }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
+    print('$error');
+    responseText=error.toString();
+  });
+}
+
+///教师注册
+responseTeaSignUp(request) async{
+  //todo 将教师的注册信息写入数据库
+  await request.readAsString().then(insertDataBaseTea);
+  //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
+  if(responseText == '0'){
+    return (new Response.ok('success',headers: _headers));
+  }
+  else{
+    return (new Response.ok('failure',headers: _headers));
+  }
+}
+
+///对读取到的客户端教师注册的信息进行处理
+insertDataBaseTea(data) async{
+  String username;
+  String userClass;
+  String password;
+  String userID;
+  Map realdata=JSON.decode(data);
+  username=realdata['Username'];
+  userClass=realdata['Class'];
+  password=realdata['Password'];
+  userID=realdata['UserID'];
+  //todo 将数据存入数据库
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into userinfo(UserID,Username,Password,Class,Status) values(?,?,?,?,?)');
+  await query.execute([userID,username,password,userClass,'tea']).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+  }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
+    print('$error');
+    responseText=error.toString();
+  });
+}
+
+///将学生听写单词的中文以及英文写入数据库
+responseStuTest(request) async{
+  //todo 将将学生听写单词的中文以及英文写入数据库
+  await request.readAsString().then(insertDataBaseStuTest);
+  //todo 写入数据库成功则responseText值为‘0’，否则是‘$error’（错误的内容）
+  if(responseText == '0'){
+    return (new Response.ok('success',headers: _headers));
+  }
+  else{
+    return (new Response.ok('failure',headers: _headers));
+  }
+}
+///对获取到的数据进行两个处理：1、处理相应的数据，写入testresult表 2、处理相应的数据写入testscore表
+insertDataBaseStuTest(data) async{
+  insertDataBaseStuResult(data);
+  inserDataBaseStuScore(data);
+}
+
+///处理相应的数据，写入testresult表
+insertDataBaseStuResult(data) async{
+//todo write data into database:testresult
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into testresult(userID,assignmentID,word,wordResult,Result) values(?,?,?,?,?)');
+
+  String userID;
+  String assignmentID;
+  String word;
+  String wordResult;
+  String result;
+  List realdataList=JSON.decode(data);
+  for(var realdata in realdataList){
+    userID=realdata['userID'];
+    assignmentID=realdata['assignmentID'];
+    word=realdata['word'];
+    wordResult=realdata['wordResult'];
+    result=realdata['result'];
+    //todo 将数据存入数据库
+    await query.execute([userID,assignmentID,word,wordResult,result]).then((result){
+      print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+      responseText='${result.insertId}';
+    }).catchError((error){
+      //todo 出错的情况下，返回错误的内容
+      print('$error');
+      responseText=error.toString();
+    });
+  }
+}
+
+///处理相应的数据写入testscore表
+inserDataBaseStuScore(data) async{
+  //todo write data into database:testscore
+  var pool=new ConnectionPool(host:'localhost',port:3306,user:'root',db:'vocabulary',max:5);
+  var query=await pool.prepare('insert into testscore(class,userID,assignmentID,correctNum,wrongNum) values(?,?,?,?,?)');
+
+  String Class,userID,assignmentID;
+  int correctNum=0,wrongNum=0;
+  List realDataList=JSON.decode(data);
+  for(var data in realDataList){
+    if(data["result"]=='正确'){
+      correctNum++;
+    }
+    else{
+      wrongNum++;
+    }
+  }
+  Class=realDataList[0]["class"];
+  userID=realDataList[0]["userID"];
+  assignmentID=realDataList[0]["assignmentID"];
+  await query.execute([Class,userID,assignmentID,correctNum,wrongNum]).then((result){
+    print('${result.insertId}');//如果插入成功，这会是0，否则会报错
+    responseText='${result.insertId}';
+  }).catchError((error){
+    //todo 出错的情况下，返回错误的内容
+    print('$error');
+    responseText=error.toString();
+  });
+}
+```
+
+```dart
+//main.dart我的部分
+//全局变量
+String chosenTaskStuTest;//选择的任务单元
+String chosenTaskTeaView;//选择查看成绩的任务单元
+
+///学生部分
+
+///显示学生测试界面并发送获取单词信息的请求
+void StuReviewTest(RouteEvent e) {
+  querySelector('#studentTestName').text=studentName;
+  querySelector('#studentTestClass').text=studentClass;
+  var request=HttpRequest.getString('http://127.0.0.1:14080/test/get').then(
+      showTestWord);
+  querySelector("#test_submit").onClick.listen(testSubmit);
+}
+
+///测试界面：对获取到的单词数据进行处理并展示中文，以便默写
+void showTestWord(responseText){
+  List testWordList=JSON.decode(responseText);
+  int num=1;
+  DivElement testWordListDiv=querySelector('#testword_list');
+  for(var testWord in testWordList){
+    if(testWord['assignmentID']==chosenTaskStuTest){
+      String word=testWord["word"];
+      String chinese=testWord["chinese"];
+      DivElement chineseDiv=new DivElement();
+      chineseDiv.setAttribute('id','v${num}_chinese');
+      chineseDiv.text=chinese;
+      testWordListDiv.children.add(chineseDiv);
+      InputElement testInput=new InputElement();
+      testInput.setAttribute('id','testInput${num}');
+      testInput.setAttribute('name','${word}');
+      chineseDiv.children.add(testInput);
+      num++;
+    }
+  }
+}
+
+///测试界面的提交按钮的触发事件：将测试结果写入数据库，发送请求，并且创建跳转到成绩界面的路由
+void testSubmit(MouseEvent event){
+  DivElement wordTestListDiv=querySelector('#testword_list');//获取单词列表外的大的div
+  List divElement=wordTestListDiv.children;//获取该div下的所有单词div
+  int num=1;
+  List<Map> wordResultMapList=[];
+  //对这些div中的input获取数据、构造成绩结果的map数据
+  for(var child in divElement){
+    List<InputElement> wordInputList=child.children;
+    InputElement wordInput=wordInputList[0];
+    String wordWritten=wordInput.value;
+    String correctWord=wordInput.name;
+    Map wordResultMap={
+      'class':studentClass,
+      'userID':studentID,
+      'assignmentID':chosenTaskStuTest,
+      'word':correctWord,
+      'wordResult':wordWritten
+    };
+    if(wordWritten!=correctWord){
+      wordResultMap.putIfAbsent('result',()=>'错误');
+    }
+    else{
+      wordResultMap.putIfAbsent('result',()=>'正确');
+    }
+    wordResultMapList.add(wordResultMap);
+  }
+  var jsonData = JSON.encode(wordResultMapList);
+  //创建post的request
+  HttpRequest request = new HttpRequest(); //create a new XHR=XMLHttpRequest
+  //创建一个事件处理器，等到request被处理好之后，返回response时调用
+  request.onReadyStateChange.listen((_) {
+    //if条件：状态改变
+    if (request.readyState == HttpRequest.DONE &&
+        (request.status == 200 || request.status == 0)) {
+      print('success!');
+    }
+  });
+  //post data to the server
+  var url = "http://127.0.0.1:14080/student_test/post";
+  request.open("POST", url, async: false);
+  request.send(jsonData); //perform the post
+  //获取结果数据
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'StuTestSubmit',
+        path: '/stu/test/submit',
+        enter: StuTestSubmit);
+  querySelector('#test_submit').attributes['href'] =
+      router.url('StuTestSubmit');
+  router.listen();
+}
+
+///查看任务完成情况
+
+/// 教师主页选择查看任务情况的确定按钮：确定选择的任务，并创建路由
+ftaskDiv(MouseEvent event) {
+  //todo 根据在教师主界面中的任务情况的选择，从数据库中取出相应的学生数据并返回
+  var object=document.getElementsByName("task");
+  for(var index = 0;index < object.length;index++){
+    if(object[index].checked){
+      chosenTaskTeaView=object[index].value;
+      break;
+    }
+  }
+  var router = new Router(useFragment : true);
+  router.root
+    ..addRoute(name:'ftaskContent',path:'/teacher/viewtask',enter:ftaskContent);
+  querySelector('#Ftask_Btn').attributes['href']=router.url('ftaskContent');
+  router.listen();
+}
+
+///显示查看任务的完成情况的界面，并发送获取学生任务完成情况数据的请求
+ftaskContent(RouteEvent e) async{
+  document.querySelector('#Ftask_Div').style.display="block";
+  document.querySelector('#Teacher_Div').style.display="none";
+  var request =await HttpRequest.getString("http://127.0.0.1:14080/teacher_viewtask").then(
+      stuScores);
+}
+
+///对获取到的学生任务完成情况的数据进行处理，显示
+stuScores(responseText) {
+  int stuNum=0;
+  List listData = JSON.decode(responseText);
+  //TableElement table=querySelector('#Ftask_table');
+  TableRowElement row0=querySelector('#Ftask_Detail0');
+  for(Map singleScore in listData) {
+    StuScores firstStu = new StuScores()
+        ..stuClass=singleScore["stuClass"]
+        ..assignmentID=singleScore["assignmentID"]
+        ..stuID=singleScore["stuID"]
+        ..userName=singleScore["userName"]
+        ..correctNum=singleScore["correctNum"]
+        ..wrongNum=singleScore["wrongNum"];
+    if((firstStu.stuClass == teacherClass)&&(firstStu.assignmentID ==chosenTaskTeaView) ){
+      String showText="班级：${firstStu.stuClass} 学号：${firstStu.stuID} 姓名：${firstStu.userName} 正确个数：${firstStu.correctNum} 错误个数：${firstStu.wrongNum}";
+      ///todo 动态创建表格里的行
+      querySelector("#Ftask_Detail$stuNum").text=showText;
+      var newTd=new TableRowElement();
+      stuNum++;
+      newTd.setAttribute("id","Ftask_Detail$stuNum");
+      row0.children.add(newTd);
+    }
+  }
+}
+
+///查看任务完成情况界面的返回主页按钮：创建路由
+void ReturnTeacher2(MouseEvent event) {
+  //todo 隐藏当前界面，显示教师主界面
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(
+        name: 'returnTeacherIndex',
+        path: '/tea/index',
+        enter:returnTeacherIndex2);
+  querySelector('#Teacher_Btn').attributes['href'] =
+      router.url('returnTeacherIndex');
+  router.listen();
+}
+
+///显示教师主页，隐藏查看任务完成情况界面
+void returnTeacherIndex2(RouteEvent e) {
+  document.querySelector('#Teacher_Div').style.display = "block";
+  document.querySelector('#Ftask_Div').style.display = "none";
+}
+```
+
+## 我的活动量化
+> 活动量化数据截止到2017-1-7,17:30.
+![commits](https://cloud.githubusercontent.com/assets/22018510/21742807/0ab1c2c4-d531-11e6-9294-f8958b1306eb.png)
+
+![issure](https://cloud.githubusercontent.com/assets/22018510/21742815/40f53b5e-d531-11e6-8980-c8b75150bfd9.png)
+>  **王冰倩/10140340148/35 commits / 2524 ++ / 791 --/6 issues/**
+
+## 我的issue活动
+>
+![issure1](https://cloud.githubusercontent.com/assets/22018510/21742833/a1148a08-d531-11e6-92cb-874120bfb071.png)
+
+![issure2](https://cloud.githubusercontent.com/assets/22018510/21742834/a1187fb4-d531-11e6-852b-d8ac29c99619.png)
+
+![issure3](https://cloud.githubusercontent.com/assets/22018510/21742836/a12c88ec-d531-11e6-9c0d-7996bbf71b3e.png)
+
+![issure4](https://cloud.githubusercontent.com/assets/22018510/21742835/a125d880-d531-11e6-9f55-d42596f86cc0.png)
+
+![issure5](https://cloud.githubusercontent.com/assets/22018510/21742837/a19dcdfe-d531-11e6-97a1-89734961f9e8.png)
+
+![issure6](https://cloud.githubusercontent.com/assets/22018510/21742838/a1f16388-d531-11e6-85f9-db1a7b0fb1f3.png)
+
+
+# 我的自评
+> 我觉得在此次项目中，我完成的整体来说还是不错的，自己的每个功能都尽力完成了。在这次项目的过程中，遇到了一些困难，而且都能够在老师和同学的帮助下，一个个的解决了，所以感觉很不错。同时，我也觉得自己虽然把功能实现出来了，但是其实自己实现的方法可能不是比较好的，我的实现方法都是处于自己现在的水平写出来的，所以应该比较繁琐，所以，我写出来的代码其实还是很有必要再进行改进的。
+
+> 目前项目的未完成功能主要就是学生听写功能。对于听写功能的主要难点是怎么正确播放音频以及控制音频的播放状态。我觉得这部分如果每天8小时的话，我需要三天，因为我对于音频这一部分的了解不太多，所以需要查阅文档以及查找相关案例。另外，我们的项目还有一个待完善的部分就是每个页面的显示部分，我们现在的显示只是简单的显示，并没有太多的样式，所以这一部分也需要完成，大概需要两天。其次，我之前写的一些代码很啰嗦，不够清晰，所以我还想要再查阅一些资料，然后在将代码简单化一点，这部分工作应该需要5天。所以总共再需要10天，3天写学生听写功能，5天修改之前的代码，2天调CSS样式。所以如果再给我10天，我应该能够做完自己的部分。
