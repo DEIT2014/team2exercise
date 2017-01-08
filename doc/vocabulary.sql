@@ -188,7 +188,7 @@ INSERT INTO `testresult` (`userID`, `assignmentID`, `word`, `wordResult`, `Resul
 CREATE TABLE `testscore` (
   `Class` char(10) CHARACTER SET utf8 NOT NULL,
   `userID` char(20) CHARACTER SET utf8 NOT NULL,
-  `assignmentID` char(10) CHARACTER SET utf8 NOT NULL,
+  `assignmentID` char(50) CHARACTER SET utf8 NOT NULL,
   `correctNum` int(5) NOT NULL,
   `wrongNum` int(5) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
